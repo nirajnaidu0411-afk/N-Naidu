@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Niraj Naidu — Mechanical Product Designer</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --gm-950:#101216;
+    --gm-900:#15181d;
+    --gm-800:#1c2027;
+    --gm-700:#262b33;
+    --gm-600:#333a44;
+    --line:#3a414d;
+    --text-hi:#eef1f5;
+    --text-mid:#a9b2bf;
+    --text-lo:#6c7684;
+    --blue:#2e8fff;
+    --blue-glow:#5fc8ff;
+    --blue-dim:#1b4a7a;
+    --amber:#ff9f43;
+    --radius:2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--gm-950);
+    color:var(--text-hi);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* carbon fiber weave */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    z-index:0;
+    pointer-events:none;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 2px, transparent 2px, transparent 8px),
+      repeating-linear-gradient(-45deg, rgba(0,0,0,0.35) 0px, rgba(0,0,0,0.35) 2px, transparent 2px, transparent 8px),
+      linear-gradient(180deg, var(--gm-950), var(--gm-900) 40%, var(--gm-950));
+  }
+  /* blueprint grid */
+  .grid-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.35;
+    background-image:
+      linear-gradient(rgba(46,143,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46,143,255,0.06) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 20%, black 40%, transparent 90%);
+  }
+  #glow{
+    position:fixed; width:520px; height:520px; border-radius:50%;
+    pointer-events:none; z-index:1;
+    background:radial-gradient(circle, rgba(46,143,255,0.14), rgba(46,143,255,0.04) 40%, transparent 70%);
+    transform:translate(-50%,-50%);
+    transition:opacity .3s;
+    will-change:transform;
+  }
+  .wrap{position:relative; z-index:2; max-width:1180px; margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--blue-glow);
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:""; width:22px; height:1px; background:var(--blue-glow);}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; letter-spacing:-.01em;}
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 40px;
+    background:rgba(16,18,22,0.75);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{font-family:'Space Grotesk'; font-weight:700; font-size:17px; letter-spacing:.03em; display:flex; align-items:center; gap:10px;}
+  .brand .tick{width:9px; height:9px; background:var(--blue); box-shadow:0 0 12px var(--blue-glow); transform:rotate(45deg);}
+  nav ul{list-style:none; display:flex; gap:34px;}
+  nav a{color:var(--text-mid); text-decoration:none; font-size:13px; font-family:'JetBrains Mono', monospace; letter-spacing:.05em; text-transform:uppercase; transition:color .2s;}
+  nav a:hover{color:var(--blue-glow);}
+  .nav-cta{
+    border:1px solid var(--blue-dim); color:var(--blue-glow); padding:8px 16px; font-family:'JetBrains Mono';
+    font-size:12px; text-decoration:none; letter-spacing:.05em; transition:.25s;
+  }
+  .nav-cta:hover{background:var(--blue); color:#0a0e14; border-color:var(--blue);}
+  .navburger{display:none;}
+
+  /* HERO */
+  header.hero{
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    position:relative; padding-top:90px;
+  }
+  .corner{position:absolute; width:26px; height:26px; border:1px solid var(--blue-dim); opacity:.7;}
+  .corner.tl{top:100px; left:32px; border-right:none; border-bottom:none;}
+  .corner.tr{top:100px; right:32px; border-left:none; border-bottom:none;}
+  .corner.bl{bottom:40px; left:32px; border-right:none; border-top:none;}
+  .corner.br{bottom:40px; right:32px; border-left:none; border-top:none;}
+
+  .hero-grid{display:grid; grid-template-columns:1.3fr .7fr; gap:60px; align-items:center;}
+  .hero h1{
+    font-size:clamp(46px, 6.4vw, 84px); line-height:.98; font-weight:700; margin-top:18px;
+    text-transform:uppercase;
+  }
+  .hero h1 span{color:var(--blue-glow); display:block; -webkit-text-stroke:1px var(--blue-glow); color:transparent;}
+  .hero .role{
+    margin-top:20px; font-family:'JetBrains Mono', monospace; color:var(--text-mid); font-size:15px; letter-spacing:.04em;
+    display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .hero .role b{color:var(--blue-glow); font-weight:500;}
+  .hero p.lede{margin-top:26px; max-width:560px; color:var(--text-mid); font-size:15.5px; line-height:1.75;}
+  .hero-actions{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono'; font-size:13px; letter-spacing:.04em; padding:13px 26px;
+    text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:.25s; border-radius:var(--radius);
+  }
+  .btn-primary{background:var(--blue); color:#081018; font-weight:600; box-shadow:0 0 0 rgba(46,143,255,0); }
+  .btn-primary:hover{box-shadow:0 0 26px rgba(46,143,255,0.45); transform:translateY(-1px);}
+  .btn-ghost{border:1px solid var(--line); color:var(--text-hi);}
+  .btn-ghost:hover{border-color:var(--blue-glow); color:var(--blue-glow);}
+
+  .hero-panel{
+    position:relative; padding:26px; background:rgba(255,255,255,0.03);
+    border:1px solid var(--line); backdrop-filter:blur(10px); border-radius:var(--radius);
+  }
+  .hero-panel::before{
+    content:"FIG. 01 — PROFILE"; position:absolute; top:-11px; left:16px; background:var(--gm-950);
+    padding:0 8px; font-family:'JetBrains Mono'; font-size:10px; color:var(--text-lo); letter-spacing:.12em;
+  }
+  .photo-frame{
+    width:100%; aspect-ratio:1/1; overflow:hidden; border:1px solid var(--line); position:relative;
+  }
+  .photo-frame img{width:100%; height:100%; object-fit:cover; filter:grayscale(20%) contrast(1.05);}
+  .specs{margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:10px 16px; font-family:'JetBrains Mono'; font-size:11.5px;}
+  .specs div{color:var(--text-lo); display:flex; justify-content:space-between; border-bottom:1px dashed var(--line); padding-bottom:6px;}
+  .specs div b{color:var(--text-mid); font-weight:500;}
+
+  section{position:relative; z-index:2; padding:110px 0;}
+  .section-head{margin-bottom:52px;}
+  .section-head h2{font-size:clamp(30px,3.4vw,44px); margin-top:14px; text-transform:uppercase;}
+  .section-head .num{font-family:'JetBrains Mono'; color:var(--text-lo); font-size:12px;}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
+  .about-grid p{color:var(--text-mid); line-height:1.9; font-size:15.5px; margin-bottom:16px;}
+  .lang-list{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;}
+  .lang-chip{
+    font-family:'JetBrains Mono'; font-size:11.5px; border:1px solid var(--line); padding:7px 14px; color:var(--text-mid); letter-spacing:.04em;
+  }
+
+  /* SKILLS */
+  .skills-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:16px 40px;}
+  .skill{}
+  .skill-top{display:flex; justify-content:space-between; font-family:'JetBrains Mono'; font-size:12.5px; margin-bottom:8px; color:var(--text-mid);}
+  .skill-top b{color:var(--text-hi); font-family:'Inter'; font-size:14px; font-weight:500;}
+  .bar{height:6px; background:var(--gm-700); position:relative; overflow:hidden; border:1px solid var(--line);}
+  .bar i{
+    display:block; height:100%; width:0%; background:linear-gradient(90deg, var(--blue-dim), var(--blue), var(--blue-glow));
+    transition:width 1.4s cubic-bezier(.16,1,.3,1);
+    box-shadow:0 0 10px rgba(46,143,255,0.5);
+  }
+
+  /* EXPERIENCE TIMELINE */
+  .timeline{position:relative; padding-left:32px; border-left:1px solid var(--line);}
+  .tl-item{position:relative; padding-bottom:52px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:""; position:absolute; left:-37px; top:4px; width:11px; height:11px; background:var(--gm-950);
+    border:2px solid var(--blue); transform:rotate(45deg);
+  }
+  .tl-date{font-family:'JetBrains Mono'; font-size:11.5px; color:var(--blue-glow); letter-spacing:.06em; margin-bottom:6px;}
+  .tl-item h3{font-size:20px; font-weight:600;}
+  .tl-role{color:var(--text-mid); font-family:'JetBrains Mono'; font-size:12.5px; margin:4px 0 14px; letter-spacing:.03em;}
+  .tl-item ul{color:var(--text-mid); font-size:14.5px; line-height:1.8; padding-left:18px;}
+  .tl-item li{margin-bottom:4px;}
+  .tl-item li::marker{color:var(--blue-glow);}
+
+  /* PROJECTS */
+  .proj-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:22px;}
+  .card{
+    position:relative; padding:26px 22px; background:rgba(255,255,255,0.025);
+    border:1px solid var(--line); transition:.3s; overflow:hidden;
+  }
+  .card::after{
+    content:""; position:absolute; top:0; right:0; width:0; height:0;
+    border-style:solid; border-width:0 26px 26px 0; border-color:transparent var(--gm-700) transparent transparent;
+    transition:.3s;
+  }
+  .card:hover{border-color:var(--blue-dim); transform:translateY(-3px); background:rgba(46,143,255,0.045);}
+  .card:hover::after{border-color:transparent var(--blue) transparent transparent;}
+  .card .tag{font-family:'JetBrains Mono'; font-size:10.5px; color:var(--text-lo); letter-spacing:.1em;}
+  .card h3{font-size:17.5px; margin:10px 0 8px; font-weight:600;}
+  .card p{color:var(--text-mid); font-size:13.5px; line-height:1.7;}
+
+  /* EDUCATION */
+  .edu-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  .edu-card{border:1px solid var(--line); padding:22px; position:relative;}
+  .edu-card .yr{font-family:'JetBrains Mono'; font-size:11px; color:var(--blue-glow);}
+  .edu-card h3{font-size:16.5px; margin:8px 0 4px; font-weight:600;}
+  .edu-card p{color:var(--text-mid); font-size:13px;}
+
+  /* CONTACT */
+  .contact-wrap{
+    border:1px solid var(--line); padding:56px; text-align:center; position:relative;
+    background:radial-gradient(ellipse at 50% 0%, rgba(46,143,255,0.08), transparent 60%);
+  }
+  .contact-wrap h2{font-size:clamp(28px,4vw,46px); text-transform:uppercase;}
+  .contact-wrap p{color:var(--text-mid); margin:16px 0 32px; max-width:480px; margin-left:auto; margin-right:auto;}
+  .contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+
+  footer{
+    padding:30px 0; text-align:center; color:var(--text-lo); font-family:'JetBrains Mono'; font-size:11.5px;
+    border-top:1px solid var(--line);
+  }
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (max-width:860px){
+    nav ul{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-panel{order:-1; max-width:280px; margin:0 auto;}
+    .about-grid{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr;}
+    .edu-grid{grid-template-columns:1fr;}
+    .wrap{padding:0 20px;}
+    .contact-wrap{padding:32px 20px;}
+  }
+  
+@media (max-width:600px){
+nav{padding:12px 16px;flex-wrap:wrap}
+nav .brand{font-size:15px}
+.nav-cta{padding:8px 12px}
+.hero{padding-top:80px}
+.hero h1{font-size:clamp(38px,12vw,54px)}
+.hero .role{font-size:13px}
+.hero-actions{flex-direction:column}
+.hero-actions .btn{width:100%;justify-content:center}
+.specs{grid-template-columns:1fr}
+.timeline{padding-left:20px}
+.tl-item::before{left:-26px}
+.corner{display:none}
+#glow{display:none}
+img{max-width:100%;height:auto}
+}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div id="glow"></div>
+<nav>
+<div class="brand"><span class="tick"></span>N. NAIDU</div>
+<ul>
+<li><a href="#about">About</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#experience">Experience</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#education">Education</a></li>
+</ul>
+<a class="nav-cta" href="#contact">Contact</a>
+</nav>
+<header class="hero" id="top">
+<div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+<div class="wrap hero-grid">
+<div>
+<div class="eyebrow">Mechanical Product Designer · Essen, DE</div>
+<h1>Niraj<br/><span>Naidu</span></h1>
+<div class="role">
+<span>MECHANICAL PRODUCT DESIGNER</span>
+<span>·</span>
+<span>HYDRAULIC SYSTEMS</span>
+<span>·</span>
+<span><b>SolidWorks</b> / <b>CATIA</b> / <b>ANSYS</b></span>
+</div>
+<p class="lede">A detail-oriented mechanical product designer with hands-on experience across 3D modeling, hydraulic system design, reverse engineering and precision machining — from gantry cranes and mold presses to tube-bending machines and Formula Student race cars.</p>
+<div class="hero-actions">
+<a class="btn btn-primary" download="" href="Niraj_Naidu_CV.pdf">↓ Download CV</a>
+<a class="btn btn-ghost" href="#projects">View Projects →</a>
+</div>
+</div>
+<div class="hero-panel">
+<div class="photo-frame">
+<img alt="Niraj Naidu" src="niraj-naidu.jpeg"/>
+</div>
+<div class="specs">
+<div><span>Location</span><b>Essen, 45138</b></div>
+<div><span>DOB</span><b>11.04.2001</b></div>
+<div><span>Phone</span><b>+49 15757055980</b></div>
+<div><span>Email</span><b>nirajnaidu0411</b></div>
+<div><span>Focus</span><b>Additive Mfg.</b></div>
+<div><span>Status</span><b>MSc Student</b></div>
+</div>
+</div>
+</div>
+</header>
+<section id="about">
+<div class="wrap">
+<div class="section-head reveal">
+<div class="eyebrow">01 / About</div>
+<h2>Engineering with precision</h2>
+</div>
+<div class="about-grid">
+<div class="reveal">
+<p>Currently pursuing a Master of Science in Digital Technologies at FOM University of Applied Sciences for Economics and Management, Germany, with a research focus comparing the sustainability of CNC machining against metal additive manufacturing.</p>
+<p>Previously earned a B.Tech in Mechanical Engineering from Symbiosis Institute of Technology, Pune, where hands-on project work included leading the design of Formula Student race car components and hydraulic systems for industrial applications.</p>
+</div>
+<div class="reveal">
+<p>Comfortable moving between CAD platforms — SolidWorks, CATIA and AutoCAD — and validating designs in ANSYS, with practical 3D printing experience spanning Cura and RD Works workflows. Tolerances held as tight as 5 microns on production fixture work.</p>
+<div class="lang-list">
+<span class="lang-chip">EN — English (C1)</span>
+<span class="lang-chip">HI — Hindi (B1)</span>
+<span class="lang-chip">MR — Marathi (B1)</span>
+<span class="lang-chip">DE — German (A1, pursuing A2)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="skills">
+<div class="wrap">
+<div class="section-head reveal">
+<div class="eyebrow">02 / Toolset</div>
+<h2>Software &amp; capability</h2>
+</div>
+<div class="skills-grid">
+<div class="skill reveal">
+<div class="skill-top"><b>SolidWorks</b><span>95%</span></div>
+<div class="bar"><i data-w="95"></i></div>
+</div>
+<div class="skill reveal">
+<div class="skill-top"><b>CATIA</b><span>85%</span></div>
+<div class="bar"><i data-w="85"></i></div>
+</div>
+<div class="skill reveal">
+<div class="skill-top"><b>AutoCAD</b><span>88%</span></div>
+<div class="bar"><i data-w="88"></i></div>
+</div>
+<div class="skill reveal">
+<div class="skill-top"><b>ANSYS</b><span>78%</span></div>
+<div class="bar"><i data-w="78"></i></div>
+</div>
+<div class="skill reveal">
+<div class="skill-top"><b>3D Printing</b><span>90%</span></div>
+<div class="bar"><i data-w="90"></i></div>
+</div>
+<div class="skill reveal">
+<div class="skill-top"><b>Cura / RD Works</b><span>82%</span></div>
+<div class="bar"><i data-w="82"></i></div>
+</div>
+</div>
+</div>
+</section>
+<section id="experience">
+<div class="wrap">
+<div class="section-head reveal">
+<div class="eyebrow">03 / Experience</div>
+<h2>Project &amp; work history</h2>
+</div>
+<div class="timeline">
+<div class="tl-item reveal">
+<div class="tl-date">JUN 2024 — DEC 2024</div>
+<h3>KC Engineering and Automation</h3>
+<div class="tl-role">Design Engineer</div>
+<ul>
+<li>Designed and modeled hydraulic systems — cylinders, presses and lifting equipment — in SolidWorks.</li>
+<li>Executed reverse engineering of the SLB 1100 Gantry Crane and supported tube-bending and mold-press machine development.</li>
+<li>Prepared detailed CAD drawings, ensuring design precision, manufacturability and assembly accuracy.</li>
+</ul>
+</div>
+<div class="tl-item reveal">
+<div class="tl-date">JUN 2024 — DEC 2024</div>
+<h3>KC Engineering and Automation</h3>
+<div class="tl-role">Design Engineer — Industrial &amp; Formula Student Projects</div>
+<ul>
+<li>Led design and fabrication of Formula Student race car components using SolidWorks and CATIA.</li>
+<li>Worked on carbon-fibre and fibreglass bodywork; developed a high-efficiency EV battery system ranked 15th of 72 teams.</li>
+<li>Built an engine sound signature segregation system using audio analysis and machine learning for diagnostics.</li>
+<li>Represented the team at Supra 2022 and Formula Student EV 2021.</li>
+</ul>
+</div>
+<div class="tl-item reveal">
+<div class="tl-date">JAN 2024 — MAY 2024</div>
+<h3>ASB International Pvt. Ltd.</h3>
+<div class="tl-role">Design Intern</div>
+<ul>
+<li>Created 3D models of mold components and designed precision fixtures for industrial machinery.</li>
+<li>Maintained tolerances to 5 microns to ensure assembly stability during machining.</li>
+<li>Supported the design team in drafting and documentation for production processes.</li>
+</ul>
+</div>
+<div class="tl-item reveal">
+<div class="tl-date">2022 — 2023</div>
+<h3>Wrench Wielders Racing — Formula Student Team, SIT</h3>
+<div class="tl-role">Design Head</div>
+<ul>
+<li>Directed reverse engineering of the SLB 1100 Gantry Crane to improve structural efficiency.</li>
+<li>Designed and developed hydraulic tube-bending machines, mold-press equipment and horizontal moving jacks.</li>
+<li>Created detailed 3D CAD models ensuring precision and manufacturability across custom hydraulic systems.</li>
+</ul>
+</div>
+<div class="tl-item reveal">
+<div class="tl-date">JAN 2024 — PRESENT</div>
+<h3>Freelance</h3>
+<div class="tl-role">3D Printing Product &amp; Design</div>
+<ul>
+<li>Deliver 3D modeling and 3D-printing solutions for clients, prioritizing accuracy and design efficiency.</li>
+<li>Develop prototypes and production-ready CAD models tailored to client specifications.</li>
+<li>Provide design consulting focused on precision, material selection and assembly fit.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="projects">
+<div class="wrap">
+<div class="section-head reveal">
+<div class="eyebrow">04 / Portfolio</div>
+<h2>CAD &amp; hydraulic systems</h2>
+</div>
+<div class="proj-grid">
+<div class="card reveal">
+<div class="tag">HYDRAULICS</div>
+<h3>Container Lifting Jack</h3>
+<p>Rendered hydraulic lifting assembly designed for heavy container handling, modeled with production-grade tolerances.</p>
+</div>
+<div class="card reveal">
+<div class="tag">HYDRAULICS</div>
+<h3>Fork-Mounted Floor Jack</h3>
+<p>Compact fork-mounted jack assembly for warehouse and industrial floor operations.</p>
+</div>
+<div class="card reveal">
+<div class="tag">FIXTURES</div>
+<h3>Hydraulic Positioning Block</h3>
+<p>Precision positioning block for fixture alignment during machining and assembly operations.</p>
+</div>
+<div class="card reveal">
+<div class="tag">MACHINERY</div>
+<h3>Pipe Bending Machine</h3>
+<p>Hydraulic tube and pipe bending machine developed for consistent, repeatable bend geometry.</p>
+</div>
+<div class="card reveal">
+<div class="tag">MACHINERY</div>
+<h3>Shop Press</h3>
+<p>Structural hydraulic shop press designed for high-load industrial press operations.</p>
+</div>
+<div class="card reveal">
+<div class="tag">MACHINERY</div>
+<h3>Punch Press</h3>
+<p>Hydraulic punch press assembly engineered for sheet-metal forming applications.</p>
+</div>
+<div class="card reveal">
+<div class="tag">LIFTING SYSTEMS</div>
+<h3>Boom-Lift Assembly</h3>
+<p>Boom-lift mechanical assembly modeled for aerial work platform applications.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="education">
+<div class="wrap">
+<div class="section-head reveal">
+<div class="eyebrow">05 / Education</div>
+<h2>Academic record</h2>
+</div>
+<div class="edu-grid">
+<div class="edu-card reveal">
+<div class="yr">2024 — PRESENT</div>
+<h3>M.Sc, Digital Technologies</h3>
+<p>FOM University of Applied Sciences for Economics and Management, Germany</p>
+</div>
+<div class="edu-card reveal">
+<div class="yr">2021 — 2024</div>
+<h3>B.Tech, Mechanical Engineering</h3>
+<p>Symbiosis Institute of Technology, Pune — CGPA 7.0 / 10</p>
+</div>
+<div class="edu-card reveal">
+<div class="yr">2017 — 2018</div>
+<h3>12th, Science</h3>
+<p>Fr. Agnel's Multipurpose School and Jr. College — 70.77%</p>
+</div>
+<div class="edu-card reveal">
+<div class="yr">2015 — 2016</div>
+<h3>10th Standard</h3>
+<p>Fr. Agnel's Multipurpose School and Jr. College — 75.00%</p>
+</div>
+</div>
+</div>
+</section>
+<section id="contact">
+<div class="wrap">
+<div class="contact-wrap reveal">
+<div class="eyebrow" style="justify-content:center;">06 / Contact</div>
+<h2>Let's build something precise</h2>
+<p>Open to product design roles, freelance CAD work and collaboration on hydraulic or additive-manufacturing projects.</p>
+<div class="contact-links">
+<a class="btn btn-primary" href="mailto:nirajnaidu0411@gmail.com">✉ Email Me</a>
+<a class="btn btn-ghost" href="https://www.linkedin.com/in/niraj11/" rel="noopener" target="_blank">LinkedIn ↗</a>
+<a class="btn btn-ghost" href="tel:+4915757055980">+49 15757055980</a>
+</div>
+</div>
+</div>
+</section>
+<footer>
+  © 2026 NIRAJ NAIDU — MECHANICAL PRODUCT DESIGNER · ESSEN, GERMANY
+</footer>
+<script>
+  // mouse glow
+  const glow = document.getElementById('glow');
+  window.addEventListener('mousemove', (e) => {
+    glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%,-50%)`;
+  });
+
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el => io.observe(el));
+
+  // animated skill bars
+  const bars = document.querySelectorAll('.bar i');
+  const barIO = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        en.target.style.width = en.target.dataset.w + '%';
+        barIO.unobserve(en.target);
+      }
+    });
+  }, {threshold:0.4});
+  bars.forEach(b => barIO.observe(b));
+
+  // smooth nav active state (optional simple highlight)
+  document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+    });
+  });
+</script>
+</body>
+</html>

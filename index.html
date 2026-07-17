@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Niraj Naidu — Mechanical Product Designer</title>  <meta name="description" content="Niraj Naidu is a Mechanical Product Designer specializing in SolidWorks, CATIA, hydraulic systems, CAD modeling, reverse engineering and additive manufacturing.">  <meta name="keywords" content="Mechanical Product Designer, SolidWorks, CATIA, Hydraulic Design, CAD Engineer, Product Development, Germany">  <meta name="author" content="Niraj Naidu">
+<title>Niraj Naidu | Mechanical Design Engineer | SOLIDWORKS | CATIA | Germany</title>  <meta name="description" content="Niraj Naidu is a Mechanical Product Designer specializing in SOLIDWORKS, CATIA, hydraulic systems, CAD modeling, reverse engineering and additive manufacturing.">  <meta name="keywords" content="Mechanical Product Designer, SOLIDWORKS, CATIA, Hydraulic Design, CAD Engineer, Product Development, Germany">  <meta name="author" content="Niraj Naidu">
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -313,6 +313,79 @@ nav .brand{font-size:15px}
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important; animation:none !important;}
   }
+  /* ============================= */
+/* Fullscreen Image Lightbox */
+/* ============================= */
+
+.lightbox{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    background:rgba(8,10,14,.96);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    visibility:hidden;
+    transition:.25s ease;
+    z-index:9999;
+    padding:25px;
+}
+
+.lightbox.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.lightbox img{
+    max-width:95vw;
+    max-height:95vh;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border:1px solid var(--line);
+    box-shadow:0 0 35px rgba(0,0,0,.6);
+}
+
+.lightbox-close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:42px;
+    color:white;
+    cursor:pointer;
+    user-select:none;
+    line-height:1;
+    transition:.2s;
+}
+
+.lightbox-close:hover{
+    color:var(--blue-glow);
+}
+
+.card-image img{
+    cursor:pointer;
+}
+
+@media (max-width:600px){
+
+    .lightbox{
+        padding:12px;
+    }
+
+    .lightbox img{
+        max-width:100%;
+        max-height:90vh;
+    }
+
+    .lightbox-close{
+        top:10px;
+        right:18px;
+        font-size:34px;
+    }
+
+}
 </style>
 </head>
 <body>
@@ -333,18 +406,18 @@ nav .brand{font-size:15px}
 <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
 <div class="wrap hero-grid">
 <div>
-<div class="eyebrow">Mechanical Product Designer · Essen, DE</div>
+<div class="eyebrow">Mechanical Product Designer • CAD Engineer • Germany</div>
 <h1>Niraj<br/><span>Naidu</span></h1>
 <div class="role">
 <span>MECHANICAL PRODUCT DESIGNER</span>
 <span>·</span>
 <span>HYDRAULIC SYSTEMS</span>
 <span>·</span>
-<span><b>SolidWorks</b> / <b>CATIA</b> / <b>ANSYS</b></span>
+<span><b>SOLIDWORKS</b> / <b>CATIA</b> / <b>ANSYS</b></span>
 </div>
 <p class="lede">A detail-oriented mechanical product designer with hands-on experience in 3D modeling, hydraulic system design, reverse engineering, and precision machining — delivering solutions from gantry cranes and mold presses to tube-bending machines and Formula Student race cars.</p>
 <div class="hero-actions">
-<a class="btn btn-primary" download="Niraj_Naidu_CV.pdf" href="Niraj_Naidu_CV.pdf">↓ Download CV</a>
+<a class="btn btn-primary" download="Niraj_Naidu_CV.pdf" href="Niraj_Naidu_CV.pdf">↓ Download CV (PDF)</a>
 <a class="btn btn-ghost" href="#portfolio">View Portfolio →</a>
 </div>
 </div>
@@ -375,7 +448,7 @@ nav .brand{font-size:15px}
 <p>Previously earned a B.Tech in Mechanical Engineering from Symbiosis Institute of Technology, Pune, where hands-on project work included leading the design of Formula Student race car components and hydraulic systems for industrial applications.</p>
 </div>
 <div class="reveal">
-<p>Comfortable moving between CAD platforms — SolidWorks, CATIA and AutoCAD — and validating designs in ANSYS, with practical 3D printing experience spanning Cura and RD Works workflows. Tolerances held as tight as 5 microns on production fixture work.</p>
+<p>Comfortable moving between CAD platforms — SOLIDWORKS, CATIA and AutoCAD — and validating designs in ANSYS, with practical Additive Manufacturing experience spanning Cura and RD Works workflows. Tolerances held as tight as 5 microns on production fixture work.</p>
 <div class="lang-list">
 <span class="lang-chip">EN — English (C1)</span>
 <span class="lang-chip">HI — Hindi (B1)</span>
@@ -394,7 +467,7 @@ nav .brand{font-size:15px}
 </div>
 <div class="skills-grid">
 <div class="skill reveal">
-<div class="skill-top"><b>SolidWorks</b><span>95%</span></div>
+<div class="skill-top"><b>SOLIDWORKS</b><span>95%</span></div>
 <div class="bar"><i data-w="95"></i></div>
 </div>
 <div class="skill reveal">
@@ -410,7 +483,7 @@ nav .brand{font-size:15px}
 <div class="bar"><i data-w="78"></i></div>
 </div>
 <div class="skill reveal">
-<div class="skill-top"><b>3D Printing</b><span>90%</span></div>
+<div class="skill-top"><b>Additive Manufacturing</b><span>90%</span></div>
 <div class="bar"><i data-w="90"></i></div>
 </div>
 <div class="skill reveal">
@@ -431,7 +504,7 @@ nav .brand{font-size:15px}
   <div class="tl-item reveal">
     <div class="tl-date">JAN 2024 — PRESENT</div>
     <h3>Freelance</h3>
-    <div class="tl-role">3D Printing Product &amp; Design</div>
+    <div class="tl-role">Additive Manufacturing Product &amp; Design</div>
     <ul>
       <li>Deliver 3D modeling and 3D-printing solutions for clients, prioritizing accuracy and design efficiency.</li>
       <li>Develop prototypes and production-ready CAD models tailored to client specifications.</li>
@@ -444,7 +517,7 @@ nav .brand{font-size:15px}
     <h3>KC Engineering and Automation</h3>
     <div class="tl-role">Design Engineer</div>
     <ul>
-      <li>Designed and modeled hydraulic systems, including cylinders, presses, and lifting equipment, using <strong>SolidWorks</strong>.</li>
+      <li>Designed and modeled hydraulic systems, including cylinders, presses, and lifting equipment, using <strong>SOLIDWORKS</strong>.</li>
       <li>Directed the reverse engineering of the <strong>SLB 1100 Gantry Crane</strong> to improve structural efficiency and manufacturing feasibility.</li>
       <li>Designed and developed hydraulic tube-bending machines, mold-press equipment, and horizontal moving jacks.</li>
       <li>Created detailed 3D CAD models and engineering drawings, ensuring precision, manufacturability, and assembly accuracy.</li>
@@ -468,7 +541,7 @@ nav .brand{font-size:15px}
     <h3>Wrench Wielders Racing – Formula Student Team, SIT</h3>
     <div class="tl-role">Design Head</div>
     <ul>
-      <li>Led the design and fabrication of Formula Student race car components using <strong>SolidWorks</strong> and <strong>CATIA</strong>.</li>
+      <li>Led the design and fabrication of Formula Student race car components using <strong>SOLIDWORKS</strong> and <strong>CATIA</strong>.</li>
       <li>Designed and manufactured carbon-fibre and fibreglass body panels for improved vehicle performance.</li>
       <li>Developed a high-efficiency EV battery pack, contributing to a <strong>15th-place finish among 72 competing teams</strong>.</li>
       <li>Built an engine sound signature segregation system using audio analysis and machine learning for vehicle diagnostics.</li>
@@ -697,6 +770,63 @@ nav .brand{font-size:15px}
   });
 
   document.getElementById("year").textContent = new Date().getFullYear();
+  /* ===========================
+   Fullscreen Image Viewer
+=========================== */
+
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".lightbox-close");
+
+document.querySelectorAll(".card-image img").forEach(img => {
+
+    img.addEventListener("click", () => {
+
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
+
+    });
+
+});
+
+function closeLightbox(){
+
+    lightbox.classList.remove("active");
+    document.body.style.overflow = "";
+
+}
+
+closeBtn.addEventListener("click", closeLightbox);
+
+lightbox.addEventListener("click", function(e){
+
+    if(e.target === lightbox){
+
+        closeLightbox();
+
+    }
+
+});
+
+document.addEventListener("keydown", function(e){
+
+    if(e.key === "Escape"){
+
+        closeLightbox();
+
+    }
+
+});
+
 </script>
+  
+<div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Portfolio Image">
+</div>
+
 </body>
 </html>

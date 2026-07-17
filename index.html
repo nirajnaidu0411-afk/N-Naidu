@@ -730,6 +730,11 @@ nav .brand{font-size:15px}
 <footer>
   © <span id="year"></span> NIRAJ NAIDU — MECHANICAL PRODUCT DESIGNER · ESSEN, GERMANY
 </footer>
+
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Portfolio Image">
+</div>
 <script>
   // mouse glow
   const glow = document.getElementById('glow');
@@ -770,63 +775,60 @@ nav .brand{font-size:15px}
   });
 
   document.getElementById("year").textContent = new Date().getFullYear();
-  /* ===========================
+
+  
+ /* ===========================
    Fullscreen Image Viewer
 =========================== */
 
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const closeBtn = document.querySelector(".lightbox-close");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.querySelector(".lightbox-close");
 
-document.querySelectorAll(".card-image img").forEach(img => {
+    document.querySelectorAll(".card-image img").forEach(img => {
 
-    img.addEventListener("click", () => {
+        img.addEventListener("click", () => {
 
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
 
-        lightbox.classList.add("active");
-        document.body.style.overflow = "hidden";
+            lightbox.classList.add("active");
+            document.body.style.overflow = "hidden";
+
+        });
 
     });
 
-});
+    function closeLightbox() {
 
-function closeLightbox(){
-
-    lightbox.classList.remove("active");
-    document.body.style.overflow = "";
-
-}
-
-closeBtn.addEventListener("click", closeLightbox);
-
-lightbox.addEventListener("click", function(e){
-
-    if(e.target === lightbox){
-
-        closeLightbox();
+        lightbox.classList.remove("active");
+        document.body.style.overflow = "";
 
     }
 
-});
+    closeBtn.addEventListener("click", closeLightbox);
 
-document.addEventListener("keydown", function(e){
+    lightbox.addEventListener("click", function(e) {
 
-    if(e.key === "Escape"){
+        if (e.target === lightbox) {
 
-        closeLightbox();
+            closeLightbox();
 
-    }
+        }
 
-});
+    });
+
+    document.addEventListener("keydown", function(e) {
+
+        if (e.key === "Escape") {
+
+            closeLightbox();
+
+        }
+
+    });
 
 </script>
-  
-<div id="lightbox" class="lightbox">
-    <span class="lightbox-close">&times;</span>
-    <img id="lightbox-img" src="" alt="Portfolio Image">
-</div>
 
 </body>
 </html>

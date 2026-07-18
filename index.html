@@ -103,9 +103,9 @@
   .corner.bl{bottom:40px; left:32px; border-right:none; border-top:none;}
   .corner.br{bottom:40px; right:32px; border-left:none; border-top:none;}
 
-  .hero-grid{
+.hero-grid{
     display:grid;
-    grid-template-columns:minmax(0, 1.4fr) minmax(280px, 420px);
+    grid-template-columns:minmax(0, 1.4fr) minmax(280px, 480px);
     gap:clamp(30px,5vw,70px);
     align-items:center;
 }
@@ -139,7 +139,7 @@
 .hero-panel{
     position:relative;
     width:100%;
-    max-width:420px;
+    max-width:480px;
     justify-self:center;
     padding:clamp(16px,3vw,26px);
     background:rgba(255,255,255,0.03);
@@ -183,11 +183,8 @@
     font-weight:500;
     text-align:right;
     white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
     font-size:11px;
     min-width:0;
-    max-width:100%;
     display:block;
 }
 

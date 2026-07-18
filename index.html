@@ -353,7 +353,6 @@ nav .brand{font-size:15px}
   left:-32px;
 }
 .corner{display:none}
-#glow{display:none}
  .card-image{
     height:220px;
     width:calc(100% + 40px);
@@ -818,11 +817,26 @@ nav .brand{font-size:15px}
     <img id="lightbox-img" src="" alt="Portfolio Image">
 </div>
 <script>
-  // mouse glow
-  const glow = document.getElementById('glow');
-  window.addEventListener('mousemove', (e) => {
-    glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%,-50%)`;
-  });
+// Mouse + Touch Glow
+const glow = document.getElementById('glow');
+
+function moveGlow(x, y) {
+    glow.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
+}
+
+window.addEventListener('mousemove', (e) => {
+    moveGlow(e.clientX, e.clientY);
+});
+
+window.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    moveGlow(touch.clientX, touch.clientY);
+}, { passive: true });
+
+window.addEventListener('touchmove', (e) => {
+    const touch = e.touches[0];
+    moveGlow(touch.clientX, touch.clientY);
+}, { passive: true });
 
   // reveal on scroll
   const revealEls = document.querySelectorAll('.reveal');

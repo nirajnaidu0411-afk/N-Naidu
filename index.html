@@ -87,7 +87,7 @@ nav{
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
 }
-  .brand{font-family:'Space Grotesk'; font-weight:700; font-size:17px; letter-spacing:.03em; display:flex; align-items:center; gap:10px;}
+  .brand{     font-family:'Space Grotesk';     font-weight:700;     font-size:17px;     letter-spacing:.03em;     display:flex;     align-items:center;     gap:10px;     cursor:pointer;     text-decoration:none;     color:var(--text-hi); }
   .brand .tick{width:9px; height:9px; background:var(--blue); box-shadow:0 0 12px var(--blue-glow); transform:rotate(45deg);}
   nav ul{list-style:none; display:flex; gap:34px;}
   nav a{color:var(--text-mid); text-decoration:none; font-size:13px; font-family:'JetBrains Mono', monospace; letter-spacing:.05em; text-transform:uppercase; transition:color .2s;}
@@ -651,7 +651,9 @@ header.hero{
 <div class="grid-bg"></div>
 <div id="glow"></div>
 <nav>
-<div class="brand"><span class="tick"></span>N. NAIDU</div>
+<a href="#top" class="brand">
+  <span class="tick"></span>N. NAIDU
+</a>
 <ul>
 <li><a href="#about">About</a></li>
 <li><a href="#skills">Skills</a></li>
@@ -1076,14 +1078,21 @@ window.addEventListener('touchmove', (e) => {
   }, {threshold:0.4});
   bars.forEach(b => barIO.observe(b));
 
-  // smooth nav active state (optional simple highlight)
-   document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+// Smooth scroll for navigation
+document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
     a.addEventListener('click', e=>{
-      e.preventDefault();
-      document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
-    });
-  });
+        e.preventDefault();
 
+        const target = document.querySelector(a.getAttribute('href'));
+
+        if(target){
+            target.scrollIntoView({
+                behavior:'smooth',
+                block:'start'
+            });
+        }
+    });
+});
   document.getElementById("year").textContent = new Date().getFullYear();
 
   

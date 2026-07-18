@@ -176,6 +176,25 @@ header.hero{
     font-size:clamp(46px, 6.4vw, 84px); line-height:.98; font-weight:700; margin-top:18px;
     text-transform:uppercase;
   }
+  .hero-logo{
+    margin-bottom:24px;
+}
+
+.hero-logo a{
+    display:inline-block;
+}
+
+.hero-logo img{
+    width:90px;
+    height:auto;
+    display:block;
+    filter:drop-shadow(0 0 12px rgba(46,143,255,.35));
+    transition:.3s ease;
+}
+
+.hero-logo img:hover{
+    transform:scale(1.06);
+}
   .hero h1 span{color:var(--blue-glow); display:block; -webkit-text-stroke:1px var(--blue-glow); color:transparent;}
   .hero .role{
     margin-top:20px; font-family:'JetBrains Mono', monospace; color:var(--text-mid); font-size:15px; letter-spacing:.04em;
@@ -403,6 +422,22 @@ header.hero{
   .contact-wrap p{color:var(--text-mid); margin:16px 0 32px; max-width:480px; margin-left:auto; margin-right:auto;}
   .contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
 
+  .footer-logo{
+    display:inline-block;
+    margin-bottom:18px;
+}
+
+.footer-logo img{
+    width:70px;
+    height:auto;
+    display:block;
+    filter:drop-shadow(0 0 10px rgba(46,143,255,.35));
+    transition:.3s ease;
+}
+
+.footer-logo img:hover{
+    transform:scale(1.08);
+}
   footer{
     padding:30px 0; text-align:center; color:var(--text-lo); font-family:'JetBrains Mono'; font-size:11.5px;
     border-top:1px solid var(--line);
@@ -701,8 +736,15 @@ header.hero{
 <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
 <div class="wrap hero-grid">
 <div>
+<div class="hero-logo">
+    <a href="#top">
+        <img src="logo.png" alt="Niraj Naidu Logo">
+    </a>
+</div>
+
 <div class="eyebrow">Mechanical Product Designer • CAD Engineer • Germany</div>
-<h1>Niraj<br/><span>Naidu</span></h1>
+
+<h1>Niraj<br><span>Naidu</span></h1>
 <div class="role">
 <span>MECHANICAL PRODUCT DESIGNER</span>
 <span>·</span>
@@ -1053,13 +1095,19 @@ header.hero{
 </div>
 </section>
 <footer>
-  <div>
-    © <span id="year"></span> NIRAJ NAIDU — MECHANICAL PRODUCT DESIGNER · ESSEN, GERMANY
-  </div>
 
-  <div class="designer-credit">
-    Website designed & built by Niraj Naidu
-  </div>
+    <a href="#top" class="footer-logo">
+        <img src="logo.png" alt="Niraj Naidu Logo">
+    </a>
+
+    <div>
+        © <span id="year"></span> NIRAJ NAIDU — MECHANICAL PRODUCT DESIGNER · ESSEN, GERMANY
+    </div>
+
+    <div class="designer-credit">
+        Website designed & built by Niraj Naidu
+    </div>
+
 </footer>
 
   <div id="lightbox" class="lightbox">

@@ -92,8 +92,39 @@ nav{
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
 }
-  .brand{     font-family:'Space Grotesk';     font-weight:700;     font-size:17px;     letter-spacing:.03em;     display:flex;     align-items:center;     gap:10px;     cursor:pointer;     text-decoration:none;     color:var(--text-hi); }
-  .brand .tick{width:9px; height:9px; background:var(--blue); box-shadow:0 0 12px var(--blue-glow); transform:rotate(45deg);}
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:var(--text-hi);
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:17px;
+    letter-spacing:.03em;
+    cursor:pointer;
+}
+
+.brand-name{
+    white-space:nowrap;
+}
+
+.brand .tick{
+    width:7px;
+    height:7px;
+    background:var(--blue);
+    transform:rotate(45deg);
+    box-shadow:0 0 12px var(--blue-glow);
+    flex-shrink:0;
+}
+
+.logo{
+    width:34px;
+    height:34px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 8px rgba(59,130,246,.35));
+    flex-shrink:0;
+}
   nav ul{list-style:none; display:flex; gap:34px;}
   nav a{color:var(--text-mid); text-decoration:none; font-size:13px; font-family:'JetBrains Mono', monospace; letter-spacing:.05em; text-transform:uppercase; transition:color .2s;}
   nav a:hover{color:var(--blue-glow);}
@@ -653,7 +684,9 @@ header.hero{
 <div id="glow"></div>
 <nav>
 <a href="#top" class="brand">
-  <span class="tick"></span>N. NAIDU
+    <span class="tick"></span>
+    <img src="logo.png" alt="Niraj Naidu Logo" class="logo">
+    <span class="brand-name">NIRAJ NAIDU</span>
 </a>
 <ul>
 <li><a href="#about">About</a></li>

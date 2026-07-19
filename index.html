@@ -322,7 +322,7 @@ header.hero{
 }
 
 .hero-panel.intro-glow{
-    animation:profileCardExpand 1.6s ease-out forwards;
+    animation:profileCardExpand 1.6s ease-out;
 }
 
 .hero-panel.intro-glow::after{
@@ -877,7 +877,7 @@ html{
     scrollbar-width:thin;
     scrollbar-color:var(--blue) var(--gm-950);
 }
-  /* ==========================================
+/* ==========================================
    Desktop Profile Card Hover Effect
 ========================================== */
 
@@ -886,27 +886,34 @@ html{
     .hero-panel{
         transition:
             transform .35s ease,
-            border-color .35s ease,
             background .35s ease,
             box-shadow .35s ease;
     }
 
     .hero-panel:hover{
 
-        transform:scale(1.05);
+        transform:scale(1.035) !important;
 
-        border-color:var(--blue);
-
-        background:rgba(46,143,255,0.045);
+        background:rgba(46,143,255,0.06);
 
         box-shadow:
-            0 0 15px rgba(46,143,255,.35),
-            0 0 35px rgba(95,200,255,.25);
+            0 0 10px rgba(95,200,255,.8),
+            0 0 25px rgba(46,143,255,.6),
+            0 0 45px rgba(46,143,255,.35);
 
     }
 
+    .hero-panel:hover::after{
+        opacity:1;
+    }
+
     .hero-panel:hover .photo-frame{
+
         border-color:var(--blue-glow);
+
+        box-shadow:
+            0 0 12px rgba(95,200,255,.5);
+
     }
 
 }

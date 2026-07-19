@@ -538,7 +538,7 @@ header.hero{
   }
   .card:hover{border-color:var(--blue-dim); transform:translateY(-3px); background:rgba(46,143,255,0.045);}
   .hero-panel:hover{
-    translate:0 -4px;
+    transform:scale(1.04);
 }
   .card:hover::after{border-color:transparent var(--blue) transparent transparent;}
   .card .tag{font-family:'JetBrains Mono'; font-size:10.5px; color:var(--text-lo); letter-spacing:.1em;}
@@ -925,24 +925,25 @@ html{
 
 .hero-panel{
     transition:
-        transform .35s ease,
-        background .35s ease,
-        box-shadow .35s ease;
+        transform .45s ease,
+        background .45s ease,
+        box-shadow .45s ease,
+        border-color .45s ease;
 }
 
 .hero-panel:hover{
 
-    transform:scale(1.06);
+    transform:scale(1.04);
 
     background:
-        rgba(46,143,255,0.07);
+        rgba(46,143,255,0.05);
 
     border-color:var(--blue-glow);
 
     box-shadow:
-        0 0 12px rgba(95,200,255,.9),
-        0 0 30px rgba(46,143,255,.7),
-        0 0 55px rgba(46,143,255,.45);
+        0 0 8px rgba(95,200,255,.7),
+        0 0 22px rgba(46,143,255,.45),
+        0 0 40px rgba(46,143,255,.25);
 
 }
 

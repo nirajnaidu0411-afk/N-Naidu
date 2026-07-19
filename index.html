@@ -193,13 +193,23 @@ header.hero{
 }
 
 .hero-logo img{
-    height:290px;
+    height:240px;
     width:auto;
     display:block;
     filter:drop-shadow(0 0 18px rgba(46,143,255,.45));
     transition:.35s ease;
 }
+@media (min-width:951px) and (max-width:1200px){
 
+    .hero-logo img{
+        height:220px;
+    }
+
+    .hero-panel{
+        max-width:360px;
+    }
+
+}
 .hero-logo img:hover{
     transform:scale(1.06);
 
@@ -213,48 +223,6 @@ header.hero{
    Desktop Name Hover Effect - Logo Style
 ================================== */
 
-@media (min-width:951px){
-
-.hero-name h1{
-
-    transition:
-        transform .35s ease,
-        filter .35s ease;
-
-    transform-origin:left center;
-    cursor:pointer;
-
-}
-
-
-.hero-name h1:hover{
-
-    transform:scale(1.08);
-
-    filter:
-        drop-shadow(0 0 12px rgba(95,200,255,.95))
-        drop-shadow(0 0 35px rgba(46,143,255,.75))
-        drop-shadow(0 0 60px rgba(46,143,255,.45));
-
-}
-
-
-.hero-name h1 span{
-
-    transition:
-        color .35s ease,
-        -webkit-text-stroke .35s ease;
-
-}
-
-
-.hero-name h1:hover span{
-
-    -webkit-text-stroke:1.5px var(--blue-glow);
-
-}
-
-}
  .hero h1 span{
     display:block;
     color:transparent;
@@ -939,8 +907,6 @@ html{
    Desktop Profile Card Hover Effect
 ========================================== */
 
-@media (min-width:951px){
-
 .hero-panel{
 
     transition:
@@ -948,24 +914,6 @@ html{
         background .45s ease,
         box-shadow .45s ease,
         border-color .45s ease;
-
-}
-
-
-.hero-panel:hover{
-
-    transform:
-        translateZ(0)
-        scale(1.06)
-        translateY(-6px);
-
-    background:rgba(46,143,255,0.08);
-
-    border-color:var(--blue-glow);
-
-    box-shadow:
-        0 0 15px rgba(95,200,255,.7),
-        0 0 35px rgba(46,143,255,.45);
 
 }
 
@@ -986,7 +934,112 @@ html{
 
 }
 
+  /* =====================================
+   Hover Effects - Desktop / Split Screen
+   Works on any mouse-enabled display
+===================================== */
+
+@media (hover:hover){
+
+    .hero-name h1{
+
+        transition:
+            transform .35s ease,
+            filter .35s ease;
+
+        transform-origin:left center;
+        cursor:pointer;
+
+    }
+
+
+    .hero-name h1:hover{
+
+        transform:scale(1.08);
+
+        filter:
+            drop-shadow(0 0 12px rgba(95,200,255,.95))
+            drop-shadow(0 0 35px rgba(46,143,255,.75))
+            drop-shadow(0 0 60px rgba(46,143,255,.45));
+
+    }
+
+
+    .hero-name h1 span{
+
+        transition:
+            color .35s ease,
+            -webkit-text-stroke .35s ease;
+
+    }
+
+
+    .hero-name h1:hover span{
+
+        -webkit-text-stroke:1.5px var(--blue-glow);
+
+    }
+
+
+    .hero-panel{
+
+        transition:
+            transform .45s ease,
+            background .45s ease,
+            box-shadow .45s ease,
+            border-color .45s ease;
+
+    }
+
+
+    .hero-panel:hover{
+
+        transform:
+            translateZ(0)
+            scale(1.06)
+            translateY(-6px);
+
+        background:rgba(46,143,255,0.08);
+
+        border-color:var(--blue-glow);
+
+        box-shadow:
+            0 0 15px rgba(95,200,255,.7),
+            0 0 35px rgba(46,143,255,.45);
+
+    }
+
+
+    .hero-panel:hover .photo-frame{
+
+        border-color:var(--blue-glow);
+
+        box-shadow:
+            0 0 18px rgba(95,200,255,.85),
+            0 0 40px rgba(46,143,255,.45);
+
+    }
+
+
+    .hero-panel:hover::after{
+
+        opacity:1;
+
+    }
+
+
+    .hero-logo img:hover{
+
+        transform:scale(1.06);
+
+        filter:
+            drop-shadow(0 0 18px rgba(46,143,255,.75))
+            drop-shadow(0 0 35px rgba(95,200,255,.55));
+
+    }
+
 }
+  
 </style>
 </head>
 <body>

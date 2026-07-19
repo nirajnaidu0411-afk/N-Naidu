@@ -197,13 +197,49 @@ header.hero{
     width:auto;
     display:block;
     filter:drop-shadow(0 0 18px rgba(46,143,255,.45));
-    transition:.3s ease;
+    transition:.35s ease;
 }
-.hero-logo img:hover{
-    transform:scale(1.05);
-}
+
 .hero-logo img:hover{
     transform:scale(1.06);
+
+    filter:
+        drop-shadow(0 0 18px rgba(46,143,255,.75))
+        drop-shadow(0 0 35px rgba(95,200,255,.55));
+}
+
+
+/* ==================================
+   Desktop Name Hover Effect
+================================== */
+
+@media (min-width:951px){
+
+    .hero-name h1{
+        transition:.35s ease;
+        transform-origin:center left;
+    }
+
+    .hero-name h1:hover{
+        transform:scale(1.06);
+
+        text-shadow:
+            0 0 15px rgba(46,143,255,.65),
+            0 0 35px rgba(95,200,255,.45);
+    }
+
+    .hero-name h1 span{
+        transition:.35s ease;
+    }
+
+    .hero-name h1:hover span{
+        -webkit-text-stroke:1px var(--blue-glow);
+
+        text-shadow:
+            0 0 15px rgba(95,200,255,.9),
+            0 0 35px rgba(46,143,255,.6);
+    }
+
 }
   .hero h1 span{color:var(--blue-glow); display:block; -webkit-text-stroke:1px var(--blue-glow); color:transparent;}
   .hero .role{
@@ -323,6 +359,7 @@ header.hero{
 
 .hero-panel.intro-glow{
     animation:profileCardExpand 1.6s ease-out;
+    animation-fill-mode:forwards;
 }
 
 .hero-panel.intro-glow::after{
@@ -500,6 +537,9 @@ header.hero{
     transition:.3s;
   }
   .card:hover{border-color:var(--blue-dim); transform:translateY(-3px); background:rgba(46,143,255,0.045);}
+  .hero-panel:hover{
+    translate:0 -4px;
+}
   .card:hover::after{border-color:transparent var(--blue) transparent transparent;}
   .card .tag{font-family:'JetBrains Mono'; font-size:10.5px; color:var(--text-lo); letter-spacing:.1em;}
   .card h3{font-size:17.5px; margin:10px 0 8px; font-weight:600;}
@@ -883,38 +923,46 @@ html{
 
 @media (min-width:951px){
 
-    .hero-panel{
-        transition:
-            transform .35s ease,
-            background .35s ease,
-            box-shadow .35s ease;
-    }
+.hero-panel{
+    transition:
+        transform .35s ease,
+        background .35s ease,
+        box-shadow .35s ease;
+}
 
-    .hero-panel:hover{
+.hero-panel:hover{
 
-        transform:scale(1.035) !important;
+    transform:scale(1.06);
 
-        background:rgba(46,143,255,0.06);
+    background:
+        rgba(46,143,255,0.07);
 
-        box-shadow:
-            0 0 10px rgba(95,200,255,.8),
-            0 0 25px rgba(46,143,255,.6),
-            0 0 45px rgba(46,143,255,.35);
+    border-color:var(--blue-glow);
 
-    }
+    box-shadow:
+        0 0 12px rgba(95,200,255,.9),
+        0 0 30px rgba(46,143,255,.7),
+        0 0 55px rgba(46,143,255,.45);
 
-    .hero-panel:hover::after{
-        opacity:1;
-    }
+}
 
-    .hero-panel:hover .photo-frame{
 
-        border-color:var(--blue-glow);
+.hero-panel:hover::after{
 
-        box-shadow:
-            0 0 12px rgba(95,200,255,.5);
+    opacity:1;
 
-    }
+}
+
+
+.hero-panel:hover .photo-frame{
+
+    border-color:var(--blue-glow);
+
+    box-shadow:
+        0 0 15px rgba(95,200,255,.8),
+        0 0 35px rgba(46,143,255,.4);
+
+}
 
 }
 </style>

@@ -248,8 +248,8 @@ header.hero{
     padding:0 8px; font-family:'JetBrains Mono'; font-size:10px; color:var(--text-lo); letter-spacing:.12em;
   }
 
-  /* ==========================================
-   Hero Profile Intro Glow (Fixed)
+/* ==========================================
+   Hero Profile Border Glow
 ========================================== */
 
 .hero-panel{
@@ -257,44 +257,47 @@ header.hero{
     overflow:visible;
 }
 
-/* Soft blue glow behind the card */
 .hero-panel::after{
     content:"";
     position:absolute;
-    inset:-18px;
-    border-radius:inherit;
+    inset:-2px;
+    border-radius:4px;
     pointer-events:none;
-    z-index:-1;
 
-    background:radial-gradient(circle,
-        rgba(95,200,255,.18) 0%,
-        rgba(46,143,255,.12) 45%,
-        rgba(46,143,255,.05) 70%,
-        transparent 100%
-    );
+    border:2px solid rgba(95,200,255,.9);
 
-    filter:blur(22px);
+    box-shadow:
+        0 0 8px rgba(95,200,255,.9),
+        0 0 18px rgba(46,143,255,.7),
+        0 0 35px rgba(46,143,255,.35);
 
     opacity:0;
 }
 
-/* Only fade in the glow */
-@keyframes profileGlow{
+@keyframes profileBorderGlow{
 
     0%{
         opacity:0;
-        transform:scale(.96);
+        transform:scale(.99);
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    75%{
+        opacity:1;
     }
 
     100%{
-        opacity:1;
+        opacity:0;
         transform:scale(1);
     }
 
 }
 
 .hero-panel.intro-glow::after{
-    animation:profileGlow .9s ease-out forwards;
+    animation:profileBorderGlow 2.5s ease forwards;
 }
 .photo-frame{
     width:100%;

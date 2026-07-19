@@ -877,6 +877,39 @@ html{
     scrollbar-width:thin;
     scrollbar-color:var(--blue) var(--gm-950);
 }
+  /* ==========================================
+   Desktop Profile Card Hover Effect
+========================================== */
+
+@media (min-width:951px){
+
+    .hero-panel{
+        transition:
+            transform .35s ease,
+            border-color .35s ease,
+            background .35s ease,
+            box-shadow .35s ease;
+    }
+
+    .hero-panel:hover{
+
+        transform:scale(1.05);
+
+        border-color:var(--blue);
+
+        background:rgba(46,143,255,0.045);
+
+        box-shadow:
+            0 0 15px rgba(46,143,255,.35),
+            0 0 35px rgba(95,200,255,.25);
+
+    }
+
+    .hero-panel:hover .photo-frame{
+        border-color:var(--blue-glow);
+    }
+
+}
 </style>
 </head>
 <body>

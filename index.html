@@ -244,9 +244,19 @@ header.hero{
     isolation:isolate;
 }
   .hero-panel::before{
-    content:"FIG. 01 — PROFILE"; position:absolute; top:-11px; left:16px; background:var(--gm-950);
-    padding:0 8px; font-family:'JetBrains Mono'; font-size:10px; color:var(--text-lo); letter-spacing:.12em;
-  }
+    content:"FIG. 01 — PROFILE";
+    position:absolute;
+    top:-11px;
+    left:16px;
+    background:var(--gm-950);
+    padding:0 8px;
+    font-family:'JetBrains Mono';
+    font-size:10px;
+    color:var(--text-lo);
+    letter-spacing:.12em;
+
+    z-index:999;
+}
 
 /* ==========================================
    Hero Profile Border Glow
@@ -274,6 +284,8 @@ header.hero{
         0 0 60px rgba(95,200,255,.28);
 
     opacity:0;
+
+    z-index:1;
 }
 @keyframes profileBorderGlow{
     0%{

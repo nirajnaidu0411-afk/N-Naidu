@@ -210,38 +210,56 @@ header.hero{
 
 
 /* ==================================
-   Desktop Name Hover Effect
+   Desktop Name Hover Effect - Logo Style
 ================================== */
 
 @media (min-width:951px){
 
-    .hero-name h1{
-        transition:.35s ease;
-        transform-origin:center left;
-    }
+.hero-name h1{
 
-    .hero-name h1:hover{
-        transform:scale(1.06);
+    transition:
+        transform .35s ease,
+        filter .35s ease;
 
-        text-shadow:
-            0 0 15px rgba(46,143,255,.65),
-            0 0 35px rgba(95,200,255,.45);
-    }
-
-    .hero-name h1 span{
-        transition:.35s ease;
-    }
-
-    .hero-name h1:hover span{
-        -webkit-text-stroke:1px var(--blue-glow);
-
-        text-shadow:
-            0 0 15px rgba(95,200,255,.9),
-            0 0 35px rgba(46,143,255,.6);
-    }
+    transform-origin:left center;
+    cursor:pointer;
 
 }
-  .hero h1 span{color:var(--blue-glow); display:block; -webkit-text-stroke:1px var(--blue-glow); color:transparent;}
+
+
+.hero-name h1:hover{
+
+    transform:scale(1.08);
+
+    filter:
+        drop-shadow(0 0 12px rgba(95,200,255,.95))
+        drop-shadow(0 0 35px rgba(46,143,255,.75))
+        drop-shadow(0 0 60px rgba(46,143,255,.45));
+
+}
+
+
+.hero-name h1 span{
+
+    transition:
+        color .35s ease,
+        -webkit-text-stroke .35s ease;
+
+}
+
+
+.hero-name h1:hover span{
+
+    -webkit-text-stroke:1.5px var(--blue-glow);
+
+}
+
+}
+ .hero h1 span{
+    display:block;
+    color:transparent;
+    -webkit-text-stroke:1px var(--blue-glow);
+}
   .hero .role{
     margin-top:20px; font-family:'JetBrains Mono', monospace; color:var(--text-mid); font-size:15px; letter-spacing:.04em;
     display:flex; gap:14px; flex-wrap:wrap;
@@ -275,7 +293,7 @@ header.hero{
     backdrop-filter:blur(10px);
     border-radius:var(--radius);
 
-    transform:scale(1);
+    transform:translateZ(0) scale(1);
     will-change:transform;
     isolation:isolate;
 }
@@ -297,13 +315,9 @@ header.hero{
 /* ==========================================
    Hero Profile Border Glow
 ========================================== */
-
 .hero-panel{
-    position:relative;
     overflow:visible;
-    transform:scale(1);
 }
-
 .hero-panel::after{
     content:"";
     position:absolute;
@@ -536,11 +550,15 @@ header.hero{
     border-style:solid; border-width:0 26px 26px 0; border-color:transparent var(--gm-700) transparent transparent;
     transition:.3s;
   }
-  .card:hover{border-color:var(--blue-dim); transform:translateY(-3px); background:rgba(46,143,255,0.045);}
-  .hero-panel:hover{
-    transform:scale(1.04);
+  .card:hover{
+    border-color:var(--blue-dim);
+    transform:translateY(-3px);
+    background:rgba(46,143,255,0.045);
 }
-  .card:hover::after{border-color:transparent var(--blue) transparent transparent;}
+
+.card:hover::after{
+    border-color:transparent var(--blue) transparent transparent;
+}
   .card .tag{font-family:'JetBrains Mono'; font-size:10.5px; color:var(--text-lo); letter-spacing:.1em;}
   .card h3{font-size:17.5px; margin:10px 0 8px; font-weight:600;}
   .card p{color:var(--text-mid); font-size:13.5px; line-height:1.7;}
@@ -735,13 +753,13 @@ footer{
     margin-bottom:28px;
 }
   .hero-name{
-    flex-direction:row;
-    align-items:center;
-    gap:10px;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:18px;
 }
 
 .hero-logo img{
-    height:220px;
+    height:180px;
 }
 
     .hero .role{
@@ -924,26 +942,40 @@ html{
 @media (min-width:951px){
 
 .hero-panel{
+
     transition:
         transform .45s ease,
         background .45s ease,
         box-shadow .45s ease,
         border-color .45s ease;
+
 }
+
 
 .hero-panel:hover{
 
-    transform:scale(1.04);
+    transform:
+        translateZ(0)
+        scale(1.06)
+        translateY(-6px);
 
-    background:
-        rgba(46,143,255,0.05);
+    background:rgba(46,143,255,0.08);
 
     border-color:var(--blue-glow);
 
     box-shadow:
-        0 0 8px rgba(95,200,255,.7),
-        0 0 22px rgba(46,143,255,.45),
-        0 0 40px rgba(46,143,255,.25);
+        0 0 15px rgba(95,200,255,.7),
+        0 0 35px rgba(46,143,255,.45);
+
+}
+
+.hero-panel:hover .photo-frame{
+
+    border-color:var(--blue-glow);
+
+    box-shadow:
+        0 0 18px rgba(95,200,255,.85),
+        0 0 40px rgba(46,143,255,.45);
 
 }
 
@@ -951,17 +983,6 @@ html{
 .hero-panel:hover::after{
 
     opacity:1;
-
-}
-
-
-.hero-panel:hover .photo-frame{
-
-    border-color:var(--blue-glow);
-
-    box-shadow:
-        0 0 15px rgba(95,200,255,.8),
-        0 0 35px rgba(46,143,255,.4);
 
 }
 

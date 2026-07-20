@@ -794,8 +794,18 @@ header.hero{
   /* EXPERIENCE TIMELINE */
 .timeline{
   position:relative;
-  padding-left:36px;
-  border-left:1px solid var(--line);
+  padding-left:60px;
+  border-left:none;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:16px;
+    top:0;
+    bottom:0;
+    width:1px;
+    background:var(--line);
 }
 
 .tl-item{
@@ -810,13 +820,14 @@ header.hero{
 .tl-item::before{
     content:"";
     position:absolute;
-    left:-44px;
+    left:-50px;
     top:3px;
     width:12px;
     height:12px;
     background:var(--gm-950);
     border:2px solid var(--blue);
     transform:rotate(45deg);
+    z-index:2;
 }
   .tl-date{font-family:'JetBrains Mono'; font-size:11.5px; color:var(--blue-glow); letter-spacing:.06em; margin-bottom:6px;}
   .tl-item h3{font-size:20px; font-weight:600;}
@@ -1107,12 +1118,16 @@ footer{
     }
 
     .timeline{
-        padding-left:24px;
-    }
+    padding-left:45px;
+}
 
-    .tl-item::before{
-        left:-32px;
-    }
+.timeline::before{
+    left:14px;
+}
+
+.tl-item::before{
+    left:-38px;
+}
 
     .corner{
         display:none;
@@ -1497,9 +1512,10 @@ html{
             </div>
 
 
-            <a href="https://github.com/YOUR_USERNAME/YOUR_REPO/blob/main/research/Sustainable_Mold_Design_with_Additive_Manufacturing.pdf"
-               target="_blank"
-               class="research-btn">
+           <a href="./research/Sustainable_Mold_Design_with_Additive_Manufacturing.pdf"
+   target="_blank"
+   rel="noopener"
+   class="research-btn">
 
                 VIEW PDF →
 
@@ -1558,13 +1574,14 @@ html{
 
 
 
-            <a href="https://github.com/YOUR_USERNAME/YOUR_REPO/blob/main/research/Advanced_Conformal_Cooling.pdf"
-               target="_blank"
-               class="research-btn">
+            <a href="./research/Advanced_Conformal_Cooling.pdf"
+   target="_blank"
+   rel="noopener"
+   class="research-btn">
 
-                VIEW PDF →
+    VIEW PDF →
 
-            </a>
+</a>
 
 
         </article>

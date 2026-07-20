@@ -95,7 +95,7 @@ nav{
   .brand{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:6px;
     text-decoration:none;
     color:var(--text-hi);
     font-family:'Space Grotesk',sans-serif;
@@ -235,33 +235,40 @@ header.hero{
 }
   .nav-research-toggle{
 
-    width:34px;
-    height:34px;
+    width:26px;
+    height:18px;
 
-    margin-right:4px;
+    margin-right:2px;
 
-    flex-shrink:0;
+    padding:0;
 
+    border:none;
     background:transparent;
 
-    border:1px solid var(--line);
+    flex-shrink:0;
 
 }
 
 .nav-research-toggle:hover{
 
-    border-color:var(--blue-glow);
-
-    box-shadow:
-        0 0 10px rgba(95,200,255,.6);
+    transform:translateY(-1px);
 
 }
 
 .research-toggle span{
-    width:20px;
+
+    width:24px;
     height:2px;
-    margin:auto;
+
+    margin:0;
+
     background:var(--blue-glow);
+
+    border-radius:2px;
+
+    box-shadow:
+        0 0 6px rgba(95,200,255,.55);
+
 }
 
 .research-toggle:hover{

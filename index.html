@@ -179,9 +179,8 @@ header.hero{
   .hero-name{
     display:flex;
     align-items:center;
-    gap:35px;
+    gap:22px;
 }
-
 .hero-name h1{
     margin:0;
 }
@@ -218,7 +217,93 @@ header.hero{
         drop-shadow(0 0 35px rgba(95,200,255,.55));
 }
 
+/* ===========================
+   Research Archive
+=========================== */
 
+.research-toggle{
+    width:42px;
+    height:42px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.03);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:6px;
+    cursor:pointer;
+    transition:.3s;
+}
+  .nav-research-toggle{
+
+    width:34px;
+    height:34px;
+
+    margin-right:4px;
+
+    flex-shrink:0;
+
+    background:transparent;
+
+    border:1px solid var(--line);
+
+}
+
+.nav-research-toggle:hover{
+
+    border-color:var(--blue-glow);
+
+    box-shadow:
+        0 0 10px rgba(95,200,255,.6);
+
+}
+
+.research-toggle span{
+    width:20px;
+    height:2px;
+    margin:auto;
+    background:var(--blue-glow);
+}
+
+.research-toggle:hover{
+    border-color:var(--blue-glow);
+    box-shadow:0 0 12px rgba(95,200,255,.5);
+}
+
+.research-panel{
+    margin-top:25px;
+    max-width:700px;
+
+    background:rgba(255,255,255,.03);
+    border:1px solid var(--line);
+
+    padding:0 24px;
+
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+
+    transition:.4s ease;
+}
+
+.research-panel.open{
+    max-height:200px;
+    opacity:1;
+    padding:22px 24px;
+}
+
+.research-label{
+    color:var(--blue-glow);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:.12em;
+    margin-bottom:12px;
+}
+
+.research-title{
+    color:var(--text-hi);
+    font-size:18px;
+    font-weight:600;
+}
 /* ==================================
    Desktop Name Hover Effect - Logo Style
 ================================== */
@@ -1080,8 +1165,17 @@ html{
 <div id="glow"></div>
 <nav>
 <a href="#top" class="brand">
+
+    <button id="researchToggle" class="research-toggle nav-research-toggle" aria-label="Research Archive">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
     <span class="tick"></span>
+
     <span class="brand-name">NIRAJ NAIDU</span>
+
 </a>
 <ul>
 <li><a href="#about">About</a></li>
@@ -1107,6 +1201,18 @@ html{
     <a href="#top" class="hero-logo">
         <img src="logo.png" alt="Niraj Naidu Logo">
     </a>
+
+</div>
+
+<div id="researchPanel" class="research-panel">
+
+    <div class="research-label">
+        MASTER'S RESEARCH ARCHIVE
+    </div>
+
+    <div class="research-title">
+        FOM University • Research Projects • Technical Studies
+    </div>
 
 </div>
 <div class="role">
@@ -1653,7 +1759,19 @@ window.addEventListener("load", () => {
         }
 
     });
+/* Research Archive Toggle */
 
+const researchToggle = document.getElementById("researchToggle");
+const researchPanel = document.getElementById("researchPanel");
+
+researchToggle?.addEventListener("click", (e) => {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    researchPanel.classList.toggle("open");
+
+});
 </script>
 
 </body>

@@ -1,0 +1,4175 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="color-scheme" content="dark light"/>
+<meta name="theme-color" content="#101216"/>
+<script>
+/* Apply saved theme before first paint so there's no flash of the wrong mode. */
+(function(){
+  try{
+    var saved = localStorage.getItem('site-theme');
+    if(saved === 'light'){
+      document.documentElement.setAttribute('data-theme','light');
+      var m = document.querySelector('meta[name="theme-color"]');
+      if(m) m.setAttribute('content', '#eef1f5');
+    }
+  }catch(e){}
+})();
+</script>
+<title>Niraj Naidu | Mechanical Design Engineer | SOLIDWORKS | CATIA | Germany</title>  <meta name="description" content="Niraj Naidu is a Mechanical Product Designer specializing in SOLIDWORKS, CATIA, hydraulic systems, CAD modeling, reverse engineering and additive manufacturing.">  <meta name="keywords" content="Mechanical Product Designer, SOLIDWORKS, CATIA, Hydraulic Design, CAD Engineer, Product Development, Germany">  <meta name="author" content="Niraj Naidu"> <meta property="og:title" content="Niraj Naidu | Mechanical Product Designer">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --gm-950:#101216;
+    --gm-900:#15181d;
+    --gm-800:#1c2027;
+    --gm-700:#262b33;
+    --gm-600:#333a44;
+    --line:#3a414d;
+    --text-hi:#eef1f5;
+    --text-mid:#a9b2bf;
+    --text-lo:#6c7684;
+    --blue:#2e8fff;
+    --blue-glow:#5fc8ff;
+    --blue-dim:#1b4a7a;
+    --amber:#ff9f43;
+    --radius:2px;
+    color-scheme: dark;
+
+    /* theme-aware texture / chrome tokens (dark = default) */
+    --weave-a: rgba(255,255,255,0.018);
+    --weave-b: rgba(0,0,0,0.35);
+    --grid-line: rgba(46,143,255,0.06);
+    --glow-a: rgba(46,143,255,0.22);
+    --glow-b: rgba(46,143,255,0.08);
+    --nav-bg: rgba(16,18,22,0.82);
+    --panel-bg: rgba(255,255,255,0.03);
+    --panel-solid-bg: rgba(10,12,15,.97);
+    --dotted-line: rgba(169,178,191,.35);
+    --card-elev: none;
+    --hero-photo-filter: grayscale(20%) contrast(1.05);
+    --scan-rgb: 95,200,255;
+  }
+
+  /* ============================= */
+  /* LIGHT MODE — drafting-paper theme, same structure & motion, adapted tones */
+  /* ============================= */
+  html[data-theme="light"]{
+    --gm-950:#eef1f5;
+    --gm-900:#e6eaf0;
+    --gm-800:#dde3ea;
+    --gm-700:#ccd3de;
+    --gm-600:#b5bfcd;
+    --line:#c7cedb;
+    --text-hi:#12161d;
+    --text-mid:#4a525f;
+    --text-lo:#7c8592;
+    --blue:#2e8fff;
+    --blue-glow:#0a66c2;
+    --blue-dim:#3f74ab;
+    --amber:#ff9f43;
+    color-scheme: light;
+
+    --weave-a: rgba(255,255,255,0.45);
+    --weave-b: rgba(15,23,42,0.1);
+    --grid-line: rgba(15,90,190,0.08);
+    --glow-a: rgba(15,90,190,0.15);
+    --glow-b: rgba(15,90,190,0.05);
+    --nav-bg: rgba(255,255,255,0.82);
+    --panel-bg: #ffffff;
+    --panel-solid-bg: rgba(255,255,255,.97);
+    --dotted-line: rgba(20,30,45,.22);
+    --card-elev: 0 2px 12px rgba(20,35,60,.07), 0 1px 3px rgba(20,35,60,.06);
+    --hero-photo-filter: grayscale(10%) contrast(1.03) brightness(1.02);
+    --scan-rgb: 10,102,194;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  img, svg{max-width:100%;}
+  html{
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+    background:var(--gm-950);
+    color:var(--text-hi);
+    color-scheme:dark light;
+    transition:background .4s ease, color .4s ease;
+  }
+  html[data-theme="light"]{ color-scheme:light dark; }
+  body{
+    background:var(--gm-950);
+    color:var(--text-hi);
+    font-family:'Inter', sans-serif;
+    width:100%;
+    position:relative;
+    transition:background .4s ease, color .4s ease;
+  }
+  /* carbon fiber weave (dark) / linen-paper weave (light) */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    z-index:0;
+    pointer-events:none;
+    background-image:
+      repeating-linear-gradient(45deg, var(--weave-a) 0px, var(--weave-a) 2px, transparent 2px, transparent 8px),
+      repeating-linear-gradient(-45deg, var(--weave-b) 0px, var(--weave-b) 2px, transparent 2px, transparent 8px),
+      linear-gradient(180deg, var(--gm-950), var(--gm-900) 40%, var(--gm-950));
+    transition:background .4s ease;
+  }
+  /* blueprint grid */
+  .grid-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.35;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 20%, black 40%, transparent 90%);
+    transition:background .4s ease;
+  }
+  #glow{
+    position:fixed; top:0; left:0; width:520px; height:520px; border-radius:50%;
+    pointer-events:none; z-index:1;
+    background:radial-gradient(circle, var(--glow-a), var(--glow-b) 40%, transparent 70%);
+    transform:translate3d(-50%,-50%,0);
+    transition:opacity .3s, background .4s ease;
+    will-change:transform;
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+    contain:layout paint;
+    overflow:hidden;
+}
+
+#glow.reset{
+    opacity:0;
+    transform:translate3d(-50%,-50%,0);
+}
+
+/* Flowing sci-fi dust field — sits above the blueprint grid
+   but below the actual content, tinted to match the current
+   theme's accent colour so it reads consistently in both
+   dark and light mode. Brightness is handled per-particle in
+   JS (via "lighter" compositing), so the canvas itself stays
+   at full opacity in both themes. */
+#dustField{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    width:100%;
+    height:100%;
+    opacity:1;
+    mix-blend-mode:screen;
+}
+html[data-theme="light"] #dustField{
+    mix-blend-mode:multiply;
+}
+@media (prefers-reduced-motion: reduce){
+    #dustField{ display:none; }
+}
+@media (max-width:950px){
+  #glow{width:400px; height:400px;}
+}
+@media (max-width:600px){
+  #glow{width:300px; height:300px;}
+}
+@media (max-width:430px){
+  #glow{width:240px; height:240px;}
+}
+  .wrap{position:relative; z-index:2; max-width:1180px; margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--blue-glow);
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:""; width:22px; height:1px; background:var(--blue-glow);}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; letter-spacing:-.01em;}
+
+  /* NAV */
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 40px;
+    min-height:72px;
+    background:var(--nav-bg);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    transition:background .4s ease, border-color .4s ease;
+}
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:var(--text-hi);
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:17px;
+    letter-spacing:.03em;
+    cursor:pointer;
+}
+
+.brand-name{
+    white-space:nowrap;
+}
+
+.brand .tick{
+    width:7px;
+    height:7px;
+    background:var(--blue);
+    transform:rotate(45deg);
+    box-shadow:0 0 12px var(--blue-glow);
+    flex-shrink:0;
+}
+
+.eyebrow-logo{
+    height:20px;
+    width:auto;
+    max-width:20px;
+    object-fit:contain;
+    display:block;
+    flex-shrink:0;
+    filter:drop-shadow(0 0 8px rgba(46,143,255,.5));
+    transition:transform .3s ease, filter .3s ease;
+}
+
+.eyebrow-logo:hover{
+    transform:scale(1.1);
+    filter:drop-shadow(0 0 12px rgba(95,200,255,.7));
+}
+
+.logo{
+    width:34px;
+    height:34px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 8px rgba(59,130,246,.35));
+    flex-shrink:0;
+}
+  nav ul{list-style:none; display:flex; gap:34px;}
+  nav a{color:var(--text-mid); text-decoration:none; font-size:13px; font-family:'JetBrains Mono', monospace; letter-spacing:.05em; text-transform:uppercase; transition:color .2s;}
+  nav a:hover{color:var(--blue-glow);}
+  nav a.active{
+    color:var(--blue-glow);
+    position:relative;
+}
+
+nav a.active::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-8px;
+    width:100%;
+    height:2px;
+    background:var(--blue-glow);
+    box-shadow:0 0 10px var(--blue-glow);
+}
+  .nav-cta{
+    border:1px solid var(--blue-dim); color:var(--blue-glow); padding:8px 16px; font-family:'JetBrains Mono';
+    font-size:12px; text-decoration:none; letter-spacing:.05em; transition:.25s;
+  }
+  .nav-cta:hover{background:var(--blue); color:#0a0e14; border-color:var(--blue);}
+  .navburger{display:none;}
+
+  /* ============================= */
+  /* Theme toggle — dark / light switch */
+  /* ============================= */
+  .nav-right{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-shrink:0;
+  }
+  .theme-toggle-input{
+    position:absolute;
+    width:1px; height:1px;
+    opacity:0;
+    pointer-events:none;
+  }
+  /* Diamond push-switch: a rotated square frame that spins to its
+     opposite orientation on every press (clockwise turning on,
+     counter-clockwise turning back off), with the sun / moon glyph
+     cross-fading inside while staying upright the whole time. */
+  .theme-toggle{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:34px;
+    height:34px;
+    padding:0;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .ttog-diamond{
+    position:relative;
+    width:23px;
+    height:23px;
+    background:var(--gm-800);
+    border:1px solid var(--line);
+    transform:rotate(45deg);
+    transition:transform .6s cubic-bezier(.65,-0.2,.35,1.2),
+               background .4s ease,
+               border-color .4s ease,
+               box-shadow .4s ease;
+    will-change:transform;
+  }
+  .theme-toggle:hover .ttog-diamond{
+    border-color:var(--blue-dim);
+  }
+  .theme-toggle-input:checked ~ .theme-toggle .ttog-diamond{
+    transform:rotate(225deg);
+    background:var(--blue);
+    border-color:var(--blue);
+    box-shadow:0 0 8px var(--blue-glow), 0 0 18px rgba(46,143,255,.45);
+  }
+  .ttog-face{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transform:rotate(-45deg);
+    opacity:0;
+    transition:transform .6s cubic-bezier(.65,-0.2,.35,1.2), opacity .35s ease;
+    pointer-events:none;
+  }
+  .ttog-face-moon{ opacity:1; }
+  .theme-toggle-input:checked ~ .theme-toggle .ttog-face-sun{
+    opacity:1;
+    transform:rotate(-225deg);
+  }
+  .theme-toggle-input:checked ~ .theme-toggle .ttog-face-moon{
+    opacity:0;
+    transform:rotate(-225deg);
+  }
+  .ttog-icon{
+    width:12px;
+    height:12px;
+    fill:none;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    pointer-events:none;
+  }
+  .ttog-face-sun .ttog-icon{ stroke:#fff2df; }
+  .ttog-face-moon .ttog-icon{ stroke:var(--text-mid); }
+  .theme-toggle-input:focus-visible ~ .theme-toggle .ttog-diamond{
+    outline:1px solid var(--blue-glow);
+    outline-offset:3px;
+  }
+  @media (max-width:600px){
+    .nav-right{ gap:10px; }
+    .theme-toggle{ width:29px; height:29px; }
+    .ttog-diamond{ width:20px; height:20px; }
+    .ttog-icon{ width:10px; height:10px; }
+  }
+  @media (max-width:340px){
+    .nav-right{ gap:8px; }
+    .theme-toggle{ width:26px; height:26px; }
+    .ttog-diamond{ width:18px; height:18px; }
+    .ttog-icon{ width:9px; height:9px; }
+  }
+
+  /* HERO */
+header.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+    padding-top:150px;
+    padding-bottom:60px;
+}
+  .corner{position:absolute; width:26px; height:26px; border:1px solid var(--blue-dim); opacity:.7;}
+  .corner.tl{top:100px; left:32px; border-right:none; border-bottom:none;}
+  .corner.tr{top:100px; right:32px; border-left:none; border-bottom:none;}
+  .corner.bl{bottom:40px; left:32px; border-right:none; border-top:none;}
+  .corner.br{bottom:40px; right:32px; border-left:none; border-top:none;}
+
+  /* ==================================
+     Corner-docked brand logo — desktop only.
+     The .hero-logo node is moved (via JS) into
+     the top-left L-bracket on wide/landscape
+     screens, and scaled up to read clearly while
+     still sitting centred on the bracket's vertex.
+     On mobile/tablet the JS moves it back inline
+     next to the name, untouched.
+  ================================== */
+  .corner.tl{
+      overflow:visible;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+  }
+  .corner.tl .hero-logo{
+      position:absolute;
+      top:50%;
+      left:50%;
+      margin-left:0 !important;
+      width:clamp(48px, 4vw, 68px);
+      height:clamp(48px, 4vw, 68px);
+      transform:translate(-50%,-50%);
+      filter:drop-shadow(0 0 10px rgba(46,143,255,.55));
+      transition:transform .3s ease, filter .3s ease;
+  }
+  .corner.tl .hero-logo:hover{
+      transform:translate(-50%,-50%) scale(1.08);
+  }
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.25fr) minmax(300px,460px);
+    gap:clamp(45px,7vw,90px);
+    align-items:center;
+}
+  .hero h1{
+    font-size:clamp(46px, 6.4vw, 84px); line-height:.98; font-weight:700; margin-top:18px;
+    text-transform:uppercase;
+  }
+  .hero-name{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.hero-name h1{
+    margin:0;
+}
+
+.hero-logo{
+    height:calc(clamp(46px, 6.4vw, 84px) * .98 * 2);
+    width:auto;
+    max-width:32vw;
+    object-fit:contain;
+    flex-shrink:0;
+    filter:drop-shadow(0 0 8px rgba(46,143,255,.35));
+    transition:transform .35s ease, filter .35s ease;
+}
+
+@media (min-width:951px) and (max-width:1200px){
+
+    .hero-panel{
+        max-width:360px;
+    }
+
+}
+
+
+/* ==================================
+   Desktop Name Hover Effect - Logo Style
+================================== */
+
+ .hero h1 span{
+    display:block;
+    color:transparent;
+    -webkit-text-stroke:1px var(--blue-glow);
+}
+  .hero .role{
+    margin-top:20px; font-family:'JetBrains Mono', monospace; color:var(--text-mid); font-size:15px; letter-spacing:.04em;
+    display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .hero .role b{color:var(--blue-glow); font-weight:500;}
+  .hero p.lede{margin-top:26px; max-width:560px; color:var(--text-mid); font-size:15.5px; line-height:1.75;}
+  .hero-actions{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono'; font-size:13px; letter-spacing:.04em; padding:13px 26px;
+    text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:.25s; border-radius:var(--radius);
+  }
+  .mail-icon{
+    width:20px;
+    height:20px;
+    flex-shrink:0;
+    display:block;
+}
+  .btn-primary{background:var(--blue); color:#081018; font-weight:600; box-shadow:0 0 0 rgba(46,143,255,0); }
+  .btn-primary:hover{box-shadow:0 0 26px rgba(46,143,255,0.45); transform:translateY(-1px);}
+  .btn-ghost{border:1px solid var(--line); color:var(--text-hi);}
+  .btn-ghost:hover{border-color:var(--blue-glow); color:var(--blue-glow);}
+
+.hero-panel{
+    position:relative;
+    width:100%;
+    max-width:500px;
+    justify-self:center;
+    padding:18px;
+    background:var(--panel-bg);
+    border:1px solid var(--line);
+    backdrop-filter:blur(10px);
+    border-radius:var(--radius);
+    box-shadow:var(--card-elev);
+
+    transform:translateZ(0) scale(1);
+    will-change:transform;
+    isolation:isolate;
+    transition:background .4s ease, border-color .4s ease, box-shadow .4s ease;
+}
+  .hero-panel::before{
+    content:"FIG. 01 — PROFILE";
+    position:absolute;
+    top:-11px;
+    left:16px;
+    background:var(--gm-950);
+    padding:0 8px;
+    font-family:'JetBrains Mono';
+    font-size:10px;
+    color:var(--text-lo);
+    letter-spacing:.12em;
+
+    z-index:999;
+}
+
+/* ==========================================
+   Hero Profile Border Glow
+========================================== */
+.hero-panel{
+    overflow:visible;
+}
+.hero-panel::after{
+    content:"";
+    position:absolute;
+    inset:-3px;
+    border-radius:6px;
+    pointer-events:none;
+
+    border:1px solid rgba(95,200,255,.95);
+
+    box-shadow:
+        0 0 8px rgba(95,200,255,.65),
+        0 0 16px rgba(46,143,255,.52),
+        0 0 28px rgba(46,143,255,.38),
+        0 0 46px rgba(95,200,255,.20);
+
+    opacity:0;
+    transition:opacity .45s ease;
+
+    z-index:1;
+}
+@keyframes profileBorderGlow{
+    0%{
+        opacity:0;
+        transform:scale(.99);
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    55%{
+        opacity:.85;
+    }
+
+    100%{
+        opacity:0;
+        transform:scale(1.01);
+    }
+}
+/* Card expansion */
+@keyframes profileCardExpand{
+    0%{
+        transform:scale(1);
+    }
+
+    40%{
+        transform:scale(1.012);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+.hero-panel.intro-glow{
+    animation:profileCardExpand 1.6s ease-out;
+    animation-fill-mode:forwards;
+}
+
+.hero-panel.intro-glow::after{
+    animation:profileBorderGlow 1.6s ease-out forwards;
+}
+
+/* ============================================
+   Desktop split layout — fixed left profile rail
+   (desktop / tablet-landscape only; DOM is moved
+   into #desktopRail via JS, see bottom script)
+
+   Gaps: the rail sits the same distance from the
+   page edge (--split-gap) as the content normally
+   sits from the page edge everywhere else on the
+   site (.wrap's own 32px gutter), and the gap
+   between the rail and the content column uses
+   that identical value — so the spacing rhythm
+   stays consistent instead of ballooning on wide
+   screens.
+============================================ */
+.desktop-rail{
+    display:none;
+}
+@media (min-width:1024px) and (orientation:landscape){
+    :root{
+        --rail-w:460px;
+        --split-gap:32px;
+    }
+    body.is-split .desktop-rail{
+        display:block;
+        position:fixed;
+        top:110px;
+        left:var(--split-gap);
+        width:var(--rail-w);
+        max-height:calc(100vh - 130px);
+        overflow:visible;
+        z-index:40;
+        transition:opacity .4s ease;
+    }
+    body.is-split .page-main{
+        margin-left:calc(var(--rail-w) + (var(--split-gap) * 2));
+        transition:margin-left .4s ease;
+    }
+    /* Content keeps its normal max-width and padding untouched —
+       it's simply left-aligned instead of auto-centered, so it
+       sits flush against the rail with the matching gap. */
+    body.is-split .page-main .wrap{
+        margin-left:0;
+    }
+    body.is-split .hero-grid{
+        grid-template-columns:1fr;
+    }
+    body.is-split .desktop-rail .hero-panel{
+        max-width:var(--rail-w);
+    }
+}
+.photo-frame{
+    width:100%;
+    aspect-ratio:0.95/1;
+    overflow:hidden;
+    border:1px solid var(--line);
+    position:relative;
+}
+
+.photo-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center top;
+    filter:var(--hero-photo-filter);
+    transition:filter .4s ease;
+}
+
+/* ==========================================
+   Digital-scan photo swap — plays when the
+   theme toggle fires, right as the profile
+   image src is switched between the dark-mode
+   and light-mode portrait. A soft, blurred
+   horizontal band sweeps the frame — no hard
+   line — while the photo itself just pulses
+   gently in brightness, no jitter or glitching.
+========================================== */
+.scan-overlay{
+    position:absolute;
+    inset:-15% 0;
+    z-index:6;
+    pointer-events:none;
+    opacity:0;
+    background:linear-gradient(180deg,
+        transparent 0%,
+        rgba(var(--scan-rgb),.16) 32%,
+        rgba(var(--scan-rgb),.38) 50%,
+        rgba(var(--scan-rgb),.16) 68%,
+        transparent 100%);
+    filter:blur(16px);
+    transform:translateY(-65%);
+    mix-blend-mode:screen;
+}
+html[data-theme="light"] .scan-overlay{
+    mix-blend-mode:multiply;
+    background:linear-gradient(180deg,
+        transparent 0%,
+        rgba(var(--scan-rgb),.05) 32%,
+        rgba(var(--scan-rgb),.22) 50%,
+        rgba(var(--scan-rgb),.05) 68%,
+        transparent 100%);
+}
+.photo-frame.scanning .scan-overlay{
+    animation:heroScanMove 1.3s linear, heroScanFade 1.3s ease-in-out;
+}
+@keyframes heroScanMove{
+    0%{ transform:translateY(-65%); }
+    100%{ transform:translateY(65%); }
+}
+@keyframes heroScanFade{
+    0%{ opacity:0; }
+    8%{ opacity:1; }
+    92%{ opacity:1; }
+    100%{ opacity:0; }
+}
+.photo-frame.scanning img{
+    animation:heroScanPulse 1.3s ease-in-out;
+}
+@keyframes heroScanPulse{
+    0%{ filter:var(--hero-photo-filter); }
+    50%{ filter:var(--hero-photo-filter) brightness(1.08) contrast(1.03); }
+    100%{ filter:var(--hero-photo-filter); }
+}
+@media (prefers-reduced-motion: reduce){
+    .photo-frame.scanning .scan-overlay,
+    .photo-frame.scanning img{
+        animation:none !important;
+    }
+}
+.specs{
+    margin-top:18px;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    padding-bottom:0;
+}
+
+.specs div{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:11px 0;
+    border-bottom:1px dotted var(--dotted-line);
+    font-family:'JetBrains Mono', monospace;
+    transition:border-color .4s ease;
+}
+
+.specs div:last-child{
+    border-bottom:none;
+}
+
+.specs div span{
+    color:var(--text-mid);
+    font-size:13px;
+    font-weight:400;
+    letter-spacing:.02em;
+}
+
+.specs div b{
+    color:var(--text-hi);
+    font-size:13px;
+    font-weight:700;
+    font-family:'JetBrains Mono', monospace;
+    text-align:right;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:65%;
+}
+
+.specs div b a{
+    color:inherit;
+    text-decoration:none;
+    font-weight:700;
+}
+.specs div b a:hover{
+    color:var(--blue-glow);
+}
+  .specs div:nth-child(4) b{
+    font-size:10.5px;
+    letter-spacing:-0.02em;
+}
+  section{     position:relative;     z-index:2;     padding:clamp(50px,6vw,80px) 0; }
+  .section-head{
+    margin-bottom:clamp(28px,4vw,52px);
+}
+  .section-head h2{font-size:clamp(30px,3.4vw,44px); margin-top:14px; text-transform:uppercase;}
+  .section-head .num{font-family:'JetBrains Mono'; color:var(--text-lo); font-size:12px;}
+
+  /* ABOUT */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:clamp(28px,4vw,60px);
+    align-items:start;
+}
+  .about-grid p{
+    color:var(--text-mid);
+    line-height:1.9;
+    font-size:15.5px;
+    margin-bottom:16px;
+}
+  .lang-list{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;}
+  .lang-chip{
+    font-family:'JetBrains Mono'; font-size:11.5px; border:1px solid var(--line); padding:7px 14px; color:var(--text-mid); letter-spacing:.04em;
+    display:inline-block;
+    transition:transform .35s ease, filter .35s ease, border-color .35s ease, color .35s ease;
+    transform-origin:center;
+  }
+  .lang-chip.tap-glow{
+    transform:scale(1.08);
+    border-color:var(--blue-glow);
+    color:var(--text-hi);
+    filter:
+        drop-shadow(0 0 6px rgba(95,200,255,.6))
+        drop-shadow(0 0 16px rgba(46,143,255,.4));
+  }
+
+  /* SKILLS */
+  .skills-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:16px 40px;}
+  .skill{}
+  .skill-top{display:flex; justify-content:space-between; font-family:'JetBrains Mono'; font-size:12.5px; margin-bottom:8px; color:var(--text-mid);}
+  .skill-top b{
+    color:var(--text-hi); font-family:'Inter'; font-size:14px; font-weight:500;
+    display:inline-block;
+    transition:transform .35s ease, filter .35s ease;
+    transform-origin:left center;
+  }
+  .bar{
+    height:6px; background:var(--gm-700); position:relative; overflow:hidden; border:1px solid var(--line);
+    transition:border-color .35s ease, box-shadow .35s ease;
+  }
+  .bar i{
+    display:block; height:100%; width:0%; background:linear-gradient(90deg, var(--blue-dim), var(--blue), var(--blue-glow));
+    transition:width 1.4s cubic-bezier(.16,1,.3,1), box-shadow .35s ease;
+    box-shadow:0 0 10px rgba(46,143,255,0.5);
+  }
+
+  .skill.tap-glow .skill-top b{
+    transform:scale(1.08);
+    filter:
+        drop-shadow(0 0 6px rgba(95,200,255,.65))
+        drop-shadow(0 0 16px rgba(46,143,255,.4));
+  }
+  .skill.tap-glow .bar{
+    border-color:var(--blue-glow);
+    box-shadow:
+        0 0 10px rgba(95,200,255,.55),
+        0 0 20px rgba(46,143,255,.35);
+  }
+  .skill.tap-glow .bar i{
+    box-shadow:
+        0 0 14px rgba(95,200,255,.85),
+        0 0 26px rgba(46,143,255,.55);
+  }
+
+  /* EXPERIENCE TIMELINE */
+.timeline{
+  position:relative;
+  padding-left:36px;
+  border-left:1px solid var(--line);
+}
+
+.tl-item{
+  position:relative;
+  padding-bottom:52px;
+}
+
+.tl-item:last-child{
+  padding-bottom:0;
+}
+
+.tl-item::before{
+    content:"";
+    position:absolute;
+    left:-44px;
+    top:3px;
+    width:12px;
+    height:12px;
+    background:var(--gm-950);
+    border:2px solid var(--blue);
+    transform:rotate(45deg);
+}
+  .tl-date{font-family:'JetBrains Mono'; font-size:11.5px; color:var(--blue-glow); letter-spacing:.06em; margin-bottom:6px;}
+  .tl-item h3{font-family:'Space Grotesk', sans-serif; font-size:21px; font-weight:600; line-height:1.3; margin-bottom:5px;}
+  .tl-company{color:var(--blue-glow); font-family:'JetBrains Mono'; font-size:12px; font-weight:500; margin:0 0 14px; letter-spacing:.07em; text-transform:uppercase;}
+  .tl-item ul{color:var(--text-mid); font-size:14.5px; line-height:1.8; padding-left:18px;}
+  .tl-item li{margin-bottom:4px;}
+  .tl-item li::marker{color:var(--blue-glow);}
+
+  /* Portfolio */
+.portfolio-head{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+    gap:20px 30px;
+    margin-bottom:40px;
+}
+
+.portfolio-head .section-head{
+    margin-bottom:0;
+    flex:1;
+}
+
+.portfolio-download{
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    padding:clamp(10px,1.6vw,14px) clamp(16px,2.4vw,22px);
+
+    min-width:clamp(180px,22vw,220px);
+    height:clamp(42px,5vw,46px);
+
+    text-decoration:none;
+
+    font-family:"JetBrains Mono", monospace;
+    font-size:clamp(10.5px,1.3vw,12px);
+    letter-spacing:.08em;
+    white-space:nowrap;
+
+    color:var(--text-hi);
+
+    border:1px solid var(--blue);
+
+    background:rgba(46,143,255,.08);
+
+    transition:.3s ease;
+
+    position:relative;
+    z-index:10;
+}
+
+.portfolio-download:hover{
+
+    border-color:var(--blue-glow);
+
+    background:rgba(46,143,255,.14);
+
+    color:var(--blue-glow);
+
+    box-shadow:
+        0 0 18px rgba(46,143,255,.35),
+        0 0 40px rgba(95,200,255,.18);
+
+}
+
+.portfolio-download .switch-dot{
+
+    width:11px;
+    height:11px;
+    flex-shrink:0;
+
+    background:var(--blue);
+
+    border-radius:0;
+
+    transform:rotate(45deg);
+
+    box-shadow:
+        0 0 8px var(--blue),
+        0 0 18px rgba(46,143,255,.45);
+
+    transition:.3s ease;
+
+}
+
+.portfolio-download:hover .switch-dot{
+
+    background:var(--blue-glow);
+
+    transform:rotate(45deg) scale(1.25);
+
+    box-shadow:
+        0 0 12px var(--blue-glow),
+        0 0 28px rgba(46,143,255,.7);
+
+}
+
+@media (max-width:700px){
+
+    .portfolio-head{
+        display:flex;
+        flex-direction:column;
+        align-items:stretch;
+        width:100%;
+        gap:20px;
+    }
+
+    .portfolio-download{
+        width:100%;
+        min-width:100%;
+        justify-content:center;
+    }
+
+}
+
+@media (max-width:820px) and (orientation:landscape){
+
+    .portfolio-head{
+        flex-direction:row;
+        align-items:center;
+        gap:18px;
+    }
+
+    .portfolio-download{
+        width:auto;
+        min-width:190px;
+        height:40px;
+        padding:9px 16px;
+    }
+
+}
+
+.proj-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+    gap:22px;
+}
+  .card-image{
+    width:calc(100% + 44px);
+    height:260px;
+    margin:-26px -22px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#111821;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+}
+
+.card-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
+    padding:12px;
+    display:block;
+    cursor:pointer;
+    transition:transform .35s ease;
+}
+
+.card:hover .card-image img,
+.card.tap-glow .card-image img{
+    transform:scale(1.03);
+}
+  .card{
+    position:relative;
+    padding:26px 22px;
+    background:var(--panel-bg);
+    border:1px solid var(--line);
+    box-shadow:var(--card-elev);
+    transition:border-color .3s ease, box-shadow .3s ease, transform .3s ease, background .3s ease;
+    overflow:hidden;
+}
+  .card::after{
+    content:""; position:absolute; top:0; right:0; width:0; height:0;
+    border-style:solid; border-width:0 26px 26px 0; border-color:transparent var(--gm-700) transparent transparent;
+    transition:.3s;
+  }
+  .card:hover,
+  .card.tap-glow{
+    border-color:var(--blue-dim);
+    transform:translateY(-3px) scale(1.015);
+    background:rgba(46,143,255,0.045);
+    box-shadow:0 0 26px rgba(46,143,255,.22);
+}
+
+.card:hover::after,
+.card.tap-glow::after{
+    border-color:transparent var(--blue) transparent transparent;
+}
+  .card .tag{font-family:'JetBrains Mono'; font-size:10.5px; color:var(--text-lo); letter-spacing:.1em;}
+  .card h3{font-size:17.5px; margin:10px 0 8px; font-weight:600;}
+  .card p{color:var(--text-mid); font-size:13.5px; line-height:1.7;}
+
+  /* EDUCATION */
+  .edu-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  .edu-card{
+    border:1px solid var(--line); padding:22px; position:relative;
+    background:var(--panel-bg);
+    box-shadow:var(--card-elev);
+    transition:border-color .3s ease, box-shadow .3s ease, transform .3s ease, background .3s ease;
+}
+  .edu-card:hover,
+  .edu-card.tap-glow{
+    border-color:var(--blue-dim);
+    background:rgba(46,143,255,0.045);
+    box-shadow:0 0 26px rgba(46,143,255,.22);
+    transform:translateY(-3px) scale(1.015);
+}
+  .edu-card .yr{font-family:'JetBrains Mono'; font-size:11px; color:var(--blue-glow);}
+  .edu-card h3{font-size:16.5px; margin:8px 0 4px; font-weight:600;}
+  .edu-card p{color:var(--text-mid); font-size:13px;}
+
+
+  /* CONTACT */
+  .contact-wrap{
+    border:1px solid var(--line); padding:56px; text-align:center; position:relative;
+    background:radial-gradient(ellipse at 50% 0%, rgba(46,143,255,0.08), transparent 60%);
+    transition:border-color .35s ease, box-shadow .35s ease, transform .35s ease;
+  }
+  .contact-wrap:hover,
+  .contact-wrap.tap-glow{
+    border-color:var(--blue-dim);
+    box-shadow:0 0 44px rgba(46,143,255,.22);
+    transform:scale(1.015);
+  }
+  .contact-wrap h2{font-size:clamp(28px,4vw,46px); text-transform:uppercase;}
+  .contact-wrap p{color:var(--text-mid); margin:16px 0 32px; max-width:480px; margin-left:auto; margin-right:auto;}
+  .contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+
+.footer-logo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0 auto 2px;
+}
+  
+.footer-logo img{
+    width:104px;
+    max-width:60%;
+    height:auto;
+    display:block;
+    filter:drop-shadow(0 0 20px rgba(46,143,255,.45));
+    transition:.3s ease;
+}
+
+.footer-logo img:hover{
+    transform:scale(1.04);
+}
+footer{
+    padding:4px 0 14px;
+    text-align:center;
+    color:var(--text-lo);
+    font-family:'JetBrains Mono';
+    font-size:11.5px;
+    border-top:1px solid var(--line);
+}
+.designer-credit{
+  margin-top:6px;
+  font-size:12px;
+  color:var(--text-lo);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  opacity:0.85;
+}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+@media (max-width:1200px) and (min-width:951px){
+
+    nav{
+        padding:16px 24px;
+    }
+
+    nav ul{
+        gap:20px;
+    }
+
+    nav a{
+        font-size:12px;
+    }
+
+    header.hero{
+        padding-top:150px;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr 380px;
+        gap:40px;
+    }
+
+    .hero h1{
+        font-size:clamp(42px,5vw,68px);
+    }
+
+    .hero-logo{
+        height:calc(clamp(42px,5vw,68px) * .98 * 2);
+    }
+      .about-grid{
+        gap:35px;
+    }
+
+    .about-grid p{
+        margin-bottom:14px;
+    }
+
+    section{
+        padding:65px 0;
+    }
+
+}
+
+
+@media (max-width:950px){
+
+    nav{
+        padding:12px 18px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        flex-wrap:wrap;
+        row-gap:10px;
+    }
+
+    .brand{
+        font-size:15px;
+    }
+
+    .eyebrow-logo{
+        height:18px;
+        max-width:18px;
+    }
+
+    .nav-cta{
+        font-size:11px;
+        padding:7px 12px;
+    }
+
+    nav ul{
+        order:3;
+        width:100%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap:14px;
+        flex-wrap:wrap;
+        margin-top:2px;
+    }
+
+    nav ul li a{
+        font-size:11px;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero-panel{
+        order:-1;
+        max-width:360px;
+        margin:0 auto;
+    }
+
+    .hero-logo{
+        height:calc(clamp(40px, 5.5vw, 64px) * .98 * 2);
+        max-width:30vw;
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+    }
+
+    .skills-grid{
+        grid-template-columns:1fr;
+    }
+
+    .edu-grid{
+        grid-template-columns:1fr;
+    }
+
+    .wrap{
+        padding:0 20px;
+    }
+
+    .contact-wrap{
+        padding:32px 20px;
+    }
+
+}
+  
+@media (max-width:600px){
+
+    nav{
+        padding:10px 14px;
+    }
+
+    .brand{
+        font-size:14px;
+    }
+
+    .eyebrow-logo{
+        height:16px;
+        max-width:16px;
+    }
+
+    nav ul{
+        gap:10px;
+    }
+
+    nav ul li a{
+        font-size:10px;
+    }
+
+    .nav-cta{
+        padding:6px 10px;
+        font-size:10px;
+    }
+
+    .hero{
+       padding-top:120px;
+       padding-bottom:25px;
+    }
+
+    .hero h1{
+        font-size:clamp(38px,12vw,54px);
+    }
+
+    .hero-logo{
+        height:calc(clamp(38px,12vw,54px) * .98 * 2);
+        max-width:44vw;
+    }
+  section{
+    padding:clamp(40px,10vw,45px) 0;
+}
+
+.section-head{
+    margin-bottom:28px;
+}
+  .hero-name{
+    flex-direction:row;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px;
+}
+
+.hero-name .hero-logo{
+    margin-top:6px;
+}
+
+    .hero .role{
+        font-size:13px;
+    }
+
+    .hero-actions{
+        flex-direction:column;
+    }
+
+    .hero-actions .btn{
+        width:100%;
+        justify-content:center;
+    }
+
+    .timeline{
+        padding-left:24px;
+    }
+
+    .tl-item::before{
+        left:-32px;
+    }
+
+    .corner{
+        display:none;
+    }
+
+    .card-image{
+        height:220px;
+        width:calc(100% + 40px);
+        margin-left:-20px;
+        margin-right:-20px;
+    }
+
+    .card-image img{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        padding:6px;
+    }
+}
+
+@media (max-width:430px){
+    .hero-logo{
+        height:calc(clamp(34px,11vw,46px) * .98 * 2);
+        max-width:46vw;
+    }
+}
+
+@media (max-width:340px){
+    .hero-logo{
+        height:calc(clamp(30px,10vw,40px) * .98 * 2);
+        max-width:48vw;
+    }
+}
+
+  @media (max-width:950px) and (orientation:landscape){
+
+    header.hero{
+        min-height:auto;
+        padding-top:100px;
+        padding-bottom:40px;
+    }
+
+    .hero-grid{
+        align-items:flex-start;
+    }
+    section{
+        padding:55px 0;
+    }
+
+    .section-head{
+        margin-bottom:32px;
+    }
+
+    .about-grid{
+        gap:30px;
+    }
+
+    .hero-logo{
+        max-height:22vh;
+    }
+}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important;}
+  }
+  /* ============================= */
+/* Fullscreen Image Lightbox */
+/* ============================= */
+
+.lightbox{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    background:rgba(8,10,14,.96);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    visibility:hidden;
+    transition:.25s ease;
+    z-index:9999;
+    padding:25px;
+}
+
+.lightbox.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.lightbox img{
+    max-width:95vw;
+    max-height:95vh;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border:1px solid var(--line);
+    box-shadow:0 0 35px rgba(0,0,0,.6);
+}
+
+.lightbox-close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:42px;
+    color:white;
+    cursor:pointer;
+    user-select:none;
+    line-height:1;
+    transition:.2s;
+}
+
+.lightbox-close:hover{
+    color:var(--blue-glow);
+}
+
+.card-image img{
+    cursor:pointer;
+}
+
+@media (max-width:600px){
+
+    .lightbox{
+        padding:12px;
+    }
+
+    .lightbox img{
+        max-width:100%;
+        max-height:90vh;
+    }
+
+    .lightbox-close{
+        top:10px;
+        right:18px;
+        font-size:34px;
+    }
+
+}
+  /* ============================= */
+/* Custom Technical Scrollbar */
+/* ============================= */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:var(--gm-950);
+    border-left:1px solid var(--line);
+}
+
+::-webkit-scrollbar-thumb{
+    background-image:
+        repeating-linear-gradient(45deg, rgba(255,255,255,.4) 0px, rgba(255,255,255,.4) 1px, transparent 1px, transparent 4px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,.4) 0px, rgba(255,255,255,.4) 1px, transparent 1px, transparent 4px),
+        repeating-linear-gradient(45deg, rgba(0,0,0,.45) 0px, rgba(0,0,0,.45) 2px, transparent 2px, transparent 4px),
+        repeating-linear-gradient(-45deg, rgba(0,0,0,.45) 0px, rgba(0,0,0,.45) 2px, transparent 2px, transparent 4px),
+        linear-gradient(
+            180deg,
+            var(--blue-glow),
+            var(--blue)
+        );
+    background-size:4px 4px, 4px 4px, 4px 4px, 4px 4px, 100% 100%;
+    background-repeat:repeat, repeat, repeat, repeat, no-repeat;
+    background-attachment:local, local, local, local, local;
+
+    border-radius:2px;
+
+    border:2px solid var(--gm-950);
+
+    box-shadow:
+        0 0 8px rgba(95,200,255,.6),
+        0 0 16px rgba(46,143,255,.4);
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-image:
+        repeating-linear-gradient(45deg, rgba(255,255,255,.48) 0px, rgba(255,255,255,.48) 1px, transparent 1px, transparent 4px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,.48) 0px, rgba(255,255,255,.48) 1px, transparent 1px, transparent 4px),
+        repeating-linear-gradient(45deg, rgba(0,0,0,.4) 0px, rgba(0,0,0,.4) 2px, transparent 2px, transparent 4px),
+        repeating-linear-gradient(-45deg, rgba(0,0,0,.4) 0px, rgba(0,0,0,.4) 2px, transparent 2px, transparent 4px),
+        var(--blue-glow);
+    background-size:4px 4px, 4px 4px, 4px 4px, 4px 4px, 100% 100%;
+    background-repeat:repeat, repeat, repeat, repeat, no-repeat;
+
+    box-shadow:
+        0 0 14px rgba(95,200,255,.9),
+        0 0 28px rgba(46,143,255,.6);
+}
+
+
+/* Firefox */
+html{
+    scrollbar-width:thin;
+    scrollbar-color:var(--blue) var(--gm-950);
+}
+/* ==========================================
+   Desktop Profile Card Hover Effect
+========================================== */
+
+.hero-panel{
+
+    transition:
+        transform .45s ease,
+        background .45s ease,
+        box-shadow .45s ease,
+        border-color .45s ease;
+
+}
+
+/* Touch equivalent for phones/tablets (no reliable :hover) */
+.hero-panel.touch-glow{
+
+    transform:
+        translateZ(0)
+        scale(1.05)
+        translateY(-5px);
+
+    background:rgba(46,143,255,0.07);
+
+    border-color:var(--blue-glow);
+
+    box-shadow:
+        0 0 12px rgba(95,200,255,.55),
+        0 0 28px rgba(46,143,255,.35);
+
+}
+
+.hero-panel.touch-glow .photo-frame{
+
+    border-color:var(--blue-glow);
+
+    box-shadow:
+        0 0 14px rgba(95,200,255,.65),
+        0 0 30px rgba(46,143,255,.35);
+
+}
+
+.hero-panel.touch-glow::after{
+
+    opacity:1;
+
+}
+
+  /* =====================================
+   Hover Effects - Works on Desktop (mouse) and Touch (tap), any orientation
+===================================== */
+
+    .hero-name h1{
+
+        transition:
+            transform .35s ease,
+            filter .35s ease;
+
+        transform-origin:left center;
+        cursor:pointer;
+
+    }
+
+
+    .hero-name h1:hover{
+
+        transform:scale(1.08);
+
+        filter:
+            drop-shadow(0 0 12px rgba(95,200,255,.95))
+            drop-shadow(0 0 35px rgba(46,143,255,.75))
+            drop-shadow(0 0 60px rgba(46,143,255,.45));
+
+    }
+
+    .hero-logo{
+
+        transform-origin:center;
+        cursor:pointer;
+
+    }
+
+    .hero-logo:hover{
+
+        transform:scale(1.08);
+
+        filter:
+            drop-shadow(0 0 12px rgba(95,200,255,.95))
+            drop-shadow(0 0 35px rgba(46,143,255,.75))
+            drop-shadow(0 0 60px rgba(46,143,255,.45));
+
+    }
+
+
+    .hero-name h1 span{
+
+        transition:
+            color .35s ease,
+            -webkit-text-stroke .35s ease;
+
+    }
+
+
+    .hero-name h1:hover span{
+
+        -webkit-text-stroke:1.5px var(--blue-glow);
+
+    }
+
+
+    .section-head h2,
+    .panel-header h2{
+
+        display:inline-block;
+        transition:
+            transform .35s ease,
+            filter .35s ease;
+
+        transform-origin:left center;
+        cursor:default;
+
+    }
+
+
+    .section-head h2:hover,
+    .panel-header h2:hover{
+
+        transform:scale(1.035);
+
+        filter:
+            drop-shadow(0 0 6px rgba(95,200,255,.55))
+            drop-shadow(0 0 16px rgba(46,143,255,.35));
+
+    }
+
+
+    .lang-chip:hover{
+
+        transform:scale(1.08);
+        border-color:var(--blue-glow);
+        color:var(--text-hi);
+
+        filter:
+            drop-shadow(0 0 6px rgba(95,200,255,.6))
+            drop-shadow(0 0 16px rgba(46,143,255,.4));
+
+    }
+
+
+    .skill:hover .skill-top b{
+
+        transform:scale(1.08);
+
+        filter:
+            drop-shadow(0 0 6px rgba(95,200,255,.65))
+            drop-shadow(0 0 16px rgba(46,143,255,.4));
+
+    }
+
+    .skill:hover .bar{
+
+        border-color:var(--blue-glow);
+
+        box-shadow:
+            0 0 10px rgba(95,200,255,.55),
+            0 0 20px rgba(46,143,255,.35);
+
+    }
+
+    .skill:hover .bar i{
+
+        box-shadow:
+            0 0 14px rgba(95,200,255,.85),
+            0 0 26px rgba(46,143,255,.55);
+
+    }
+
+
+    .hero-panel{
+
+        transition:
+            transform .45s ease,
+            background .45s ease,
+            box-shadow .45s ease,
+            border-color .45s ease;
+
+    }
+
+
+    .hero-panel:hover{
+
+        transform:
+            translateZ(0)
+            scale(1.05)
+            translateY(-5px);
+
+        background:rgba(46,143,255,0.07);
+
+        border-color:var(--blue-glow);
+
+        box-shadow:
+            0 0 12px rgba(95,200,255,.55),
+            0 0 28px rgba(46,143,255,.35);
+
+    }
+
+
+    .hero-panel:hover .photo-frame{
+
+        border-color:var(--blue-glow);
+
+        box-shadow:
+            0 0 14px rgba(95,200,255,.65),
+            0 0 30px rgba(46,143,255,.35);
+
+    }
+
+
+    .hero-panel:hover::after{
+
+        opacity:1;
+
+    }
+
+  /* ============================= */
+/* Side Panel — Research Archive */
+/* ============================= */
+
+.nav-left{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.hamburger{
+    width:42px;
+    height:42px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:6px;
+    background:none;
+    border:none;
+    -webkit-appearance:none;
+    appearance:none;
+    cursor:pointer;
+    padding:0;
+}
+
+.hamburger span{
+    display:block;
+    width:28px;
+    height:2px;
+    background:var(--text-hi) !important;
+    -webkit-forced-color-adjust:none;
+    forced-color-adjust:none;
+    box-shadow:0 0 4px rgba(95,200,255,.55);
+    transition:background .35s ease, transform .35s ease, opacity .35s ease;
+    transform-origin:center;
+}
+
+.hamburger:hover span{
+    background:var(--blue-glow);
+    box-shadow:0 0 8px var(--blue-glow);
+}
+
+.hamburger.active span:nth-child(1){
+    transform:translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2){
+    opacity:0;
+}
+
+.hamburger.active span:nth-child(3){
+    transform:translateY(-8px) rotate(-45deg);
+}
+
+#overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(5px);
+    opacity:0;
+    visibility:hidden;
+    transition:.35s;
+    z-index:80;
+}
+
+#overlay.show{
+    opacity:1;
+    visibility:visible;
+}
+
+#researchPanel{
+    position:fixed;
+    left:0;
+    top:0;
+    width:min(430px, 90vw);
+    height:100vh;
+    height:100dvh;
+    background:var(--panel-solid-bg);
+    backdrop-filter:blur(18px);
+    border-right:1px solid var(--line);
+    transform:translateX(-100%);
+    transition:transform .45s cubic-bezier(.22,1,.36,1), background .4s ease, border-color .4s ease;
+    z-index:90;
+    overflow-y:auto;
+    box-shadow:0 0 45px rgba(46,143,255,.15);
+    display:flex;
+    flex-direction:column;
+    max-width:100vw;
+}
+
+#researchPanel::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:1;
+    background-image:
+        repeating-linear-gradient(45deg, var(--weave-a) 0px, var(--weave-a) 2px, transparent 2px, transparent 8px),
+        repeating-linear-gradient(-45deg, var(--weave-b) 0px, var(--weave-b) 2px, transparent 2px, transparent 8px),
+        radial-gradient(ellipse 90% 50% at 50% 0%, rgba(46,143,255,.08), transparent 65%);
+}
+
+#researchPanel.open{
+    transform:translateX(0);
+}
+
+/* Circuit-laser background — axis-aligned light streaks that only ever
+   cross each other at right angles, like traces on a PCB. Sits above
+   the woven texture but below the actual panel content. */
+#panelLaserCanvas{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    width:100%;
+    height:100%;
+    display:block;
+    pointer-events:none;
+    opacity:.85;
+    mix-blend-mode:screen;
+}
+
+html[data-theme="light"] #panelLaserCanvas{
+    opacity:.6;
+    mix-blend-mode:multiply;
+}
+
+@media (prefers-reduced-motion: reduce){
+    #panelLaserCanvas{ display:none; }
+}
+
+.panel-header{
+    position:relative;
+    z-index:1;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:clamp(14px, 4vw, 26px);
+    border-bottom:1px solid var(--line);
+    flex-shrink:0;
+}
+
+.panel-header > div{
+    min-width:0;
+}
+
+.panel-header h2{
+    font-size:clamp(15px, 4.2vw, 21px);
+    color:var(--blue-glow);
+    line-height:1.25;
+}
+
+.panel-header p{
+    font-family:"JetBrains Mono";
+    font-size:clamp(9px, 2.3vw, 11.5px);
+    color:var(--text-mid);
+    font-weight:500;
+    letter-spacing:.03em;
+    margin-top:5px;
+    line-height:1.4;
+}
+
+#closePanel{
+    flex-shrink:0;
+    width:clamp(30px, 8vw, 36px);
+    height:clamp(30px, 8vw, 36px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:none;
+    border:none;
+    border-radius:0;
+    color:var(--text-mid);
+    cursor:pointer;
+    transition:.25s;
+    padding:0;
+    line-height:0;
+}
+
+#closePanel svg{
+    width:48%;
+    height:48%;
+    display:block;
+    pointer-events:none;
+    transition:transform .25s ease;
+}
+
+#closePanel:hover,
+#closePanel:focus-visible{
+    color:var(--blue-glow);
+    outline:none;
+    filter:drop-shadow(0 0 8px rgba(95,200,255,.55));
+}
+
+#closePanel:hover svg{
+    transform:rotate(90deg);
+}
+
+#paperContainer{
+    position:relative;
+    z-index:1;
+    padding:clamp(14px, 4vw, 24px);
+    display:flex;
+    flex-direction:column;
+    gap:clamp(14px, 3vw, 20px);
+    flex:1;
+}
+
+.accordion-group{
+    border:1px solid var(--line);
+    background:var(--panel-bg);
+    cursor:pointer;
+    transition:border-color .3s ease, box-shadow .3s ease, background .4s ease;
+}
+
+.accordion-group:hover{
+    border-color:var(--blue);
+    box-shadow:0 0 22px rgba(46,143,255,.18);
+}
+
+.accordion-group:has(.accordion-content.open):hover{
+    box-shadow:0 0 22px rgba(46,143,255,.1);
+}
+
+.accordion-toggle{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:clamp(13px, 3.4vw, 17px) clamp(14px, 3.5vw, 18px);
+    background:none;
+    border:none;
+    color:var(--text-hi);
+    font-family:'JetBrains Mono', monospace;
+    font-size:clamp(11.5px, 2.8vw, 13px);
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:color .25s ease, background .25s ease;
+}
+
+.accordion-toggle:hover{
+    color:var(--blue-glow);
+    background:rgba(46,143,255,.06);
+}
+
+.accordion-toggle.open{
+    color:var(--blue-glow);
+    border-bottom:1px solid var(--line);
+}
+
+.accordion-toggle .chev{
+    flex-shrink:0;
+    stroke:var(--text-mid);
+    transition:transform .35s ease, stroke .25s ease;
+}
+
+.accordion-toggle.open .chev{
+    transform:rotate(180deg);
+    stroke:var(--blue-glow);
+}
+
+.accordion-content{
+    display:grid;
+    grid-template-rows:0fr;
+    transition:grid-template-rows .4s ease;
+}
+
+.accordion-content.open{
+    grid-template-rows:1fr;
+}
+
+.accordion-inner{
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    gap:clamp(14px, 3vw, 20px);
+    padding:clamp(14px, 3.5vw, 20px);
+}
+
+.paper-card{
+    border:1px solid var(--line);
+    padding:clamp(14px, 3.5vw, 20px);
+    background:var(--panel-bg);
+    transition:.3s;
+    overflow-wrap:break-word;
+    word-break:break-word;
+    cursor:pointer;
+}
+
+.paper-card:hover,
+.paper-card.tap-glow{
+    border-color:var(--blue);
+    box-shadow:0 0 22px rgba(46,143,255,.18);
+}
+
+.paper-year{
+    color:var(--blue-glow);
+    font-family:"JetBrains Mono";
+    font-size:clamp(9.5px, 2.4vw, 11px);
+    letter-spacing:.1em;
+}
+
+.paper-card-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.paper-card h3{
+    margin:10px 0;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:clamp(15px, 4vw, 17.5px);
+    line-height:1.35;
+    transform-origin:left center;
+    transition:color .25s ease, text-shadow .25s ease, transform .25s ease;
+}
+
+.paper-card:hover h3,
+.paper-card.tap-glow h3,
+.paper-card.open h3{
+    color:var(--blue-glow);
+    text-shadow:0 0 14px rgba(46,143,255,.45);
+    transform:scale(1.03);
+}
+
+.card-chev{
+    flex-shrink:0;
+    margin-top:14px;
+    stroke:var(--text-mid);
+    transition:transform .35s ease, stroke .25s ease;
+}
+
+.paper-card.open .card-chev{
+    transform:rotate(180deg);
+    stroke:var(--blue-glow);
+}
+
+.card-body{
+    display:grid;
+    grid-template-rows:0fr;
+    transition:grid-template-rows .35s ease;
+}
+
+.paper-card.open .card-body{
+    grid-template-rows:1fr;
+}
+
+.card-body-inner{
+    overflow:hidden;
+}
+
+.paper-card p{
+    color:var(--text-mid);
+    font-family:'Inter', sans-serif;
+    line-height:1.7;
+    font-size:clamp(12.5px, 3vw, 13.5px);
+}
+
+.paper-tags{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin:14px 0;
+}
+
+.paper-tags span{
+    border:1px solid var(--line);
+    padding:5px 9px;
+    font-size:clamp(9px, 2vw, 10.5px);
+    font-family:"JetBrains Mono", monospace;
+    letter-spacing:.06em;
+    white-space:nowrap;
+}
+
+.paper-btn{
+    display:inline-block;
+    margin-top:6px;
+    color:var(--blue-glow);
+    text-decoration:none;
+    font-family:"JetBrains Mono", monospace;
+    font-size:clamp(11px, 2.6vw, 12.5px);
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transform-origin:left center;
+    transition:color .2s ease, text-shadow .25s ease, transform .2s ease;
+}
+
+.paper-btn:hover,
+.paper-btn:focus-visible,
+.paper-card.tap-glow .paper-btn{
+    color:var(--text-hi);
+    text-shadow:0 0 12px rgba(95,200,255,.75), 0 0 24px rgba(46,143,255,.45);
+    transform:scale(1.06);
+}
+
+/* Tablets / small laptops / split-screen */
+@media (max-width:900px){
+
+    #researchPanel{
+        width:min(400px, 78vw);
+    }
+}
+
+/* Large phones / split-screen / portrait tablets */
+@media (max-width:768px){
+
+    #researchPanel{
+        width:min(380px, 85vw);
+    }
+
+    #paperContainer{
+        gap:14px;
+    }
+}
+
+/* Phones */
+@media (max-width:600px){
+
+    #researchPanel{
+        width:88vw;
+        max-width:340px;
+    }
+}
+
+/* Small phones */
+@media (max-width:430px){
+
+    #researchPanel{
+        width:90vw;
+        max-width:320px;
+    }
+
+    .panel-header{
+        padding:14px;
+    }
+
+    #paperContainer{
+        padding:14px;
+        gap:12px;
+    }
+
+    .paper-card{
+        padding:13px;
+    }
+}
+
+/* Very small phones / narrow floating windows */
+@media (max-width:340px){
+
+    #researchPanel{
+        width:96vw;
+        max-width:none;
+    }
+
+    .panel-header{
+        padding:12px;
+        gap:8px;
+    }
+
+    #paperContainer{
+        padding:12px;
+    }
+
+    .paper-card{
+        padding:12px;
+    }
+}
+
+/* Very narrow floating / quarter-screen windows on any device */
+@media (max-width:260px){
+
+    #researchPanel{
+        width:100vw;
+    }
+
+    .panel-header{
+        flex-wrap:wrap;
+    }
+}
+
+/* Short viewports (landscape phones, floating windows) */
+@media (max-height:480px){
+
+    .panel-header{
+        padding:10px 16px;
+    }
+
+    #paperContainer{
+        padding:12px 16px;
+        gap:10px;
+    }
+
+    .paper-card{
+        padding:12px;
+    }
+
+    .paper-card h3{
+        margin:6px 0;
+    }
+
+    .paper-tags{
+        margin:8px 0;
+    }
+}
+
+
+/* ==========================
+   Custom Blue Cursor (Desktop)
+   Fine-pointer / hover-capable devices only —
+   touch devices (phones, tablets) keep native
+   touch behaviour untouched at every breakpoint.
+========================== */
+@media (hover:hover) and (pointer:fine){
+
+  *{
+    cursor:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBkPSJNMy41IDIgTDMuNSAxNy42IEw3LjQgMTQgTDEwLjIgMjAuNiBMMTMgMTkuNCBMMTAuMyAxMi45IEwxNi42IDEyLjkgWiIgZmlsbD0iIzJlOGZmZiIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==") 4 3, auto !important;
+  }
+
+  html, body,
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  [onclick],
+  [role="button"],
+  .btn,
+  .nav-cta,
+  .navburger,
+  .hamburger,
+  .brand,
+  #archiveBtn,
+  #closePanel,
+  .accordion-toggle,
+  .accordion-group,
+  .card-image img,
+  .lightbox-close,
+  .hero-logo,
+  .eyebrow-logo,
+  .paper-card,
+  .paper-btn,
+  .edu-card,
+  .lang-chip,
+  .skill,
+  .contact-wrap,
+  .card{
+    cursor:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBkPSJNMy41IDIgTDMuNSAxNy42IEw3LjQgMTQgTDEwLjIgMjAuNiBMMTMgMTkuNCBMMTAuMyAxMi45IEwxNi42IDEyLjkgWiIgZmlsbD0iIzJlOGZmZiIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==") 4 3, auto;
+  }
+
+  /* Light mode: same arrow, dark outline so it stays crisp on white/light panels */
+  html[data-theme="light"] *{
+    cursor:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBkPSJNMy41IDIgTDMuNSAxNy42IEw3LjQgMTQgTDEwLjIgMjAuNiBMMTMgMTkuNCBMMTAuMyAxMi45IEwxNi42IDEyLjkgWiIgZmlsbD0iIzJlOGZmZiIgc3Ryb2tlPSIjMTIxNjFkIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==") 4 3, auto !important;
+  }
+
+  html[data-theme="light"] a,
+  html[data-theme="light"] button,
+  html[data-theme="light"] input,
+  html[data-theme="light"] select,
+  html[data-theme="light"] textarea,
+  html[data-theme="light"] label,
+  html[data-theme="light"] [onclick],
+  html[data-theme="light"] [role="button"],
+  html[data-theme="light"] .btn,
+  html[data-theme="light"] .nav-cta,
+  html[data-theme="light"] .navburger,
+  html[data-theme="light"] .hamburger,
+  html[data-theme="light"] .brand,
+  html[data-theme="light"] #archiveBtn,
+  html[data-theme="light"] #closePanel,
+  html[data-theme="light"] .accordion-toggle,
+  html[data-theme="light"] .accordion-group,
+  html[data-theme="light"] .card-image img,
+  html[data-theme="light"] .lightbox-close,
+  html[data-theme="light"] .hero-logo,
+  html[data-theme="light"] .eyebrow-logo,
+  html[data-theme="light"] .paper-card,
+  html[data-theme="light"] .paper-btn,
+  html[data-theme="light"] .edu-card,
+  html[data-theme="light"] .lang-chip,
+  html[data-theme="light"] .skill,
+  html[data-theme="light"] .contact-wrap,
+  html[data-theme="light"] .card{
+    cursor:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBkPSJNMy41IDIgTDMuNSAxNy42IEw3LjQgMTQgTDEwLjIgMjAuNiBMMTMgMTkuNCBMMTAuMyAxMi45IEwxNi42IDEyLjkgWiIgZmlsbD0iIzJlOGZmZiIgc3Ryb2tlPSIjMTIxNjFkIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==") 4 3, auto;
+  }
+
+}
+
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div id="glow"></div>
+<canvas id="dustField" aria-hidden="true"></canvas>
+<nav>
+<div class="nav-left">
+
+    <button class="hamburger" id="archiveBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <a href="#top" class="brand">
+        <span class="tick"></span>
+        <span class="brand-name">NIRAJ NAIDU</span>
+    </a>
+
+</div>
+<ul>
+<li><a href="#top">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#experience">Experience</a></li>
+<li><a href="#portfolio">Portfolio</a></li>
+<li><a href="#education">Education</a></li>
+</ul>
+<div class="nav-right">
+    <input type="checkbox" id="themeToggle" class="theme-toggle-input" aria-label="Switch between dark and light mode">
+    <label for="themeToggle" class="theme-toggle" title="Toggle light / dark mode">
+        <span class="ttog-diamond" aria-hidden="true">
+            <span class="ttog-face ttog-face-sun">
+                <svg class="ttog-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4.2"></circle>
+                    <line x1="12" y1="2.5" x2="12" y2="5"></line>
+                    <line x1="12" y1="19" x2="12" y2="21.5"></line>
+                    <line x1="2.5" y1="12" x2="5" y2="12"></line>
+                    <line x1="19" y1="12" x2="21.5" y2="12"></line>
+                    <line x1="4.9" y1="4.9" x2="6.6" y2="6.6"></line>
+                    <line x1="17.4" y1="17.4" x2="19.1" y2="19.1"></line>
+                    <line x1="4.9" y1="19.1" x2="6.6" y2="17.4"></line>
+                    <line x1="17.4" y1="6.6" x2="19.1" y2="4.9"></line>
+                </svg>
+            </span>
+            <span class="ttog-face ttog-face-moon">
+                <svg class="ttog-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"></path>
+                </svg>
+            </span>
+        </span>
+    </label>
+    <a class="nav-cta" href="#contact">Contact</a>
+</div>
+</nav>
+<div id="overlay"></div>
+
+<aside id="researchPanel">
+
+<canvas id="panelLaserCanvas" aria-hidden="true"></canvas>
+
+<div class="panel-header">
+
+<div>
+
+<h2>Portfolio Archive</h2>
+
+<p>Research Papers • Professional Certifications</p>
+
+</div>
+
+<button id="closePanel" aria-label="Close research archive">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+        <line x1="4" y1="4" x2="20" y2="20"></line>
+        <line x1="20" y1="4" x2="4" y2="20"></line>
+    </svg>
+</button>
+
+</div>
+
+<div id="paperContainer">
+
+<div class="accordion-group">
+
+<button class="accordion-toggle" data-target="researchList" aria-expanded="false">
+    <span>Research Papers</span>
+    <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+</button>
+
+<div class="accordion-content" id="researchList">
+<div class="accordion-inner">
+
+    <div class="paper-card">
+
+        <div class="paper-year">
+    COMPLETED · JUL 2026
+</div>
+
+        <div class="paper-card-head">
+        <h3>
+            Sustainable Mold Design with Additive Manufacturing
+        </h3>
+        <svg class="card-chev" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        </div>
+
+<div class="card-body">
+<div class="card-body-inner">
+
+        <p>
+            This research explores sustainable approaches to injection mold
+            manufacturing using additive manufacturing technologies. It
+            demonstrates how optimized design techniques, including lightweight
+            structures and topology optimization, can reduce material consumption,
+            lower production costs, and improve manufacturing efficiency while
+            supporting environmentally responsible production.
+        </p>
+
+        <div class="paper-tags">
+            <span>ADDITIVE MANUFACTURING</span>
+            <span>TOPOLOGY OPTIMIZATION</span>
+            <span>SUSTAINABILITY</span>
+        </div>
+
+        <a class="paper-btn"
+           href="Sustainable_Mold_Design_with_Additive_Manufacturing.pdf"
+           target="_blank">
+            VIEW RESEARCH PAPER →
+        </a>
+
+</div>
+</div>
+
+</div>
+
+
+    <div class="paper-card">
+
+        <div class="paper-year">
+    COMPLETED · FEB 2026
+</div>
+        <div class="paper-card-head">
+        <h3>
+            Advanced Conformal Cooling for Injection Molding
+        </h3>
+        <svg class="card-chev" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        </div>
+
+<div class="card-body">
+<div class="card-body-inner">
+
+        <p>
+            This study examines the integration of hybrid manufacturing and
+            conformal cooling technologies to enhance injection molding
+            performance. It highlights how advanced cooling channel designs
+            improve heat transfer, reduce cycle times, increase product quality,
+            and deliver greater manufacturing efficiency.
+        </p>
+
+        <div class="paper-tags">
+            <span>INJECTION MOLDING</span>
+            <span>CONFORMAL COOLING</span>
+            <span>HYBRID MANUFACTURING</span>
+        </div>
+
+        <a class="paper-btn"
+           href="Advanced_Conformal_Cooling_for_Injection_Molding.pdf"
+           target="_blank">
+            VIEW RESEARCH PAPER →
+        </a>
+
+</div>
+</div>
+
+</div>
+
+
+    <div class="paper-card">
+
+       <div class="paper-year">
+    COMPLETED · FEB 2026
+</div>
+        <div class="paper-card-head">
+        <h3>
+            Additive vs. CNC Manufacturing: A Performance Comparison
+        </h3>
+        <svg class="card-chev" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        </div>
+
+<div class="card-body">
+<div class="card-body-inner">
+
+        <p>
+            This comparative research evaluates additive manufacturing and
+            traditional CNC machining for injection mold production. It analyzes
+            material efficiency, production time, cost, design flexibility, and
+            overall performance to identify effective manufacturing approaches
+            for different industrial applications.
+        </p>
+
+        <div class="paper-tags">
+            <span>CNC MACHINING</span>
+            <span>3D PRINTING</span>
+            <span>COMPARISON STUDY</span>
+        </div>
+
+        <a class="paper-btn"
+           href="Additive_vs_CNC_Manufacturing_Performance_Comparison.pdf"
+           target="_blank">
+            VIEW RESEARCH PAPER →
+        </a>
+
+</div>
+</div>
+
+</div>
+
+
+    <div class="paper-card">
+
+        <div class="paper-year">
+    COMPLETED · JUN 2026
+</div>
+        <div class="paper-card-head">
+        <h3>
+            AI-Driven Quality Control in Additive Manufacturing
+        </h3>
+        <svg class="card-chev" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        </div>
+
+<div class="card-body">
+<div class="card-body-inner">
+
+        <p>
+            This research investigates the use of artificial intelligence,
+            machine learning, and digital twin technologies for predictive
+            quality control in additive manufacturing. It explores real-time
+            defect detection, intelligent process monitoring, and autonomous
+            quality assurance techniques for future smart digital factories.
+        </p>
+
+        <div class="paper-tags">
+            <span>ARTIFICIAL INTELLIGENCE</span>
+            <span>DIGITAL TWIN</span>
+            <span>SMART FACTORY</span>
+        </div>
+
+        <a class="paper-btn"
+           href="AI_Driven_Quality_Control_Additive_Manufacturing.pdf"
+           target="_blank">
+            VIEW RESEARCH PAPER →
+        </a>
+
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="accordion-group">
+
+<button class="accordion-toggle" data-target="certList" aria-expanded="false">
+    <span>Certifications</span>
+    <svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+</button>
+
+<div class="accordion-content" id="certList">
+<div class="accordion-inner">
+
+    <div class="paper-card">
+
+        <div class="paper-year">
+    ISSUED · JUL 2023
+</div>
+        <div class="paper-card-head">
+        <h3>
+            IELTS Certificate
+        </h3>
+        <svg class="card-chev" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        </div>
+
+<div class="card-body">
+<div class="card-body-inner">
+
+        <p>
+            English language proficiency certification (International English
+            Language Testing System). Academic module, Overall Band Score 7.0
+            (CEFR C1) — Listening 7.5, Reading 7.0, Writing 6.0, Speaking 7.0.
+        </p>
+
+        <div class="paper-tags">
+            <span>ENGLISH PROFICIENCY</span>
+            <span>OVERALL BAND 7.0</span>
+        </div>
+
+        <a class="paper-btn"
+           href="IELTS_Certificate.pdf"
+           target="_blank">
+            VIEW CERTIFICATE →
+        </a>
+
+</div>
+</div>
+
+</div>
+
+    <div class="paper-card">
+
+        <div class="paper-year">
+    ISSUED · SEP 2023
+</div>
+        <div class="paper-card-head">
+        <h3>
+            Essential in CATIA
+        </h3>
+        <svg class="card-chev" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        </div>
+
+<div class="card-body">
+<div class="card-body-inner">
+
+        <p>
+            Certificate of Completion from CADD Centre Training Services,
+            Mumbai — a 40-hour program covering core CATIA workflows including
+            surface modeling, generative drafting, sketch creation, part
+            modeling, assembly modeling, and sheet metal modeling. Completed
+            29 Jul 2023 – 31 Aug 2023.
+        </p>
+
+        <div class="paper-tags">
+            <span>SURFACE MODELING</span>
+            <span>PART MODELING</span>
+            <span>ASSEMBLY MODELING</span>
+        </div>
+
+        <a class="paper-btn"
+           href="CADD_Centre_CATIA_Essential_Certificate.pdf"
+           target="_blank">
+            VIEW CERTIFICATE →
+        </a>
+
+</div>
+</div>
+
+</div>
+
+    <div class="paper-card">
+
+        <div class="paper-year">
+    ISSUED · SEP 2023
+</div>
+        <div class="paper-card-head">
+        <h3>
+            Diploma in Product Design — Proficient
+        </h3>
+        <svg class="card-chev" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        </div>
+
+<div class="card-body">
+<div class="card-body-inner">
+
+        <p>
+            Certificate of Completion from CADD Centre Training Services,
+            Mumbai, covering AutoCAD drafting and documentation alongside
+            SolidWorks part, assembly, surface, and sheet metal design.
+            Program duration: 11 Dec 2019 – 28 Feb 2020.
+        </p>
+
+        <div class="paper-tags">
+            <span>AUTOCAD</span>
+            <span>SOLIDWORKS</span>
+            <span>TECHNICAL DRAFTING</span>
+        </div>
+
+        <a class="paper-btn"
+           href="CADD_Centre_Diploma_Product_Design_Certificate.pdf"
+           target="_blank">
+            VIEW CERTIFICATE →
+        </a>
+
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</aside>
+<div class="desktop-rail" id="desktopRail"></div>
+<div class="page-main" id="pageMain">
+<header class="hero" id="top">
+<div class="corner tl" id="cornerTL"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+<div class="wrap hero-grid">
+<div>
+<div class="eyebrow">Mechanical Product Designer • CAD Engineer • Germany</div>
+<div class="hero-name">
+    <h1>
+        Niraj<br>
+        <span>Naidu</span>
+    </h1>
+<img src="logo.png" alt="Niraj Naidu Logo" class="hero-logo" id="heroLogo" style="margin-left:auto;">
+
+</div>
+<div class="role">
+<span>MECHANICAL PRODUCT DESIGNER</span>
+<span>·</span>
+<span>HYDRAULIC SYSTEMS</span>
+<span>·</span>
+<span><b>SOLIDWORKS</b> / <b>CATIA</b> / <b>ANSYS</b></span>
+</div>
+<p class="lede">A detail-oriented mechanical product designer with hands-on experience in 3D modeling, hydraulic system design, reverse engineering, and precision machining — delivering solutions from gantry cranes and mold presses to tube-bending machines and Formula Student race cars.</p>
+<div class="hero-actions">
+<a class="btn btn-primary" download="Niraj_Naidu_CV.pdf" href="Niraj_Naidu_CV.pdf">↓ Download CV (PDF)</a>
+<a class="btn btn-ghost" href="#portfolio">View Portfolio →</a>
+</div>
+</div>
+<div class="hero-panel">
+<div class="photo-frame" id="heroPhotoFrame">
+<img alt="Niraj Naidu - Mechanical Product Designer" src="niraj naidu.jpeg" loading="lazy" id="heroPhotoImg" data-dark-src="niraj naidu.jpeg" data-light-src="niraj2.jpeg"/>
+<div class="scan-overlay" aria-hidden="true"></div>
+</div>
+<div class="specs">
+<div><span>Location</span><b>Essen, 45138</b></div>
+<div><span>DOB</span><b>11.04.2001</b></div>
+<div><span>Phone</span><b>+49 15757055980</b></div>
+<div>
+  <span>Email</span>
+  <b>
+    <a href="mailto:nirajnaidu0411@gmail.com" title="nirajnaidu0411@gmail.com">
+      nirajnaidu0411@gmail.com
+    </a>
+  </b>
+</div>
+<div><span>Focus</span><b>Additive Mfg.</b></div>
+<div><span>Status</span><b>M.Sc. Student</b></div>
+</div>
+</div>
+</div>
+</header>
+<section id="about">
+<div class="wrap">
+<div class="section-head reveal">
+<div class="eyebrow">01 / About</div>
+<h2>Engineering with precision</h2>
+</div>
+<div class="about-grid">
+<div class="reveal">
+<p>Currently pursuing a Master of Science in Digital Technologies at FOM University of Applied Sciences for Economics and Management, Germany, with a research focus comparing the sustainability of CNC machining against metal additive manufacturing.</p>
+<p>Previously earned a B.Tech in Mechanical Engineering from Symbiosis Institute of Technology, Pune, where hands-on project work included leading the design of Formula Student race car components and hydraulic systems for industrial applications.</p>
+</div>
+<div class="reveal">
+<p>Comfortable moving between CAD platforms — SOLIDWORKS, CATIA and AutoCAD — and validating designs in ANSYS, with practical Additive Manufacturing experience spanning Cura and RD Works workflows. Tolerances held as tight as 5 microns on production fixture work.</p>
+<div class="lang-list">
+<span class="lang-chip">EN — English (C1)</span>
+<span class="lang-chip">HI — Hindi (B1)</span>
+<span class="lang-chip">MR — Marathi (B1)</span>
+<span class="lang-chip">DE — German (A1, pursuing A2)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="skills">
+<div class="wrap">
+<div class="section-head reveal">
+<div class="eyebrow">02 / Toolset</div>
+<h2>Software &amp; capability</h2>
+</div>
+<div class="skills-grid">
+<div class="skill reveal">
+<div class="skill-top"><b>SOLIDWORKS</b><span>95%</span></div>
+<div class="bar"><i data-w="95"></i></div>
+</div>
+<div class="skill reveal">
+<div class="skill-top"><b>CATIA</b><span>85%</span></div>
+<div class="bar"><i data-w="85"></i></div>
+</div>
+<div class="skill reveal">
+<div class="skill-top"><b>AutoCAD</b><span>88%</span></div>
+<div class="bar"><i data-w="88"></i></div>
+</div>
+<div class="skill reveal">
+<div class="skill-top"><b>ANSYS</b><span>78%</span></div>
+<div class="bar"><i data-w="78"></i></div>
+</div>
+<div class="skill reveal">
+<div class="skill-top"><b>Additive Manufacturing</b><span>90%</span></div>
+<div class="bar"><i data-w="90"></i></div>
+</div>
+<div class="skill reveal">
+<div class="skill-top"><b>Cura / RD Works</b><span>82%</span></div>
+<div class="bar"><i data-w="82"></i></div>
+</div>
+</div>
+</div>
+</section>
+<section id="experience">
+<div class="wrap">
+<div class="section-head reveal">
+<div class="eyebrow">03 / Experience</div>
+<h2>Project &amp; work history</h2>
+</div>
+<div class="timeline">
+
+  <div class="tl-item reveal">
+    <div class="tl-date">JAN 2024 — PRESENT</div>
+    <h3>Additive Manufacturing Product &amp; Design</h3>
+    <div class="tl-company">Freelance</div>
+    <ul>
+      <li>Deliver 3D modeling and 3D-printing solutions for clients, prioritizing accuracy and design efficiency.</li>
+      <li>Develop prototypes and production-ready CAD models tailored to client specifications.</li>
+      <li>Provide design consulting focused on precision, material selection, and assembly fit.</li>
+    </ul>
+  </div>
+
+  <div class="tl-item reveal">
+    <div class="tl-date">JUN 2024 — DEC 2024</div>
+    <h3>Design Engineer</h3>
+    <div class="tl-company">KC Engineering and Automation</div>
+    <ul>
+      <li>Designed and modeled hydraulic systems, including cylinders, presses, and lifting equipment, using <strong>SOLIDWORKS</strong>.</li>
+      <li>Directed the reverse engineering of the <strong>SLB 1100 Gantry Crane</strong> to improve structural efficiency and manufacturing feasibility.</li>
+      <li>Designed and developed hydraulic tube-bending machines, mold-press equipment, and horizontal moving jacks.</li>
+      <li>Created detailed 3D CAD models and engineering drawings, ensuring precision, manufacturability, and assembly accuracy.</li>
+      <li>Prepared manufacturing documentation and collaborated with the fabrication team to support production and assembly.</li>
+    </ul>
+  </div>
+
+  <div class="tl-item reveal">
+    <div class="tl-date">JAN 2024 — MAY 2024</div>
+    <h3>Design Intern</h3>
+    <div class="tl-company">ASB International Pvt. Ltd.</div>
+    <ul>
+      <li>Created 3D models of mold components and designed precision fixtures for industrial machinery.</li>
+      <li>Maintained tolerances of <strong>5 microns</strong> to ensure assembly stability during machining.</li>
+      <li>Supported the design team in drafting engineering documentation and production drawings.</li>
+    </ul>
+  </div>
+
+  <div class="tl-item reveal">
+    <div class="tl-date">2022 — 2023</div>
+    <h3>Design Head</h3>
+    <div class="tl-company">Wrench Wielders Racing – Formula Student Team, SIT</div>
+    <ul>
+      <li>Led the design and fabrication of Formula Student race car components using <strong>SOLIDWORKS</strong> and <strong>CATIA</strong>.</li>
+      <li>Designed and manufactured carbon-fibre and fibreglass body panels for improved vehicle performance.</li>
+      <li>Developed a high-efficiency EV battery pack, contributing to a <strong>15th-place finish among 72 competing teams</strong>.</li>
+      <li>Built an engine sound signature segregation system using audio analysis and machine learning for vehicle diagnostics.</li>
+      <li>Represented the team at <strong>SUPRA 2022</strong> and <strong>Formula Student EV 2021</strong>.</li>
+    </ul>
+  </div>
+</div> <!-- timeline -->
+</div> <!-- wrap -->
+</section>
+<section id="portfolio">
+<div class="wrap">
+<div class="portfolio-head">
+<div class="section-head reveal">
+<div class="eyebrow">04 / Portfolio</div>
+<h2>CAD &amp; hydraulic systems</h2>
+</div>
+<a class="portfolio-download" href="Design_Portfolio.pdf" download>
+<span class="switch-dot"></span>
+DOWNLOAD PORTFOLIO
+</a>
+</div>
+<div class="proj-grid">
+
+    <div class="card reveal">
+
+        <div class="card-image">
+            <img src="container-jack.jpg" alt="Container / Drum Lifting Jack" loading="lazy">
+        </div>
+
+        <div class="tag">MATERIAL HANDLING</div>
+
+        <h3>Container / Drum Lifting Jack</h3>
+
+        <p>
+            A wheeled single-ram hydraulic lifting jack featuring a vertical mast with
+            dual U-shaped fork saddles for safely lifting and transporting drums or
+            containers.
+        </p>
+
+    </div>
+
+    <div class="card reveal">
+
+        <div class="card-image">
+            <img src="fork-mounted-floor-jack.jpg" alt="Fork-Mounted Floor Jack" loading="lazy">
+        </div>
+
+        <div class="tag">MATERIAL HANDLING</div>
+
+        <h3>Fork-Mounted Floor Jack</h3>
+
+        <p>
+            Compact hydraulic fork-mounted lifting system with a parallelogram linkage
+            that maintains level lifting throughout the operating range.
+        </p>
+
+    </div>
+
+    <div class="card reveal">
+
+        <div class="card-image">
+            <img src="horizontal-moving-jack.jpg" alt="Horizontal Moving Jack" loading="lazy">
+        </div>
+
+        <div class="tag">HYDRAULIC POSITIONING</div>
+
+        <h3>Horizontal Moving Jack</h3>
+
+        <p>
+            Multi-cylinder hydraulic positioning system designed for controlled
+            horizontal movement of heavy machinery and industrial equipment.
+        </p>
+
+    </div>
+
+    <div class="card reveal">
+
+        <div class="card-image">
+            <img src="pipe-bending-machine.jpg" alt="Pipe Bending Machine">
+        </div>
+
+        <div class="tag">METAL FORMING</div>
+
+        <h3>Pipe Bending Machine</h3>
+
+        <p>
+            Pedestal-mounted hydraulic pipe bender featuring interchangeable dies and
+            a rotary bending arm for accurate and repeatable bend geometry.
+        </p>
+
+    </div>
+
+    <div class="card reveal">
+
+        <div class="card-image">
+            <img src="h-frame-punch-press.jpg" alt="H-Frame Hydraulic Press CAD Design" loading="lazy">
+        </div>
+
+        <div class="tag">HYDRAULIC PRESS</div>
+
+        <h3>H-Frame Hydraulic Press</h3>
+
+        <p>
+            Heavy-duty H-frame hydraulic press engineered for high-load pressing,
+            forming and industrial workshop applications.
+        </p>
+
+    </div>
+
+    <div class="card reveal">
+
+        <div class="card-image">
+            <img src="sheet-metal-punch-press.jpg" alt="Hydraulic Sheet Metal Punch Press" loading="lazy">
+        </div>
+
+        <div class="tag">METAL FORMING</div>
+
+        <h3>Sheet Metal Punch Press</h3>
+
+        <p>
+            Hydraulic punch press developed for precision sheet-metal blanking,
+            piercing and forming operations using guided punch-and-die tooling.
+        </p>
+
+    </div>
+
+    <div class="card reveal">
+
+        <div class="card-image">
+            <img src="boom-lift-mast.jpg" alt="Hydraulic Boom Lift Telescoping Mast Assembly" loading="lazy">
+        </div>
+
+        <div class="tag">MOBILE PLATFORM SYSTEMS</div>
+
+        <h3>Boom-Lift Oil Tank &amp; Telescoping Mast</h3>
+
+        <p>
+            Structural boom-lift assembly integrating a hydraulic oil reservoir with
+            a multi-stage telescoping mast for elevated work platform applications.
+        </p>
+
+    </div>
+  
+  <div class="card reveal">
+
+    <div class="card-image">
+        <img src="3d printing.jpg" alt="Industrial FDM 3D Printing" loading="lazy">
+    </div>
+
+    <div class="tag">ADDITIVE MANUFACTURING</div>
+
+    <h3>Industrial FDM 3D Printing</h3>
+
+    <p>
+        Hands-on experience in FDM additive manufacturing with over three years
+        of designing, optimizing, and producing functional engineering
+        prototypes and end-use parts.
+    </p>
+
+</div>
+
+</div>
+</div>
+</section>
+<section id="education">
+<div class="wrap">
+<div class="section-head reveal">
+<div class="eyebrow">05 / Education</div>
+<h2>Academic record</h2>
+</div>
+<div class="edu-grid">
+<div class="edu-card reveal">
+<div class="yr">APR.2025 — APR.2027</div>
+<h3>Master of Science in Digital Technologies</h3>
+<p>FOM Hochschule für Oekonomie & Management, Germany</p>
+</div>
+<div class="edu-card reveal">
+<div class="yr">JUN.2020 — JUN.2024</div>
+<h3>Bachelor of Technology in Mechanical Engineering</h3>
+<p>Symbiosis Institute of Technology, Pune — CGPA 7.0 / 10</p>
+</div>
+<div class="edu-card reveal">
+<div class="yr">FEB.2018 — FEB.2019</div>
+<h3>Higher Secondary Certificate, Science</h3>
+<p>Fr. Agnel's Multipurpose School and Jr. College</p>
+</div>
+<div class="edu-card reveal">
+<div class="yr">MAR.2016 — MAR.2017</div>
+<h3>Secondary School Certificate Standard</h3>
+<p>Fr. Agnel's Multipurpose School and Jr. College</p>
+</div>
+</div>
+</div>
+</section>
+<section id="contact">
+<div class="wrap">
+<div class="contact-wrap reveal">
+<div class="eyebrow" style="justify-content:center;">06 / Contact</div>
+<h2>Let's build something precise</h2>
+<p>Open to product design roles, freelance CAD work and collaboration on hydraulic systems or additive manufacturing projects.</p>
+<div class="contact-links">
+<a class="btn btn-primary" href="mailto:nirajnaidu0411@gmail.com">
+    <svg class="mail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 2-8 5-8-5h16Zm0 12H4V8l8 5 8-5v10Z"/>
+    </svg>
+    Email Me
+</a>
+<a class="btn btn-ghost" href="https://www.linkedin.com/in/niraj11/" rel="noopener noreferrer" target="_blank">
+    <svg class="mail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/>
+    </svg>
+    LinkedIn ↗
+</a>
+<a class="btn btn-ghost" href="tel:+4915757055980">
+    <svg class="mail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M6.6 10.8c1.4 2.75 3.65 5 6.4 6.4l2.14-2.14a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4.5a1 1 0 0 1 1-1h3.61a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.02L6.6 10.8Z"/>
+    </svg>
+    +49 15757055980
+</a>
+</div>
+</div>
+</div>
+</section>
+<footer>
+
+    <a href="#top" class="footer-logo">
+        <img src="logo.png" alt="Niraj Naidu Logo">
+    </a>
+
+    <div>
+        © <span id="year"></span> NIRAJ NAIDU — MECHANICAL PRODUCT DESIGNER · ESSEN, GERMANY
+    </div>
+
+    <div class="designer-credit">
+        Website designed & built by Niraj Naidu
+    </div>
+
+</footer>
+</div>
+
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Portfolio Image">
+</div>
+<script>
+// Mouse + Touch Glow — smooth, frame-rate-independent follow via requestAnimationFrame lerp
+const glow = document.getElementById('glow');
+  glow.style.opacity = "0";
+
+let glowTargetX = window.innerWidth / 2;
+let glowTargetY = window.innerHeight / 2;
+let glowCurrentX = glowTargetX;
+let glowCurrentY = glowTargetY;
+let glowLastFrame = null;
+const GLOW_EASE_PER_SEC = 16; // higher = snappier catch-up, lower = smoother/slower
+
+function renderGlow(now){
+    if(glowLastFrame === null) glowLastFrame = now;
+    const dt = Math.min((now - glowLastFrame) / 1000, 0.1);
+    glowLastFrame = now;
+
+    if(!glow.classList.contains("reset")){
+        const ease = 1 - Math.exp(-GLOW_EASE_PER_SEC * dt);
+        glowCurrentX += (glowTargetX - glowCurrentX) * ease;
+        glowCurrentY += (glowTargetY - glowCurrentY) * ease;
+        glow.style.transform = `translate3d(${glowCurrentX}px, ${glowCurrentY}px, 0) translate(-50%,-50%)`;
+    }
+    requestAnimationFrame(renderGlow);
+}
+requestAnimationFrame(renderGlow);
+
+setTimeout(() => {
+    glow.style.opacity = "1";
+}, 300);
+
+function moveGlow(x, y) {
+
+    if(glow.classList.contains("reset")) return;
+
+    // Keep the full circle inside the viewport at all times so it never
+    // gets clipped/chopped in half when the cursor or finger nears an edge.
+    const r = glow.offsetWidth / 2;
+    const minX = r, maxX = Math.max(r, window.innerWidth - r);
+    const minY = r, maxY = Math.max(r, window.innerHeight - r);
+
+    glowTargetX = Math.min(Math.max(x, minX), maxX);
+    glowTargetY = Math.min(Math.max(y, minY), maxY);
+}
+window.addEventListener('mousemove', (e) => {
+    moveGlow(e.clientX, e.clientY);
+});
+
+window.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    const r = glow.offsetWidth / 2;
+    const x = Math.min(Math.max(touch.clientX, r), Math.max(r, window.innerWidth - r));
+    const y = Math.min(Math.max(touch.clientY, r), Math.max(r, window.innerHeight - r));
+    // snap instantly on first touch so it doesn't glide in from center
+    glowCurrentX = x;
+    glowCurrentY = y;
+    moveGlow(touch.clientX, touch.clientY);
+}, { passive: true });
+
+window.addEventListener('touchmove', (e) => {
+    const touch = e.touches[0];
+    moveGlow(touch.clientX, touch.clientY);
+}, { passive: true });
+
+/* ============================================
+   Flowing dust particles — a field of glowing
+   motes drifting slowly downward, tinted with
+   the site's own accent-blue tokens so the
+   colour language matches dark and light mode
+   exactly. Motes swirl and warp around the
+   cursor within a small radius as they fall,
+   giving the field a light, interactive,
+   pseudo-3D depth.
+============================================ */
+(() => {
+
+    const canvas = document.getElementById('dustField');
+    if(!canvas) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduceMotion) return;
+
+    const ctx = canvas.getContext('2d');
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let W = 0, H = 0;
+    let particles = [];
+
+    const WARP_RADIUS = 130;
+
+    // pointer position in CSS-pixel space; parked off-screen until the
+    // user actually moves a mouse / finger, so nothing warps on load.
+    let pointerX = -9999, pointerY = -9999;
+
+    // Density scales gently with viewport area, capped for performance.
+    function particleCount(){
+        const area = window.innerWidth * window.innerHeight;
+        return Math.max(60, Math.min(180, Math.round(area / 10000)));
+    }
+
+    function themeTint(){
+        const styles = getComputedStyle(document.documentElement);
+        return [
+            (styles.getPropertyValue('--blue-glow').trim() || '#5fc8ff'),
+            (styles.getPropertyValue('--blue').trim() || '#2e8fff')
+        ];
+    }
+
+    function hexToRgb(hex){
+        const h = hex.replace('#','').trim();
+        const full = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+        const num = parseInt(full, 16);
+        if(isNaN(num)) return {r:95, g:200, b:255};
+        return { r:(num >> 16) & 255, g:(num >> 8) & 255, b:num & 255 };
+    }
+
+    function makeParticle(spawnAnywhere){
+        return {
+            x: Math.random() * W,
+            y: spawnAnywhere ? Math.random() * H : -Math.random() * 60 - 10,
+            r: Math.random() * 0.9 + 0.35,
+            vx: (Math.random() - 0.5) * 0.14,
+            vy: Math.random() * 0.35 + 0.16,
+            drift: Math.random() * Math.PI * 2,
+            driftSpeed: (Math.random() * 0.008 + 0.003),
+            baseAlpha: Math.random() * 0.35 + 0.35,
+            twinklePhase: Math.random() * Math.PI * 2,
+            twinkleSpeed: Math.random() * 0.035 + 0.014,
+            colorIdx: Math.random() < 0.72 ? 0 : 1
+        };
+    }
+
+    function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const target = particleCount();
+        if(particles.length < target){
+            while(particles.length < target) particles.push(makeParticle(true));
+        }else{
+            particles.length = target;
+        }
+    }
+
+    let rgbPair = themeTint().map(hexToRgb);
+
+    function refreshTint(){
+        rgbPair = themeTint().map(hexToRgb);
+    }
+
+    // Re-read the theme colours whenever the toggle flips (data-theme changes).
+    const themeObserver = new MutationObserver(refreshTint);
+    themeObserver.observe(document.documentElement, { attributes:true, attributeFilter:['data-theme'] });
+
+    function updatePointer(x, y){
+        pointerX = x;
+        pointerY = y;
+    }
+
+    // The warp-around-cursor interaction is a mouse-hover flourish — on
+    // touch devices, pointer/touch-move fires continuously while the
+    // person is just scrolling, which would make the dust swirl
+    // erratically during an ordinary scroll gesture. Only wire it up
+    // for devices with a real hovering, fine pointer (i.e. a mouse),
+    // matching the same capability check the rest of the site already
+    // uses for hover-only affordances. Touch devices still get the
+    // full falling, shimmering field — just without cursor warp.
+    const canHover = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    if(canHover){
+        window.addEventListener('pointermove', (e) => updatePointer(e.clientX, e.clientY), { passive:true });
+        window.addEventListener('pointerdown', (e) => updatePointer(e.clientX, e.clientY), { passive:true });
+        window.addEventListener('pointerleave', () => { pointerX = -9999; pointerY = -9999; });
+    }
+
+    let lastFrame = null;
+
+    function tick(now){
+        if(lastFrame === null) lastFrame = now;
+        const dt = Math.min((now - lastFrame) / 16.6667, 3); // normalise to ~60fps steps
+        lastFrame = now;
+
+        ctx.clearRect(0, 0, W, H);
+        ctx.globalCompositeOperation = 'lighter';
+
+        for(let i = 0; i < particles.length; i++){
+            const p = particles[i];
+
+            p.drift += p.driftSpeed * dt;
+            p.x += (p.vx + Math.sin(p.drift) * 0.08) * dt;
+            p.y += p.vy * dt;
+            p.twinklePhase += p.twinkleSpeed * dt;
+
+            // Warp / swirl around the pointer within a small radius —
+            // motes get pulled into a tangential curl as they pass near
+            // it, then eased back outward, reading as a light 3D bubble.
+            const dx = pointerX - p.x;
+            const dy = pointerY - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            let warpBoost = 0;
+
+            if(dist < WARP_RADIUS){
+                const falloff = 1 - (dist / WARP_RADIUS);
+                const angle = Math.atan2(dy, dx);
+                const swirlAngle = angle + Math.PI / 2;
+                const strength = falloff * falloff * 2.6;
+
+                p.x += Math.cos(swirlAngle) * strength * dt;
+                p.y += Math.sin(swirlAngle) * strength * dt;
+                // gentle outward push so particles arc *around* the
+                // cursor rather than collapsing straight into it
+                p.x -= Math.cos(angle) * strength * 0.55 * dt;
+                p.y -= Math.sin(angle) * strength * 0.55 * dt;
+
+                warpBoost = falloff;
+            }
+
+            if(p.y > H + 20 || p.x < -30 || p.x > W + 30){
+                particles[i] = makeParticle(false);
+                continue;
+            }
+
+            // Wide shimmer swing — fine motes fade almost out, then
+            // catch the light and flare brighter, like dust in a beam.
+            const twinkle = (Math.sin(p.twinklePhase) + 1) / 2;
+            const alpha = Math.min(1, p.baseAlpha * (0.15 + twinkle * 1.15) * (1 + warpBoost * 0.7));
+            const displayR = p.r * (1 + warpBoost * 1.1 + twinkle * 0.25);
+            const c = rgbPair[p.colorIdx];
+
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(${c.r}, ${c.g}, ${c.b}, ${alpha.toFixed(3)})`;
+            ctx.shadowColor = `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.min(1, alpha * 1.15).toFixed(3)})`;
+            ctx.shadowBlur = displayR * 6;
+            ctx.arc(p.x, p.y, displayR, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        ctx.globalCompositeOperation = 'source-over';
+        requestAnimationFrame(tick);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    window.addEventListener('orientationchange', () => setTimeout(resize, 120));
+    requestAnimationFrame(tick);
+
+})();
+
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el => io.observe(el));
+
+  // animated skill bars
+  const bars = document.querySelectorAll('.bar i');
+  const barIO = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        en.target.style.width = en.target.dataset.w + '%';
+        barIO.unobserve(en.target);
+      }
+    });
+  }, {threshold:0.4});
+  bars.forEach(b => barIO.observe(b));
+
+// Smooth scroll for navigation
+document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+        e.preventDefault();
+
+        const target = document.querySelector(a.getAttribute('href'));
+
+        if(target){
+            target.scrollIntoView({
+                behavior:'smooth',
+                block:'start'
+            });
+        }
+
+       // Reset glow when clicking N. NAIDU back to top
+if(a.classList.contains('brand')){
+
+    glow.classList.add("reset");
+    glowTargetX = window.innerWidth / 2;
+    glowTargetY = window.innerHeight / 2;
+    glowCurrentX = glowTargetX;
+    glowCurrentY = glowTargetY;
+    glow.style.transform = "translate3d(-50%,-50%,0)";
+
+    setTimeout(()=>{
+        glow.classList.remove("reset");
+    },500);
+
+}
+    });
+});
+
+// Active navigation highlight while scrolling
+const sections = document.querySelectorAll("header[id], section[id]");
+const navLinks = document.querySelectorAll("nav ul li a");
+
+// Deterministic scrollspy: on every scroll frame, recompute which section's
+// top has most recently passed the activation line. This is stateless (no
+// intersection-ratio bookkeeping) so it can never "skip" a section, no
+// matter how short that section is or how fast the user scrolls, and it
+// works identically for downward and upward scrolling.
+function updateActiveNav(){
+
+    const activationLine = (window.scrollY || window.pageYOffset) + window.innerHeight * 0.35;
+
+    let currentSection = sections[0];
+
+    sections.forEach(section=>{
+        if(section.offsetTop <= activationLine){
+            currentSection = section;
+        }
+    });
+
+    // Near the very bottom of the page, force the last section active
+    // (covers cases where the final section is shorter than the
+    // activation offset and would otherwise never "win").
+    const atBottom = (window.innerHeight + (window.scrollY || window.pageYOffset)) >= document.documentElement.scrollHeight - 2;
+    if(atBottom){
+        currentSection = sections[sections.length - 1];
+    }
+
+    const currentId = currentSection.getAttribute("id");
+
+    navLinks.forEach(link=>{
+        link.classList.remove("active");
+
+        if(link.getAttribute("href") === "#" + currentId){
+            link.classList.add("active");
+        }
+    });
+
+}
+
+let navSpyTicking = false;
+
+window.addEventListener("scroll", ()=>{
+
+    if(!navSpyTicking){
+        window.requestAnimationFrame(()=>{
+            updateActiveNav();
+            navSpyTicking = false;
+        });
+        navSpyTicking = true;
+    }
+
+}, {passive:true});
+
+window.addEventListener("resize", updateActiveNav);
+
+updateActiveNav();
+  document.getElementById("year").textContent = new Date().getFullYear();
+/* ==========================
+   Hero Profile Intro Effect
+========================== */
+
+window.addEventListener("load", () => {
+
+    const profileCard = document.querySelector(".hero-panel");
+
+    if(!profileCard) return;
+
+    profileCard.classList.add("intro-glow");
+
+});
+
+/* ==========================
+   Profile Card Touch Glow (mobile/tablet)
+========================== */
+
+(() => {
+
+    const profileCard = document.querySelector(".hero-panel");
+
+    if(!profileCard) return;
+
+    let dimTimer = null;
+
+    const activateGlow = () => {
+
+        if(dimTimer){
+            clearTimeout(dimTimer);
+            dimTimer = null;
+        }
+
+        profileCard.classList.add("touch-glow");
+
+    };
+
+    const scheduleDim = () => {
+
+        if(dimTimer) clearTimeout(dimTimer);
+
+        dimTimer = setTimeout(() => {
+
+            profileCard.classList.remove("touch-glow");
+            dimTimer = null;
+
+        }, 2000);
+
+    };
+
+    profileCard.addEventListener("touchstart", activateGlow, {passive:true});
+    profileCard.addEventListener("touchend", scheduleDim, {passive:true});
+    profileCard.addEventListener("touchcancel", scheduleDim, {passive:true});
+
+})();
+
+/* ==========================
+   Tap-to-glow for portfolio cards,
+   language chips, and skill bars (mobile/tablet)
+========================== */
+
+(() => {
+
+    const tapGlowEls = document.querySelectorAll(".card, .lang-chip, .skill, .contact-wrap, .paper-card, .edu-card");
+
+    tapGlowEls.forEach(el => {
+
+        let dimTimer = null;
+
+        const activate = () => {
+
+            if(dimTimer){
+                clearTimeout(dimTimer);
+                dimTimer = null;
+            }
+
+            el.classList.add("tap-glow");
+
+        };
+
+        const scheduleDim = () => {
+
+            if(dimTimer) clearTimeout(dimTimer);
+
+            dimTimer = setTimeout(() => {
+
+                el.classList.remove("tap-glow");
+                dimTimer = null;
+
+            }, 1600);
+
+        };
+
+        el.addEventListener("touchstart", activate, {passive:true});
+        el.addEventListener("touchend", scheduleDim, {passive:true});
+        el.addEventListener("touchcancel", scheduleDim, {passive:true});
+
+    });
+
+})();
+  
+ /* ===========================
+   Fullscreen Image Viewer
+=========================== */
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.querySelector(".lightbox-close");
+
+    document.querySelectorAll(".card-image img").forEach(img => {
+
+        img.addEventListener("click", () => {
+
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+
+            lightbox.classList.add("active");
+            document.body.style.overflow = "hidden";
+
+        });
+
+    });
+
+    function closeLightbox() {
+
+        lightbox.classList.remove("active");
+        document.body.style.overflow = "";
+
+    }
+
+    closeBtn.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", function(e) {
+
+        if (e.target === lightbox) {
+
+            closeLightbox();
+
+        }
+
+    });
+
+    document.addEventListener("keydown", function(e) {
+
+        if (e.key === "Escape") {
+
+            closeLightbox();
+
+        }
+
+    });
+
+/* ============================= */
+/* Research Archive Side Panel   */
+/* ============================= */
+
+/* ---------------------------------------------------------------
+   Circuit-laser background for the side panel.
+   Every beam travels strictly horizontally or strictly vertically,
+   so wherever two beams cross, the crossing is always a clean 90°
+   intersection — never a shallow angle. Directions (up/down/
+   left/right) and starting tracks are randomised per-beam so the
+   overall flow doesn't read as "down" or "across" or "diagonal" —
+   it reads as a scattered circuit-board pulse. Each beam leaves a
+   trail of fading dots behind its head, like a comet made of dots.
+   --------------------------------------------------------------- */
+const panelLaser = (function(){
+
+    const canvas = document.getElementById("panelLaserCanvas");
+    if(!canvas) return { start(){}, stop(){} };
+
+    const ctx = canvas.getContext("2d");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const GRID = 46;          // approx spacing between parallel tracks
+    const DOT_SPACING = 6;    // px between trail dots
+    const TRAIL_DOTS = 18;    // dots per beam, alpha fades along these
+
+    let width = 0, height = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let beams = [];
+    let rafId = null;
+    let lastTime = 0;
+    let resizeTimer = null;
+    let running = false;
+
+    let colBlue = "95,200,255";
+    let colAmber = "255,159,67";
+    let colSoft  = "205,228,255";
+
+    function hexToRgbStr(hex, fallback){
+        const m = hex.trim().match(/^#([0-9a-f]{6})$/i);
+        if(!m) return fallback;
+        const n = parseInt(m[1], 16);
+        return `${(n>>16)&255},${(n>>8)&255},${n&255}`;
+    }
+
+    function readColors(){
+        const cs = getComputedStyle(document.documentElement);
+        colBlue  = hexToRgbStr(cs.getPropertyValue("--blue-glow"), colBlue);
+        colAmber = hexToRgbStr(cs.getPropertyValue("--amber"), colAmber);
+    }
+
+    function pickColor(){
+        const r = Math.random();
+        if(r < 0.6) return colBlue;
+        if(r < 0.85) return colSoft;
+        return colAmber;
+    }
+
+    function resize(){
+        const rect = canvas.parentElement.getBoundingClientRect();
+        width = Math.max(1, Math.round(rect.width));
+        height = Math.max(1, Math.round(rect.height));
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seedBeams();
+    }
+
+    function makeBeam(randomStart){
+        const axis = Math.random() < 0.5 ? "h" : "v";
+        const dir = Math.random() < 0.5 ? 1 : -1;
+        const span = axis === "h" ? width : height;
+        const trailSpan = DOT_SPACING * TRAIL_DOTS;
+
+        const tracks = Math.max(1, Math.round((axis === "h" ? height : width) / GRID));
+        const trackIndex = Math.floor(Math.random() * tracks);
+        const coord = (trackIndex + 0.5) * ((axis === "h" ? height : width) / tracks);
+
+        let headPos;
+        if(randomStart){
+            headPos = Math.random() * (span + trailSpan * 2) - trailSpan;
+        } else {
+            headPos = dir === 1 ? -trailSpan * Math.random() : span + trailSpan * Math.random();
+        }
+
+        return {
+            axis, dir, coord, headPos,
+            speed: 30 + Math.random() * 50,
+            color: pickColor(),
+            baseAlpha: 0.5 + Math.random() * 0.4
+        };
+    }
+
+    function seedBeams(){
+        const count = Math.max(6, Math.min(16, Math.round((width * height) / 42000)));
+        beams = [];
+        for(let i = 0; i < count; i++) beams.push(makeBeam(true));
+    }
+
+    function outOfBounds(b){
+        const span = b.axis === "h" ? width : height;
+        const trailSpan = DOT_SPACING * TRAIL_DOTS;
+        return b.headPos > span + trailSpan + 10 || b.headPos < -trailSpan - 10;
+    }
+
+    function step(ts){
+        if(!lastTime) lastTime = ts;
+        const dt = Math.min(0.05, (ts - lastTime) / 1000);
+        lastTime = ts;
+
+        ctx.clearRect(0, 0, width, height);
+
+        for(let i = beams.length - 1; i >= 0; i--){
+            const b = beams[i];
+            b.headPos += b.dir * b.speed * dt;
+
+            for(let d = TRAIL_DOTS - 1; d >= 0; d--){
+                const dist = d * DOT_SPACING;
+                const pos = b.headPos - b.dir * dist;
+                const fade = 1 - d / TRAIL_DOTS;
+                const alpha = b.baseAlpha * Math.pow(fade, 1.7);
+                if(alpha <= 0.012) continue;
+
+                const x = b.axis === "h" ? pos : b.coord;
+                const y = b.axis === "h" ? b.coord : pos;
+                if(x < -8 || x > width + 8 || y < -8 || y > height + 8) continue;
+
+                const isHead = d === 0;
+                const radius = isHead ? 2.2 : 0.5 + fade * 1.5;
+
+                ctx.beginPath();
+                ctx.fillStyle = `rgba(${b.color},${alpha.toFixed(3)})`;
+                if(isHead){
+                    ctx.shadowColor = `rgba(${b.color},0.9)`;
+                    ctx.shadowBlur = 8;
+                } else {
+                    ctx.shadowBlur = 0;
+                }
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            if(outOfBounds(b)) beams[i] = makeBeam(false);
+        }
+        ctx.shadowBlur = 0;
+
+        rafId = requestAnimationFrame(step);
+    }
+
+    function onResize(){
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 120);
+    }
+
+    function start(){
+        if(reduceMotion || running) return;
+        running = true;
+        readColors();
+        resize();
+        lastTime = 0;
+        rafId = requestAnimationFrame(step);
+        window.addEventListener("resize", onResize);
+    }
+
+    function stop(){
+        running = false;
+        cancelAnimationFrame(rafId);
+        rafId = null;
+        window.removeEventListener("resize", onResize);
+        if(ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    return { start, stop };
+
+})();
+
+const burger = document.getElementById("archiveBtn");
+const panel = document.getElementById("researchPanel");
+const overlay = document.getElementById("overlay");
+const closePanelBtn = document.getElementById("closePanel");
+
+function openPanel(){
+
+    burger.classList.add("active");
+    panel.classList.add("open");
+    overlay.classList.add("show");
+    document.body.style.overflow="hidden";
+    panelLaser.start();
+
+}
+
+function closePanel(){
+
+    burger.classList.remove("active");
+    panel.classList.remove("open");
+    overlay.classList.remove("show");
+    document.body.style.overflow="";
+    panelLaser.stop();
+
+}
+
+burger.addEventListener("click",()=>{
+
+    if(panel.classList.contains("open")){
+        closePanel();
+    }else{
+        openPanel();
+    }
+
+});
+
+closePanelBtn.addEventListener("click",closePanel);
+
+overlay.addEventListener("click",closePanel);
+
+/* ============================= */
+/* Archive Accordion — Dropdowns */
+/* ============================= */
+
+document.querySelectorAll(".accordion-group").forEach(group=>{
+
+    const toggle = group.querySelector(".accordion-toggle");
+    const content = document.getElementById(toggle.dataset.target);
+
+    group.addEventListener("click",(e)=>{
+
+        // Don't toggle when the user is interacting with real content
+        // inside an already-open section (links, buttons, text selection).
+        if(content.contains(e.target)) return;
+
+        const isOpen = toggle.classList.toggle("open");
+
+        content.classList.toggle("open", isOpen);
+        toggle.setAttribute("aria-expanded", isOpen);
+
+    });
+
+});
+
+/* ============================= */
+/* Individual Card Accordion     */
+/* ============================= */
+
+document.getElementById("paperContainer").addEventListener("click",(e)=>{
+
+    // Let the PDF/certificate link navigate normally.
+    if(e.target.closest("a.paper-btn")) return;
+
+    // Whichever card was actually clicked/tapped opens — regardless of
+    // where on the card the pointer landed, and on any device.
+    const card = e.target.closest(".paper-card");
+    if(!card) return;
+
+    const willOpen = !card.classList.contains("open");
+
+    // Exclusive-open WITHIN the same section (Research Papers vs
+    // Certifications stay independent of each other).
+    const scope = card.closest(".accordion-inner");
+    if(scope){
+        scope.querySelectorAll(".paper-card.open").forEach(other=>{
+            if(other !== card) other.classList.remove("open");
+        });
+    }
+
+    card.classList.toggle("open", willOpen);
+
+});
+
+document.addEventListener("keydown",e=>{
+
+    if(e.key==="Escape"){
+        closePanel();
+    }
+
+});
+
+/* ============================= */
+/* Dark / Light theme toggle     */
+/* ============================= */
+
+(() => {
+
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+
+    if(!themeToggle) return;
+
+    // Reflect whatever theme is currently applied (set pre-paint in <head>)
+    themeToggle.checked = root.getAttribute("data-theme") === "light";
+
+    themeToggle.addEventListener("change", () => {
+
+        const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+        if(themeToggle.checked){
+            root.setAttribute("data-theme","light");
+            if(metaTheme) metaTheme.setAttribute("content","#eef1f5");
+            try{ localStorage.setItem("site-theme","light"); }catch(e){}
+        }else{
+            root.removeAttribute("data-theme");
+            if(metaTheme) metaTheme.setAttribute("content","#101216");
+            try{ localStorage.setItem("site-theme","dark"); }catch(e){}
+        }
+
+        runHeroPhotoScan(themeToggle.checked ? "light" : "dark");
+
+    });
+
+    // Match the meta tag to whatever theme was already applied pre-paint
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if(metaTheme && themeToggle.checked){
+        metaTheme.setAttribute("content","#eef1f5");
+    }
+
+})();
+
+/* ============================================
+   Hero photo digital-scan swap — on every theme
+   change, the profile photo sweeps through a
+   quick "scanning" flicker and swaps to the
+   portrait matching the new mode (niraj2.jpeg
+   for light, the original for dark) partway
+   through the sweep, so the change lands right
+   as the scan line crosses the frame.
+============================================ */
+let heroScanTimers = [];
+
+function runHeroPhotoScan(mode){
+
+    const frame = document.getElementById("heroPhotoFrame");
+    const img = document.getElementById("heroPhotoImg");
+
+    if(!frame || !img) return;
+
+    heroScanTimers.forEach(t => clearTimeout(t));
+    heroScanTimers = [];
+
+    const nextSrc = mode === "light" ? img.dataset.lightSrc : img.dataset.darkSrc;
+
+    frame.classList.remove("scanning");
+    // force reflow so a rapid double-toggle restarts the animation cleanly
+    void frame.offsetWidth;
+    frame.classList.add("scanning");
+
+    heroScanTimers.push(setTimeout(() => {
+        if(nextSrc && img.getAttribute("src") !== nextSrc){
+            img.setAttribute("src", nextSrc);
+        }
+    }, 650));
+
+    heroScanTimers.push(setTimeout(() => {
+        frame.classList.remove("scanning");
+    }, 1300));
+
+}
+
+/* ============================================
+   Corner-docked logo — move the brand mark from
+   its inline spot next to the name into the
+   top-left L-bracket on desktop only. Uses the
+   exact same breakpoint as the split-rail layout
+   below (min-width:1024px AND landscape) so the
+   two desktop-only layout changes always land
+   together — no state where the logo is docked
+   but the rail hasn't split, or vice versa.
+   Reverts exactly on smaller screens / portrait
+   so mobile and tablet stay untouched.
+============================================ */
+(() => {
+
+    const logo = document.getElementById("heroLogo");
+    const cornerTL = document.getElementById("cornerTL");
+
+    if(!logo || !cornerTL) return;
+
+    const originalParent = logo.parentNode;
+    const originalNext = logo.nextSibling;
+
+    const mq = window.matchMedia("(min-width:1024px) and (orientation:landscape)");
+
+    const applyLogoDock = (e) => {
+
+        if(e.matches){
+
+            if(logo.parentNode !== cornerTL){
+                cornerTL.appendChild(logo);
+            }
+
+        }else{
+
+            if(logo.parentNode === cornerTL){
+                if(originalNext && originalNext.parentNode === originalParent){
+                    originalParent.insertBefore(logo, originalNext);
+                }else{
+                    originalParent.appendChild(logo);
+                }
+            }
+
+        }
+
+    };
+
+    applyLogoDock(mq);
+
+    if(mq.addEventListener){
+        mq.addEventListener("change", applyLogoDock);
+    }else if(mq.addListener){
+        mq.addListener(applyLogoDock);
+    }
+
+})();
+
+/* ============================================
+   Desktop split layout — move the profile card
+   into the fixed left rail on desktop / big
+   displays only. Reverts exactly on smaller
+   screens so mobile/tablet stay untouched.
+============================================ */
+(() => {
+
+    const heroPanel = document.querySelector(".hero-panel");
+    const rail = document.getElementById("desktopRail");
+
+    if(!heroPanel || !rail) return;
+
+    const originalParent = heroPanel.parentNode;
+    const originalNext = heroPanel.nextSibling;
+
+    const mq = window.matchMedia("(min-width:1024px) and (orientation:landscape)");
+
+    const applyLayout = (e) => {
+
+        if(e.matches){
+
+            if(heroPanel.parentNode !== rail){
+                rail.appendChild(heroPanel);
+            }
+            document.body.classList.add("is-split");
+
+        }else{
+
+            if(heroPanel.parentNode === rail){
+                if(originalNext && originalNext.parentNode === originalParent){
+                    originalParent.insertBefore(heroPanel, originalNext);
+                }else{
+                    originalParent.appendChild(heroPanel);
+                }
+            }
+            document.body.classList.remove("is-split");
+
+        }
+
+    };
+
+    applyLayout(mq);
+
+    if(mq.addEventListener){
+        mq.addEventListener("change", applyLayout);
+    }else if(mq.addListener){
+        mq.addListener(applyLayout);
+    }
+
+})();
+
+</script>
+
+</body>
+</html>

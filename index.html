@@ -738,28 +738,30 @@ header.hero{
         --rail-w:460px;
         --split-gap:32px;
 
-        /* Desktop Hero Alignment */
-        --corner-top:92px;
-        --hero-inset:36px;
-        --split-logo-h:clamp(118px,8vw,165px);
-        --logo-content-gap:8px;
+        /* Profile card */
+        --profile-top:100px;
+        --profile-height:742px;
+
+        /* Right content */
+        --content-left:42px;
+
+        /* Logo */
+        --logo-size:165px;
     }
 
     body.is-split .desktop-rail{
         display:block;
         position:fixed;
-        top:100px;
+        top:var(--profile-top);
         left:var(--split-gap);
         width:var(--rail-w);
-        max-height:calc(100vh - 120px);
+        max-height:none;
         overflow:visible;
         z-index:40;
-        transition:opacity .4s ease;
     }
 
     body.is-split .page-main{
         margin-left:calc(var(--rail-w) + (var(--split-gap) * 2));
-        transition:margin-left .4s ease;
     }
 
     body.is-split .page-main .wrap{
@@ -767,65 +769,109 @@ header.hero{
     }
 
     body.is-split .hero-grid{
-        grid-template-columns:1fr;
+        display:block;
     }
 
-    body.is-split .desktop-rail .hero-panel{
-        max-width:var(--rail-w);
-    }
-
-    .corner.tl,
-    .corner.tr{
-        top:var(--corner-top);
-    }
+    /* Hero height exactly matches profile card */
 
     header.hero{
-        padding-top:255px;
-        padding-bottom:70px;
+
+        min-height:calc(var(--profile-height) + 60px);
+
+        padding-top:108px;
+
+        padding-bottom:0;
+
+        display:flex;
+
+        justify-content:flex-start;
     }
+
+    /* All right-side content starts at same horizontal line */
 
     body.is-split .hero-copy{
-        padding-left:36px;
-        max-width:720px;
+
+        padding-left:var(--content-left);
+
+        max-width:690px;
     }
 
+    /* Logo */
+
     .corner.tl .hero-logo{
-        left:36px;
-        top:calc(100% + 4px);
-        width:var(--split-logo-h);
-        height:var(--split-logo-h);
+
+        width:var(--logo-size);
+
+        height:var(--logo-size);
+
+        left:var(--content-left);
+
+        top:28px;
+
         transform:none;
     }
 
-    .corner.tl .hero-logo:hover{
-        transform:scale(1.05);
-    }
+    /* Bring everything upward */
 
     .hero .eyebrow{
-        margin-top:6px;
+
+        margin-top:-2px;
     }
 
     .hero h1{
-        margin-top:10px;
+
+        margin-top:6px;
+
+        line-height:.92;
     }
 
     .hero .role{
-        margin-top:14px;
+
+        margin-top:10px;
     }
 
     .hero p.lede{
-        margin-top:20px;
-        max-width:620px;
+
+        margin-top:18px;
+
+        max-width:610px;
     }
 
     .hero-actions{
-        margin-top:28px;
+
+        margin-top:24px;
     }
 
-    .corner.bl,
-    .corner.br{
-        bottom:58px;
+    /* Corners */
+
+    .corner.tl{
+
+        top:100px;
+
+        left:32px;
     }
+
+    .corner.tr{
+
+        top:100px;
+
+        right:32px;
+    }
+
+    .corner.bl{
+
+        top:calc(100px + 742px - 26px);
+
+        left:32px;
+    }
+
+    .corner.br{
+
+        top:calc(100px + 742px - 26px);
+
+        right:32px;
+    }
+
 }
 .photo-frame{
     width:100%;

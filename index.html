@@ -736,7 +736,14 @@ header.hero{
     :root{
         --rail-w:460px;
         --split-gap:32px;
+
+        /* Desktop home-section alignment */
+        --corner-top:110px;
+        --hero-inset:28px;
+        --split-logo-h:clamp(130px, 10vw, 190px);
+        --logo-content-gap:14px;
     }
+
     body.is-split .desktop-rail{
         display:block;
         position:fixed;
@@ -748,88 +755,74 @@ header.hero{
         z-index:40;
         transition:opacity .4s ease;
     }
+
     body.is-split .page-main{
         margin-left:calc(var(--rail-w) + (var(--split-gap) * 2));
         transition:margin-left .4s ease;
     }
-    /* Content keeps its normal max-width and padding untouched —
-       it's simply left-aligned instead of auto-centered, so it
-       sits flush against the rail with the matching gap. */
+
     body.is-split .page-main .wrap{
         margin-left:0;
     }
+
     body.is-split .hero-grid{
         grid-template-columns:1fr;
     }
+
     body.is-split .desktop-rail .hero-panel{
         max-width:var(--rail-w);
     }
 
-    /* Corner-docked logo on desktop — sized and positioned from the
-       same --split-logo-h value used everywhere below, so the gap
-       between the logo's bottom edge and the eyebrow line underneath
-       stays a constant ~14px no matter how big the logo itself gets
-       at wider viewports (previously the logo size scaled with vw
-       but the header's padding-top didn't, so the gap kept growing
-       the smaller the logo was — this ties the two together).
-       tl and tr also now share the exact same --corner-top value —
-       previously only tl was updated when this section's vertical
-       position changed, leaving tr stranded at its old offset and
-       making the two brackets sit at different heights. */
-    :root{
-        --split-logo-h: clamp(130px, 10vw, 190px);
-        /* 110px matches .desktop-rail's own "top" offset, so the
-           bracket lines up with the profile card's top edge instead
-           of sitting lower than it. This value is the bracket's
-           position and is left untouched by the logo/copy inset
-           changes below. */
-        --corner-top: 110px;
-        /* How far the logo + hero copy sit in from the bracket's own
-           vertical line, so they read as framed by it rather than
-           flush against it. */
-        --hero-inset: 28px;
-    }
-    /* Stack is: bracket top (--corner-top) → small gap → logo →
-       small gap → eyebrow text. Previously the logo was centred on
-       --corner-top (top:50% + translateY(-50%)), which put its top
-       half above the bracket's vertex and under the fixed nav bar,
-       where the nav's opaque/blurred background hid it entirely.
-       Hanging it fully below the bracket instead keeps it always
-       clear of the nav, regardless of viewport size. */
-    header.hero{
-        padding-top: calc(var(--corner-top) + 26px + 14px + var(--split-logo-h) + 14px);
-    }
+    /* Keep the upper left and upper right indicators level. */
     .corner.tl,
     .corner.tr{
-        top: var(--corner-top);
+        top:var(--corner-top);
     }
-    /* Hero copy (eyebrow/name/etc.) gets the same inset as the logo
-       so both line up on the same left edge, a bit inside the
-       bracket's vertical line rather than flush against it. */
+
+    /*
+      Vertical home layout:
+      top indicator → logo → controlled gap → home content.
+      This removes the large empty space while maintaining a clear,
+      consistent separation between the logo and the eyebrow text.
+    */
+    header.hero{
+        padding-top:calc(
+            var(--corner-top) +
+            26px +
+            var(--logo-content-gap) +
+            var(--split-logo-h) +
+            var(--logo-content-gap)
+        );
+    }
+
+    /* Align all hero text with the docked logo. */
     body.is-split .hero-copy{
-        padding-left: var(--hero-inset);
+        padding-left:var(--hero-inset);
     }
+
+    /* Desktop logo placement below the upper-left corner indicator. */
     .corner.tl .hero-logo{
         left:var(--hero-inset);
-        top:calc(100% + 14px);
+        top:calc(100% + var(--logo-content-gap));
         width:var(--split-logo-h);
         height:var(--split-logo-h);
         transform:none;
     }
+
     .corner.tl .hero-logo:hover{
         transform:scale(1.06);
     }
-    /* Bottom brackets: .corner.bl/.br use "bottom" measured from
-       header.hero's own box, but the profile card now lives in a
-       fixed-position rail with its own independent height — so a
-       static value can't track it. --card-bottom-offset is measured
-       and kept in sync by JS (see bottom script) to whatever the
-       card's actual bottom edge currently is. */
+
+    /*
+      Keep the lower corner indicators level with the actual bottom
+      edge of the fixed profile-card rail.
+    */
     .corner.bl,
     .corner.br{
-        bottom: var(--card-bottom-offset, 100px);
+        bottom:var(--card-bottom-offset, 100px);
     }
 }
+
 .photo-frame{
     width:100%;
     aspect-ratio:0.95/1;

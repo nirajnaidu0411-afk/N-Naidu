@@ -772,13 +772,27 @@ header.hero{
         display:block;
     }
 
-    /* Hero height exactly matches profile card */
+    /* Hero height exactly matches profile card — this
+       min-height is the "overall size" of the block; it
+       is NOT touched below, only how the content fills
+       it is. */
 
     header.hero{
 
         min-height:calc(var(--profile-height) + 60px);
 
-        padding-top:108px;
+        /* Was 108px. The logo is docked (via JS) into the
+           top-left corner bracket and used to sit on top
+           of the text below at that value, so the text
+           block now starts low enough to clear the logo
+           first, instead of overlapping it.
+           295px = corner-bracket top (100px) + logo top
+           offset (0px, see .corner.tl .hero-logo below) +
+           logo height (165px) + a 30px breathing gap.
+           If --logo-size or the logo's top offset changes
+           later, update this number to match:
+           new padding-top = 100 + <logo top offset> + <logo height> + 30. */
+        padding-top:295px;
 
         padding-bottom:0;
 
@@ -796,7 +810,11 @@ header.hero{
         max-width:690px;
     }
 
-    /* Logo */
+    /* Logo — top:0 lines its top edge up with the corner
+       bracket (100px from the header top), which is the
+       same 100px the profile card starts at. So the logo
+       (and everything below it) now begins on the same
+       horizontal line as the profile card. */
 
     .corner.tl .hero-logo{
 
@@ -806,40 +824,50 @@ header.hero{
 
         left:var(--content-left);
 
-        top:28px;
+        top:0px;
 
         transform:none;
     }
 
-    /* Bring everything upward */
+    /* Vertical rhythm for the text stack below the logo.
+       Gaps step up progressively (16 → 20 → 32 → 40) so the
+       block reads as intentionally spaced rather than
+       cramped. Combined with padding-top:295px above, the
+       whole stack (logo + eyebrow + name + role + paragraph
+       + buttons) now fills the section down to roughly
+       774px out of the section's fixed 802px height — using
+       the space that used to sit empty below the buttons,
+       without making the section itself any taller.
+       To adjust rhythm later, only change these four
+       margin-top values; nothing else needs to move. */
 
     .hero .eyebrow{
 
-        margin-top:-2px;
+        margin-top:0;
     }
 
     .hero h1{
 
-        margin-top:6px;
+        margin-top:16px;
 
         line-height:.92;
     }
 
     .hero .role{
 
-        margin-top:10px;
+        margin-top:20px;
     }
 
     .hero p.lede{
 
-        margin-top:18px;
+        margin-top:32px;
 
         max-width:610px;
     }
 
     .hero-actions{
 
-        margin-top:24px;
+        margin-top:40px;
     }
 
     /* Corners */

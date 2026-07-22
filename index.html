@@ -623,7 +623,12 @@ header.hero{
     transform:translateZ(0) scale(1);
     will-change:transform;
     isolation:isolate;
-    contain:layout style paint;
+    /* "paint" containment was clipping anything painted outside the
+       card's own box — including the ::before "FIG. 01 — PROFILE"
+       tag below, which sits at top:-11px, above the card's top edge.
+       Dropped so the tag renders again; layout/style containment
+       still give the same perf isolation. */
+    contain:layout style;
     transition:background .4s ease, border-color .4s ease, box-shadow .4s ease;
 }
   .hero-panel::before{
@@ -773,23 +778,56 @@ header.hero{
        making the two brackets sit at different heights. */
     :root{
         --split-logo-h: clamp(130px, 10vw, 190px);
-        --corner-top: calc(84px + (var(--split-logo-h) / 2));
+        /* 110px matches .desktop-rail's own "top" offset, so the
+           bracket lines up with the profile card's top edge instead
+           of sitting lower than it. This value is the bracket's
+           position and is left untouched by the logo/copy inset
+           changes below. */
+        --corner-top: 110px;
+        /* How far the logo + hero copy sit in from the bracket's own
+           vertical line, so they read as framed by it rather than
+           flush against it. */
+        --hero-inset: 28px;
     }
+    /* Stack is: bracket top (--corner-top) → small gap → logo →
+       small gap → eyebrow text. Previously the logo was centred on
+       --corner-top (top:50% + translateY(-50%)), which put its top
+       half above the bracket's vertex and under the fixed nav bar,
+       where the nav's opaque/blurred background hid it entirely.
+       Hanging it fully below the bracket instead keeps it always
+       clear of the nav, regardless of viewport size. */
     header.hero{
-        padding-top: calc(84px + var(--split-logo-h) + 14px);
+        padding-top: calc(var(--corner-top) + 26px + 14px + var(--split-logo-h) + 14px);
     }
     .corner.tl,
     .corner.tr{
         top: var(--corner-top);
     }
+    /* Hero copy (eyebrow/name/etc.) gets the same inset as the logo
+       so both line up on the same left edge, a bit inside the
+       bracket's vertical line rather than flush against it. */
+    body.is-split .hero-copy{
+        padding-left: var(--hero-inset);
+    }
     .corner.tl .hero-logo{
-        left:0;
+        left:var(--hero-inset);
+        top:calc(100% + 14px);
         width:var(--split-logo-h);
         height:var(--split-logo-h);
-        transform:translateY(-50%);
+        transform:none;
     }
     .corner.tl .hero-logo:hover{
-        transform:translateY(-50%) scale(1.06);
+        transform:scale(1.06);
+    }
+    /* Bottom brackets: .corner.bl/.br use "bottom" measured from
+       header.hero's own box, but the profile card now lives in a
+       fixed-position rail with its own independent height — so a
+       static value can't track it. --card-bottom-offset is measured
+       and kept in sync by JS (see bottom script) to whatever the
+       card's actual bottom edge currently is. */
+    .corner.bl,
+    .corner.br{
+        bottom: var(--card-bottom-offset, 100px);
     }
 }
 .photo-frame{
@@ -1446,16 +1484,30 @@ footer{
         margin:0 auto;
     }
 
-    /* The L-bracket corner frame is designed to outline the full
+    /* The L-bracket corner frame originally outlined the full
        two-column hero header. Once the layout stacks to a single
-       column and the profile card is reordered above the text, the
-       brackets (positioned absolutely against the whole header) no
-       longer line up with anything and end up floating oddly above
-       the card with only one side reading clearly. Hide them for
-       the entire stacked range — they return once the 2-column
-       layout (and the corner-docked logo) comes back at wider widths. */
-    .corner{
-        display:none;
+       column and the profile card is reordered above the text, that
+       whole-header framing no longer means anything relative to the
+       card — so instead of hiding the brackets here, they're now
+       repositioned (via --mcard-* custom properties, measured and
+       kept in sync by JS against the card's real position) to frame
+       the card itself. The px fallbacks only cover the instant
+       before that JS measurement runs on load. */
+    .corner.tl{
+        top:var(--mcard-top, 100px);
+        left:var(--mcard-left, 32px);
+    }
+    .corner.tr{
+        top:var(--mcard-top, 100px);
+        right:var(--mcard-right, 32px);
+    }
+    .corner.bl{
+        bottom:var(--mcard-bottom, 100px);
+        left:var(--mcard-left, 32px);
+    }
+    .corner.br{
+        bottom:var(--mcard-bottom, 100px);
+        right:var(--mcard-right, 32px);
     }
 
     .hero-logo{
@@ -1563,10 +1615,6 @@ footer{
 
     .tl-item::before{
         left:-32px;
-    }
-
-    .corner{
-        display:none;
     }
 
     .card-image{
@@ -3048,7 +3096,7 @@ html[data-theme="light"] #panelDustCanvas{
 <header class="hero" id="top">
 <div class="corner tl" id="cornerTL"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
 <div class="wrap hero-grid">
-<div>
+<div class="hero-copy">
 <div class="eyebrow">Mechanical Product Designer • CAD Engineer • Germany</div>
 <div class="hero-name">
     <h1>
@@ -4566,6 +4614,150 @@ function runHeroPhotoScan(mode){
         mq.addEventListener("change", applyLayout);
     }else if(mq.addListener){
         mq.addListener(applyLayout);
+    }
+
+})();
+
+/* ============================================
+   Bottom corner brackets — keep them level with
+   the profile card's actual bottom edge.
+
+   .corner.bl/.br position themselves with
+   "bottom", measured up from header.hero's own
+   box. The card itself, though, lives in the
+   fixed-position #desktopRail, whose height is
+   whatever its content (photo + info rows) adds
+   up to — not a value CSS can reach from inside
+   header.hero. So here we measure the real gap
+   between the two and expose it as
+   --card-bottom-offset for the brackets to use,
+   re-measuring whenever the card's size or the
+   layout mode could have changed.
+============================================ */
+(() => {
+
+    const header = document.querySelector("header.hero");
+    const rail = document.getElementById("desktopRail");
+    const heroPhotoImg = document.getElementById("heroPhotoImg");
+
+    if(!header || !rail) return;
+
+    const mq = window.matchMedia("(min-width:1024px) and (orientation:landscape)");
+
+    const alignBottomCorners = () => {
+
+        if(!document.body.classList.contains("is-split")){
+            header.style.removeProperty("--card-bottom-offset");
+            return;
+        }
+
+        const headerRect = header.getBoundingClientRect();
+        const railRect = rail.getBoundingClientRect();
+        const offset = headerRect.bottom - railRect.bottom;
+
+        if(offset >= 0){
+            header.style.setProperty("--card-bottom-offset", offset + "px");
+        }
+
+    };
+
+    // Re-measure on layout-mode changes, viewport resizes, and once
+    // the profile photo finishes loading (its natural size can
+    // change the rail's height after the initial measurement).
+    alignBottomCorners();
+    window.addEventListener("resize", alignBottomCorners);
+    window.addEventListener("load", alignBottomCorners);
+
+    if(mq.addEventListener){
+        mq.addEventListener("change", () => setTimeout(alignBottomCorners, 0));
+    }else if(mq.addListener){
+        mq.addListener(() => setTimeout(alignBottomCorners, 0));
+    }
+
+    if(heroPhotoImg){
+        heroPhotoImg.addEventListener("load", alignBottomCorners);
+    }
+
+    if(window.ResizeObserver){
+        const ro = new ResizeObserver(() => alignBottomCorners());
+        ro.observe(rail);
+    }
+
+})();
+
+/* ============================================
+   Corner brackets on mobile/tablet — frame the
+   profile card.
+
+   In the stacked layout the card is centred with
+   auto margins at a width that changes breakpoint
+   to breakpoint (360px, then narrower still on
+   small phones), so it never sits at the fixed
+   page-edge offsets the brackets use elsewhere.
+   This measures the card's real position against
+   header.hero on every resize/orientation change
+   and exposes it as --mcard-top/bottom/left/right
+   for the brackets to frame it precisely, with a
+   small outset so they sit just outside the card
+   rather than touching its border.
+============================================ */
+(() => {
+
+    const header = document.querySelector("header.hero");
+    const heroPanel = document.querySelector(".hero-panel");
+    const heroPhotoImg = document.getElementById("heroPhotoImg");
+
+    if(!header || !heroPanel) return;
+
+    const mqStacked = window.matchMedia("(max-width:950px)");
+    const OUTSET = 14; // px the brackets sit outside the card's edges
+
+    const alignCardCorners = () => {
+
+        if(!mqStacked.matches){
+            header.style.removeProperty("--mcard-top");
+            header.style.removeProperty("--mcard-bottom");
+            header.style.removeProperty("--mcard-left");
+            header.style.removeProperty("--mcard-right");
+            return;
+        }
+
+        // Card is inline within header.hero at this width (never
+        // moved into the fixed rail), so plain getBoundingClientRect
+        // math against header.hero gives an exact, live-accurate frame.
+        const cardRect = heroPanel.getBoundingClientRect();
+        const headerRect = header.getBoundingClientRect();
+
+        const top = cardRect.top - headerRect.top - OUTSET;
+        const bottom = headerRect.bottom - cardRect.bottom - OUTSET;
+        const left = cardRect.left - headerRect.left - OUTSET;
+        const right = headerRect.right - cardRect.right - OUTSET;
+
+        if(top >= 0) header.style.setProperty("--mcard-top", top + "px");
+        if(bottom >= 0) header.style.setProperty("--mcard-bottom", bottom + "px");
+        if(left >= 0) header.style.setProperty("--mcard-left", left + "px");
+        if(right >= 0) header.style.setProperty("--mcard-right", right + "px");
+
+    };
+
+    alignCardCorners();
+    window.addEventListener("resize", alignCardCorners);
+    window.addEventListener("load", alignCardCorners);
+    window.addEventListener("orientationchange", () => setTimeout(alignCardCorners, 50));
+
+    if(mqStacked.addEventListener){
+        mqStacked.addEventListener("change", () => setTimeout(alignCardCorners, 0));
+    }else if(mqStacked.addListener){
+        mqStacked.addListener(() => setTimeout(alignCardCorners, 0));
+    }
+
+    if(heroPhotoImg){
+        heroPhotoImg.addEventListener("load", alignCardCorners);
+    }
+
+    if(window.ResizeObserver){
+        const ro = new ResizeObserver(() => alignCardCorners());
+        ro.observe(heroPanel);
     }
 
 })();

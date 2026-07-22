@@ -733,24 +733,25 @@ header.hero{
     display:none;
 }
 @media (min-width:1024px) and (orientation:landscape){
+
     :root{
         --rail-w:460px;
         --split-gap:32px;
 
-        /* Desktop home-section alignment */
-        --corner-top:110px;
-        --hero-inset:28px;
-        --split-logo-h:clamp(130px, 10vw, 190px);
-        --logo-content-gap:14px;
+        /* Desktop Hero Alignment */
+        --corner-top:92px;
+        --hero-inset:36px;
+        --split-logo-h:clamp(118px,8vw,165px);
+        --logo-content-gap:8px;
     }
 
     body.is-split .desktop-rail{
         display:block;
         position:fixed;
-        top:110px;
+        top:100px;
         left:var(--split-gap);
         width:var(--rail-w);
-        max-height:calc(100vh - 130px);
+        max-height:calc(100vh - 120px);
         overflow:visible;
         z-index:40;
         transition:opacity .4s ease;
@@ -773,56 +774,59 @@ header.hero{
         max-width:var(--rail-w);
     }
 
-    /* Keep the upper left and upper right indicators level. */
     .corner.tl,
     .corner.tr{
         top:var(--corner-top);
     }
 
-    /*
-      Vertical home layout:
-      top indicator → logo → controlled gap → home content.
-      This removes the large empty space while maintaining a clear,
-      consistent separation between the logo and the eyebrow text.
-    */
     header.hero{
-        padding-top:calc(
-            var(--corner-top) +
-            26px +
-            var(--logo-content-gap) +
-            var(--split-logo-h) +
-            var(--logo-content-gap)
-        );
+        padding-top:255px;
+        padding-bottom:70px;
     }
 
-    /* Align all hero text with the docked logo. */
     body.is-split .hero-copy{
-        padding-left:var(--hero-inset);
+        padding-left:36px;
+        max-width:720px;
     }
 
-    /* Desktop logo placement below the upper-left corner indicator. */
     .corner.tl .hero-logo{
-        left:var(--hero-inset);
-        top:calc(100% + var(--logo-content-gap));
+        left:36px;
+        top:calc(100% + 4px);
         width:var(--split-logo-h);
         height:var(--split-logo-h);
         transform:none;
     }
 
     .corner.tl .hero-logo:hover{
-        transform:scale(1.06);
+        transform:scale(1.05);
     }
 
-    /*
-      Keep the lower corner indicators level with the actual bottom
-      edge of the fixed profile-card rail.
-    */
+    .hero .eyebrow{
+        margin-top:6px;
+    }
+
+    .hero h1{
+        margin-top:10px;
+    }
+
+    .hero .role{
+        margin-top:14px;
+    }
+
+    .hero p.lede{
+        margin-top:20px;
+        max-width:620px;
+    }
+
+    .hero-actions{
+        margin-top:28px;
+    }
+
     .corner.bl,
     .corner.br{
-        bottom:var(--card-bottom-offset, 100px);
+        bottom:58px;
     }
 }
-
 .photo-frame{
     width:100%;
     aspect-ratio:0.95/1;
